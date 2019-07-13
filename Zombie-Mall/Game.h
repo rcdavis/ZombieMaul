@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "Renderer/TextureManager.h"
+
 class Game
 {
 public:
@@ -25,6 +27,8 @@ private:
 	void PollWindowEvents();
 
 	sf::RenderWindow mWindow;
+
+	TextureManager mTextureManager;
 };
 
 #endif // !_GAME_H_

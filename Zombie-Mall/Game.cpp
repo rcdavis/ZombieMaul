@@ -43,7 +43,13 @@ bool Game::Run()
 
 bool Game::Init()
 {
+	auto icon = sf::Image();
+	if (icon.loadFromFile("Resources/Textures/zombie-mall-icon.png") == false)
+		return false;
+
 	mWindow.create(sf::VideoMode(800, 600), "Zombie Mall");
+	auto size = icon.getSize();
+	mWindow.setIcon(size.x, size.y, icon.getPixelsPtr());
 
 	return true;
 }

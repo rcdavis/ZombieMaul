@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{f0bea5f9-adfb-40d4-a279-0821705ad2d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -21,10 +24,16 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\TextureManager.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureManager.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
