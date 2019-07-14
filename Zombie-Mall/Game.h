@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Renderer/TextureManager.h"
+#include "Messaging/EventManager.h"
 
 class Game
 {
@@ -29,6 +30,7 @@ private:
 	sf::RenderWindow mWindow;
 
 	TextureManager mTextureManager;
+	EventManager mEventManager;
 };
 
 #endif // !_GAME_H_

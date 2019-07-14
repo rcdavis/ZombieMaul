@@ -61,7 +61,7 @@ void Game::Shutdown()
 
 void Game::Update()
 {
-
+	mEventManager.ProcessEvents();
 }
 
 void Game::Render(float lerpBetweenFrame)

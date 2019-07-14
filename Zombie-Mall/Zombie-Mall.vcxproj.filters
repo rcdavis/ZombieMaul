@@ -16,6 +16,9 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{f0bea5f9-adfb-40d4-a279-0821705ad2d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Messaging">
+      <UniqueIdentifier>{2183bd96-9ce0-47ac-bb1a-3127dc087ad9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -27,6 +30,9 @@
     <ClCompile Include="Renderer\TextureManager.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Messaging\EventManager.cpp">
+      <Filter>Messaging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -34,6 +40,15 @@
     </ClInclude>
     <ClInclude Include="Renderer\TextureManager.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Messaging\IEventListener.h">
+      <Filter>Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Messaging\Event.h">
+      <Filter>Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Messaging\EventManager.h">
+      <Filter>Messaging</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
