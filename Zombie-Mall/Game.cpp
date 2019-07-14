@@ -14,8 +14,11 @@ Game::Game() :
 	mTextureManager(),
 	mFontManager(),
 	mEventManager(),
+	mInputManager(),
 	mSettings(),
-	mLuaState(luaL_newstate())
+	mText(),
+	mLuaState(luaL_newstate()),
+	mTimeMultiplier(1.0f)
 {
 	luaL_openlibs(mLuaState);
 }
@@ -38,7 +41,7 @@ bool Game::Run()
 	{
 		PollWindowEvents();
 
-		sf::Time elapsedTime = clock.restart();
+		const sf::Time elapsedTime = clock.restart() * mTimeMultiplier;
 		lag += elapsedTime;
 
 		while (lag >= timeStepPerFrame)
@@ -62,6 +65,13 @@ bool Game::Init()
 
 	mSettings.Load("Resources/Data/Settings.json");
 
+	auto font = mFontManager.LoadFont("Resources/Fonts/FreeSans.ttf");
+	if (font != nullptr)
+	{
+		mText.setFont(*font);
+		mText.setString("Test String");
+	}
+
 	return true;
 }
 
@@ -72,6 +82,23 @@ void Game::Shutdown()
 
 void Game::Update()
 {
+	mInputManager.Poll();
+
+	if (mInputManager.IsKeyDown(sf::Keyboard::Down))
+	{
+		mText.move(sf::Vector2f(0.0f, 1.0f));
+	}
+
+	if (mInputManager.IsKeyPressed(sf::Keyboard::Right))
+	{
+		mText.move(sf::Vector2f(2.0f, 0.0f));
+	}
+
+	if (mInputManager.IsKeyReleased(sf::Keyboard::Up))
+	{
+		mText.move(sf::Vector2f(0.0f, -1.0f));
+	}
+
 	mEventManager.ProcessEvents();
 }
 
@@ -79,7 +106,7 @@ void Game::Render(float lerpBetweenFrame)
 {
 	mWindow.clear(sf::Color::Magenta);
 
-	
+	mWindow.draw(mText);
 
 	mWindow.display();
 }
@@ -132,7 +159,7 @@ bool Game::LoadConfig()
 	luabridge::LuaRef iconRef = windowRef["icon"];
 	if (iconRef.isString())
 	{
-		auto icon = sf::Image();
+		sf::Image icon;
 		if (icon.loadFromFile(iconRef.cast<std::string>()))
 		{
 			mWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
