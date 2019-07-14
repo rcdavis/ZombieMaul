@@ -14,7 +14,6 @@ Game::Game() :
 	mTextureManager(),
 	mFontManager(),
 	mEventManager(),
-	mText(),
 	mSettings(),
 	mLuaState(luaL_newstate())
 {
