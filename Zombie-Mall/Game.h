@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include <lua.hpp>
+
 #include "Renderer/TextureManager.h"
 #include "Messaging/EventManager.h"
 
@@ -29,12 +31,16 @@ private:
 
 	void PollWindowEvents();
 
+	bool LoadConfig();
+
 	sf::RenderWindow mWindow;
 
 	TextureManager mTextureManager;
 	EventManager mEventManager;
 
 	Settings mSettings;
+
+	lua_State* mLuaState;
 };
 
 #endif // !_GAME_H_

@@ -5,11 +5,24 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 
-Game::Game()
-{}
+#include <LuaBridge/LuaBridge.h>
+
+#include <iostream>
+
+Game::Game() :
+	mWindow(),
+	mTextureManager(),
+	mEventManager(),
+	mSettings(),
+	mLuaState(luaL_newstate())
+{
+	luaL_openlibs(mLuaState);
+}
 
 Game::~Game()
-{}
+{
+	lua_close(mLuaState);
+}
 
 bool Game::Run()
 {
@@ -43,13 +56,8 @@ bool Game::Run()
 
 bool Game::Init()
 {
-	auto icon = sf::Image();
-	if (icon.loadFromFile("Resources/Textures/zombie-mall-icon.png") == false)
+	if (!LoadConfig())
 		return false;
-
-	mWindow.create(sf::VideoMode(800, 600), "Zombie Mall");
-	auto size = icon.getSize();
-	mWindow.setIcon(size.x, size.y, icon.getPixelsPtr());
 
 	mSettings.Load("Resources/Data/Settings.json");
 
@@ -87,4 +95,44 @@ void Game::PollWindowEvents()
 			break;
 		}
 	}
+}
+
+bool Game::LoadConfig()
+{
+	luaL_dofile(mLuaState, "Resources/Scripts/Config.lua");
+
+	std::string title = "Default Title";
+	unsigned int width = 400U, height = 300U;
+
+	luabridge::LuaRef windowRef = luabridge::getGlobal(mLuaState, "window");
+	if (!windowRef.isTable())
+		return false;
+
+	luabridge::LuaRef titleRef = windowRef["title"];
+	if (titleRef.isString())
+		title = titleRef.cast<std::string>();
+
+	luabridge::LuaRef sizeRef = windowRef["size"];
+	if (sizeRef.isTable())
+	{
+		if (sizeRef["width"].isNumber())
+			width = sizeRef["width"].cast<unsigned int>();
+
+		if (sizeRef["height"].isNumber())
+			height = sizeRef["height"].cast<unsigned int>();
+	}
+
+	mWindow.create(sf::VideoMode(width, height), title);
+
+	luabridge::LuaRef iconRef = windowRef["icon"];
+	if (iconRef.isString())
+	{
+		auto icon = sf::Image();
+		if (icon.loadFromFile(iconRef.cast<std::string>()))
+		{
+			mWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+		}
+	}
+
+	return true;
 }
