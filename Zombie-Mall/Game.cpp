@@ -12,7 +12,9 @@
 Game::Game() :
 	mWindow(),
 	mTextureManager(),
+	mFontManager(),
 	mEventManager(),
+	mText(),
 	mSettings(),
 	mLuaState(luaL_newstate())
 {
@@ -78,7 +80,7 @@ void Game::Render(float lerpBetweenFrame)
 {
 	mWindow.clear(sf::Color::Magenta);
 
-
+	
 
 	mWindow.display();
 }

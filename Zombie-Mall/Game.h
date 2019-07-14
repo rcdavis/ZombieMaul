@@ -7,6 +7,7 @@
 #include <lua.hpp>
 
 #include "Renderer/TextureManager.h"
+#include "Renderer/FontManager.h"
 #include "Messaging/EventManager.h"
 
 #include "Settings.h"
@@ -36,6 +37,7 @@ private:
 	sf::RenderWindow mWindow;
 
 	TextureManager mTextureManager;
+	FontManager mFontManager;
 	EventManager mEventManager;
 
 	Settings mSettings;

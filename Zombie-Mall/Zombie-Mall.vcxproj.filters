@@ -36,6 +36,9 @@
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\FontManager.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\FontManager.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
