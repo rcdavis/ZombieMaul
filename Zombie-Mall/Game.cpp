@@ -104,7 +104,11 @@ bool Game::LoadConfig()
 	std::string title = "Default Title";
 	unsigned int width = 400U, height = 300U;
 
-	luabridge::LuaRef windowRef = luabridge::getGlobal(mLuaState, "window");
+	luabridge::LuaRef appRef = luabridge::getGlobal(mLuaState, "app");
+	if (!appRef.isTable())
+		return false;
+
+	luabridge::LuaRef windowRef = appRef["window"];
 	if (!windowRef.isTable())
 		return false;
 
