@@ -7,6 +7,8 @@
 #include "Renderer/TextureManager.h"
 #include "Messaging/EventManager.h"
 
+#include "Settings.h"
+
 class Game
 {
 public:
@@ -31,6 +33,8 @@ private:
 
 	TextureManager mTextureManager;
 	EventManager mEventManager;
+
+	Settings mSettings;
 };
 
 #endif // !_GAME_H_

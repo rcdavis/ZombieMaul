@@ -51,12 +51,14 @@ bool Game::Init()
 	auto size = icon.getSize();
 	mWindow.setIcon(size.x, size.y, icon.getPixelsPtr());
 
+	mSettings.Load("Resources/Data/Settings.json");
+
 	return true;
 }
 
 void Game::Shutdown()
 {
-
+	mSettings.Save("Resources/Data/Settings.json");
 }
 
 void Game::Update()

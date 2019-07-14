@@ -123,6 +123,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Messaging\EventManager.cpp" />
     <ClCompile Include="Renderer\TextureManager.cpp" />
+    <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Messaging\EventManager.h" />
     <ClInclude Include="Messaging\IEventListener.h" />
     <ClInclude Include="Renderer\TextureManager.h" />
+    <ClInclude Include="Settings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
