@@ -119,6 +119,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity\Entity.cpp" />
+    <ClCompile Include="Entity\EntityManager.cpp" />
+    <ClCompile Include="Entity\TextEntity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -128,6 +131,9 @@
     <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity\Entity.h" />
+    <ClInclude Include="Entity\EntityManager.h" />
+    <ClInclude Include="Entity\TextEntity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Messaging\Event.h" />

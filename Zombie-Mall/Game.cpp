@@ -9,16 +9,18 @@
 
 #include <iostream>
 
+#include "Input/InputManager.h"
+
 Game::Game() :
 	mWindow(),
 	mTextureManager(),
 	mFontManager(),
 	mEventManager(),
-	mInputManager(),
+	mEntityManager(),
 	mSettings(),
-	mText(),
 	mLuaState(luaL_newstate()),
-	mTimeMultiplier(1.0f)
+	mTimeMultiplier(1.0f),
+	mTextEntity(nullptr)
 {
 	luaL_openlibs(mLuaState);
 }
@@ -65,13 +67,6 @@ bool Game::Init()
 
 	mSettings.Load("Resources/Data/Settings.json");
 
-	auto font = mFontManager.LoadFont("Resources/Fonts/FreeSans.ttf");
-	if (font != nullptr)
-	{
-		mText.setFont(*font);
-		mText.setString("Test String");
-	}
-
 	return true;
 }
 
@@ -82,22 +77,24 @@ void Game::Shutdown()
 
 void Game::Update()
 {
-	mInputManager.Poll();
+	InputManager::Global.Poll();
 
-	if (mInputManager.IsKeyDown(sf::Keyboard::Down))
+	if (InputManager::Global.IsKeyPressed(sf::Keyboard::T))
 	{
-		mText.move(sf::Vector2f(0.0f, 1.0f));
+		auto font = mFontManager.LoadFont("Resources/Fonts/FreeSans.ttf");
+		if (font != nullptr)
+		{
+			auto textEntity = std::make_unique<TextEntity>(*font, "Test String");
+			mTextEntity = textEntity.get();
+			mEntityManager.AddEntity(std::move(textEntity));
+		}
+	}
+	else if (InputManager::Global.IsKeyPressed(sf::Keyboard::R))
+	{
+		mEntityManager.RemoveEntity(mTextEntity);
 	}
 
-	if (mInputManager.IsKeyPressed(sf::Keyboard::Right))
-	{
-		mText.move(sf::Vector2f(2.0f, 0.0f));
-	}
-
-	if (mInputManager.IsKeyReleased(sf::Keyboard::Up))
-	{
-		mText.move(sf::Vector2f(0.0f, -1.0f));
-	}
+	mEntityManager.Update();
 
 	mEventManager.ProcessEvents();
 }
@@ -106,7 +103,7 @@ void Game::Render(float lerpBetweenFrame)
 {
 	mWindow.clear(sf::Color::Magenta);
 
-	mWindow.draw(mText);
+	mEntityManager.Render(&mWindow);
 
 	mWindow.display();
 }

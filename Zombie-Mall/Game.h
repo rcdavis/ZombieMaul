@@ -3,16 +3,17 @@
 #define _GAME_H_
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include <lua.hpp>
 
 #include "Renderer/TextureManager.h"
 #include "Renderer/FontManager.h"
 #include "Messaging/EventManager.h"
-#include "Input/InputManager.h"
+#include "Entity/EntityManager.h"
 
 #include "Settings.h"
+
+#include "Entity/TextEntity.h"
 
 class Game
 {
@@ -41,15 +42,15 @@ private:
 	TextureManager mTextureManager;
 	FontManager mFontManager;
 	EventManager mEventManager;
-	InputManager mInputManager;
+	EntityManager mEntityManager;
 
 	Settings mSettings;
-
-	sf::Text mText;
 
 	lua_State* mLuaState;
 
 	float mTimeMultiplier;
+
+	TextEntity* mTextEntity;
 };
 
 #endif // !_GAME_H_

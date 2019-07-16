@@ -9,8 +9,7 @@
 class InputManager
 {
 public:
-	InputManager();
-	~InputManager();
+	static InputManager Global;
 
 	void Poll();
 
@@ -19,6 +18,8 @@ public:
 	bool IsKeyReleased(sf::Keyboard::Key key) const;
 
 private:
+	InputManager();
+	~InputManager();
 	InputManager(const InputManager&) = delete;
 	InputManager& operator=(const InputManager&) = delete;
 

@@ -1,6 +1,8 @@
 
 #include "InputManager.h"
 
+InputManager InputManager::Global;
+
 InputManager::InputManager()
 {
 	mPrevKeyboardState.fill(false);
