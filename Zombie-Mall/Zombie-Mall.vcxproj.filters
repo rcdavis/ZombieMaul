@@ -25,6 +25,9 @@
     <Filter Include="Entity">
       <UniqueIdentifier>{de319dcc-e817-4657-a54c-2266ce5f59db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{d7b4d415-ba75-4928-b43a-f64cc4268acb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -56,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="Entity\TextEntity.cpp">
       <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="States\StateManager.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\MainMenuState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +100,15 @@
     </ClInclude>
     <ClInclude Include="Entity\TextEntity.h">
       <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="States\IState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\StateManager.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\MainMenuState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

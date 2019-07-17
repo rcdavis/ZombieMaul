@@ -10,6 +10,7 @@
 #include "Renderer/FontManager.h"
 #include "Messaging/EventManager.h"
 #include "Entity/EntityManager.h"
+#include "States/StateManager.h"
 
 #include "Settings.h"
 
@@ -22,6 +23,10 @@ public:
 	~Game();
 
 	bool Run();
+
+	TextureManager& GetTextureManager() { return mTextureManager; }
+	FontManager& GetFontManager() { return mFontManager; }
+	EntityManager& GetEntityManager() { return mEntityManager; }
 
 private:
 	Game(const Game&) = delete;
@@ -43,6 +48,7 @@ private:
 	FontManager mFontManager;
 	EventManager mEventManager;
 	EntityManager mEntityManager;
+	StateManager mStateManager;
 
 	Settings mSettings;
 

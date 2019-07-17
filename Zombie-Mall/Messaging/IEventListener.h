@@ -7,7 +7,6 @@ class Event;
 class IEventListener
 {
 public:
-	IEventListener() {}
 	virtual ~IEventListener() {}
 
 	virtual void HandleEvent(Event* pEvent) = 0;

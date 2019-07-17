@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "Input/InputManager.h"
+#include "States/MainMenuState.h"
 
 Game::Game() :
 	mWindow(),
@@ -17,6 +18,7 @@ Game::Game() :
 	mFontManager(),
 	mEventManager(),
 	mEntityManager(),
+	mStateManager(),
 	mSettings(),
 	mLuaState(luaL_newstate()),
 	mTimeMultiplier(1.0f),
@@ -43,6 +45,8 @@ bool Game::Run()
 	{
 		PollWindowEvents();
 
+		mStateManager.ProcessStateChange();
+
 		const sf::Time elapsedTime = clock.restart() * mTimeMultiplier;
 		lag += elapsedTime;
 
@@ -67,12 +71,16 @@ bool Game::Init()
 
 	mSettings.Load("Resources/Data/Settings.json");
 
+	mStateManager.PushState(std::make_unique<MainMenuState>(*this));
+
 	return true;
 }
 
 void Game::Shutdown()
 {
 	mSettings.Save("Resources/Data/Settings.json");
+
+	mStateManager.ClearStates();
 }
 
 void Game::Update()
@@ -94,6 +102,8 @@ void Game::Update()
 		mEntityManager.RemoveEntity(mTextEntity);
 	}
 
+	mStateManager.Update();
+
 	mEntityManager.Update();
 
 	mEventManager.ProcessEvents();
@@ -102,6 +112,8 @@ void Game::Update()
 void Game::Render(float lerpBetweenFrame)
 {
 	mWindow.clear(sf::Color::Magenta);
+
+	mStateManager.Render(&mWindow);
 
 	mEntityManager.Render(&mWindow);
 
