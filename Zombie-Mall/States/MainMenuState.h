@@ -12,6 +12,16 @@ class Game;
 
 class MainMenuState : public IState
 {
+private:
+	enum MenuItems
+	{
+		GAMEPLAY,
+		OPTIONS,
+		CREDITS,
+		EXIT,
+		COUNT
+	};
+
 public:
 	MainMenuState(Game& game);
 	~MainMenuState();

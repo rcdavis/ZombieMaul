@@ -5,7 +5,7 @@
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/ostreamwrapper.h>
-#include <rapidjson/writer.h>
+#include <rapidjson/prettywriter.h>
 
 #include <fstream>
 
@@ -54,7 +54,7 @@ bool Settings::Save(std::filesystem::path file)
 		return false;
 
 	rapidjson::OStreamWrapper osw(ofs);
-	rapidjson::Writer<rapidjson::OStreamWrapper> writer(osw);
+	rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
 	document.Accept(writer);
 
 	return true;

@@ -5,6 +5,8 @@
 
 #include "../Input/InputManager.h"
 
+#include "OptionsMenuState.h"
+
 MainMenuState::MainMenuState(Game& game) :
 	mBgImage(),
 	mIcon(),
@@ -85,28 +87,32 @@ void MainMenuState::Render(sf::RenderTarget* renderTarget)
 {
 	renderTarget->draw(mBgImage);
 
-	for (auto& entry : mEntries)
+	if (mGame.GetStateManager().GetCurrentState() == this)
 	{
-		renderTarget->draw(entry);
-	}
+		for (auto& entry : mEntries)
+		{
+			renderTarget->draw(entry);
+		}
 
-	renderTarget->draw(mIcon);
+		renderTarget->draw(mIcon);
+	}
 }
 
 bool MainMenuState::ProcessEnter()
 {
 	switch (mCurEntry)
 	{
-	case 0:
+	case MenuItems::GAMEPLAY:
 		break;
 
-	case 1:
+	case MenuItems::OPTIONS:
+		mGame.GetStateManager().PushState(std::make_unique<OptionsMenuState>(mGame));
 		break;
 
-	case 2:
+	case MenuItems::CREDITS:
 		break;
 
-	case 3:
+	case MenuItems::EXIT:
 		return false;
 	}
 
@@ -117,7 +123,7 @@ void MainMenuState::UpdateSizesAndPositions()
 {
 	switch (mCurEntry)
 	{
-	case 0:
+	case MenuItems::GAMEPLAY:
 		mIcon.setPosition(80.0f, 240.0f);
 
 		mEntries[0].setScale(1.0f, 1.0f);
@@ -134,7 +140,7 @@ void MainMenuState::UpdateSizesAndPositions()
 
 		break;
 
-	case 1:
+	case MenuItems::OPTIONS:
 		mIcon.setPosition(5.0f, 300.0f);
 
 		mEntries[0].setScale(0.8f, 0.8f);
@@ -151,7 +157,7 @@ void MainMenuState::UpdateSizesAndPositions()
 
 		break;
 
-	case 2:
+	case MenuItems::CREDITS:
 		mIcon.setPosition(5.0f, 350.0f);
 
 		mEntries[0].setScale(0.8f, 0.8f);
@@ -168,7 +174,7 @@ void MainMenuState::UpdateSizesAndPositions()
 
 		break;
 
-	case 3:
+	case MenuItems::EXIT:
 		mIcon.setPosition(80.0f, 440.0f);
 
 		mEntries[0].setScale(0.8f, 0.8f);

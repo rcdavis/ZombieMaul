@@ -119,3 +119,13 @@ void StateManager::OnSetState()
 		OnPushState();
 	}
 }
+
+IState* StateManager::GetCurrentState()
+{
+	if (!mStates.empty())
+	{
+		return mStates.back().get();
+	}
+
+	return nullptr;
+}

@@ -29,6 +29,8 @@ public:
 	EntityManager& GetEntityManager() { return mEntityManager; }
 	StateManager& GetStateManager() { return mStateManager; }
 
+	Settings& GetSettings() { return mSettings; }
+
 private:
 	Game(const Game&) = delete;
 	Game& operator=(const Game&) = delete;

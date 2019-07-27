@@ -34,6 +34,8 @@ public:
 	void Update();
 	void Render(sf::RenderTarget* renderTarget);
 
+	IState* GetCurrentState();
+
 private:
 	StateManager(const StateManager&) = delete;
 	StateManager& operator=(const StateManager&) = delete;
