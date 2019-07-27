@@ -56,7 +56,7 @@ void MainMenuState::Exit()
 	mEntries.clear();
 }
 
-void MainMenuState::Update()
+bool MainMenuState::Input()
 {
 	if (InputManager::Global.IsKeyPressed(sf::Keyboard::Up))
 	{
@@ -70,8 +70,14 @@ void MainMenuState::Update()
 	}
 	else if (InputManager::Global.IsKeyPressed(sf::Keyboard::Enter))
 	{
+		return ProcessEnter();
 	}
 
+	return true;
+}
+
+void MainMenuState::Update()
+{
 	UpdateSizesAndPositions();
 }
 
@@ -85,6 +91,26 @@ void MainMenuState::Render(sf::RenderTarget* renderTarget)
 	}
 
 	renderTarget->draw(mIcon);
+}
+
+bool MainMenuState::ProcessEnter()
+{
+	switch (mCurEntry)
+	{
+	case 0:
+		break;
+
+	case 1:
+		break;
+
+	case 2:
+		break;
+
+	case 3:
+		return false;
+	}
+
+	return true;
 }
 
 void MainMenuState::UpdateSizesAndPositions()

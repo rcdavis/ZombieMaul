@@ -133,6 +133,7 @@
     <ClCompile Include="States\StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Commands\ICommand.h" />
     <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="Entity\EntityManager.h" />
     <ClInclude Include="Entity\TextEntity.h" />

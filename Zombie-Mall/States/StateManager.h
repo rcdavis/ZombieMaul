@@ -30,6 +30,7 @@ public:
 
 	void ProcessStateChange();
 
+	bool Input();
 	void Update();
 	void Render(sf::RenderTarget* renderTarget);
 

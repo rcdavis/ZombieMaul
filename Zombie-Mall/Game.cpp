@@ -50,6 +50,12 @@ bool Game::Run()
 		const sf::Time elapsedTime = clock.restart() * mTimeMultiplier;
 		lag += elapsedTime;
 
+		if (Input() == false)
+		{
+			Close();
+			break;
+		}
+
 		while (lag >= timeStepPerFrame)
 		{
 			Update();
@@ -83,7 +89,7 @@ void Game::Shutdown()
 	mStateManager.ClearStates();
 }
 
-void Game::Update()
+bool Game::Input()
 {
 	InputManager::Global.Poll();
 
@@ -102,6 +108,11 @@ void Game::Update()
 		mEntityManager.RemoveEntity(mTextEntity);
 	}
 
+	return mStateManager.Input();
+}
+
+void Game::Update()
+{
 	mStateManager.Update();
 
 	mEntityManager.Update();
@@ -128,7 +139,7 @@ void Game::PollWindowEvents()
 		switch (e.type)
 		{
 		case sf::Event::Closed:
-			mWindow.close();
+			Close();
 			break;
 		}
 	}
@@ -176,4 +187,9 @@ bool Game::LoadConfig()
 	}
 
 	return true;
+}
+
+void Game::Close()
+{
+	mWindow.close();
 }

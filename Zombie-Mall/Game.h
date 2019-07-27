@@ -27,6 +27,7 @@ public:
 	TextureManager& GetTextureManager() { return mTextureManager; }
 	FontManager& GetFontManager() { return mFontManager; }
 	EntityManager& GetEntityManager() { return mEntityManager; }
+	StateManager& GetStateManager() { return mStateManager; }
 
 private:
 	Game(const Game&) = delete;
@@ -35,12 +36,15 @@ private:
 	bool Init();
 	void Shutdown();
 
+	bool Input();
 	void Update();
 	void Render(float lerpBetweenFrame);
 
 	void PollWindowEvents();
 
 	bool LoadConfig();
+
+	void Close();
 
 	sf::RenderWindow mWindow;
 

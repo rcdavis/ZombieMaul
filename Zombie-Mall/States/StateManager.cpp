@@ -67,6 +67,16 @@ void StateManager::ProcessStateChange()
 	mPendingChange = State::NONE;
 }
 
+bool StateManager::Input()
+{
+	if (!std::empty(mStates))
+	{
+		return mStates.back()->Input();
+	}
+
+	return false;
+}
+
 void StateManager::Update()
 {
 	for (auto iter = std::begin(mStates); iter != std::end(mStates); ++iter)

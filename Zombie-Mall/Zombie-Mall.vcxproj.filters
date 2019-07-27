@@ -28,6 +28,9 @@
     <Filter Include="States">
       <UniqueIdentifier>{d7b4d415-ba75-4928-b43a-f64cc4268acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{bac026b1-ebcd-4309-a735-63e021d4b305}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="States\MainMenuState.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\ICommand.h">
+      <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
