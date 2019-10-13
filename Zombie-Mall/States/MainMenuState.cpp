@@ -6,6 +6,7 @@
 #include "../Input/InputManager.h"
 
 #include "OptionsMenuState.h"
+#include "CreditsMenuState.h"
 
 MainMenuState::MainMenuState(Game& game) :
 	mBgImage(),
@@ -110,6 +111,7 @@ bool MainMenuState::ProcessEnter()
 		break;
 
 	case MenuItems::CREDITS:
+		mGame.GetStateManager().PushState(std::make_unique<CreditsMenuState>(mGame));
 		break;
 
 	case MenuItems::EXIT:

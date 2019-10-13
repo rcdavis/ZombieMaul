@@ -72,6 +72,9 @@
     <ClCompile Include="States\OptionsMenuState.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="States\CreditsMenuState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -120,6 +123,9 @@
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="States\OptionsMenuState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\CreditsMenuState.h">
       <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
