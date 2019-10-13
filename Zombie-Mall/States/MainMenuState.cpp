@@ -5,6 +5,7 @@
 
 #include "../Input/InputManager.h"
 
+#include "GameplayState.h"
 #include "OptionsMenuState.h"
 #include "CreditsMenuState.h"
 
@@ -104,6 +105,7 @@ bool MainMenuState::ProcessEnter()
 	switch (mCurEntry)
 	{
 	case MenuItems::GAMEPLAY:
+		mGame.GetStateManager().ClearAndSetState(std::make_unique<GameplayState>(mGame));
 		break;
 
 	case MenuItems::OPTIONS:

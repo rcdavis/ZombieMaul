@@ -93,21 +93,6 @@ bool Game::Input()
 {
 	InputManager::Global.Poll();
 
-	if (InputManager::Global.IsKeyPressed(sf::Keyboard::T))
-	{
-		auto font = mFontManager.LoadFont("Resources/Fonts/FreeSans.ttf");
-		if (font != nullptr)
-		{
-			auto textEntity = std::make_unique<TextEntity>(*font, "Test String");
-			mTextEntity = textEntity.get();
-			mEntityManager.AddEntity(std::move(textEntity));
-		}
-	}
-	else if (InputManager::Global.IsKeyPressed(sf::Keyboard::R))
-	{
-		mEntityManager.RemoveEntity(mTextEntity);
-	}
-
 	return mStateManager.Input();
 }
 
