@@ -13,15 +13,15 @@ public:
 	bool Load(std::filesystem::path file);
 	bool Save(std::filesystem::path file);
 
-	unsigned int GetMusicVolume() const { return mMusicVolume; }
-	unsigned int GetSfxVolume() const { return mSfxVolume; }
+	int GetMusicVolume() const { return mMusicVolume; }
+	int GetSfxVolume() const { return mSfxVolume; }
 
-	void SetMusicVolume(unsigned int volume) { mMusicVolume = std::min(volume, 100U); }
-	void SetSfxVolume(unsigned int volume) { mSfxVolume = std::min(volume, 100U); }
+	void SetMusicVolume(int volume) { mMusicVolume = std::clamp(volume, 0, 100); }
+	void SetSfxVolume(int volume) { mSfxVolume = std::clamp(volume, 0, 100); }
 
 private:
-	unsigned int mMusicVolume;
-	unsigned int mSfxVolume;
+	int mMusicVolume;
+	int mSfxVolume;
 };
 
 #endif // !_SETTINGS_H_

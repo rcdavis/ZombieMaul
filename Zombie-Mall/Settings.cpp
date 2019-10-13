@@ -10,8 +10,8 @@
 #include <fstream>
 
 Settings::Settings() :
-	mMusicVolume(100U),
-	mSfxVolume(100U)
+	mMusicVolume(100),
+	mSfxVolume(100)
 {}
 
 bool Settings::Load(std::filesystem::path file)
@@ -28,14 +28,14 @@ bool Settings::Load(std::filesystem::path file)
 	if (!document.IsObject())
 		return false;
 
-	if (document.HasMember("music_volume") && document["music_volume"].IsUint())
+	if (document.HasMember("music_volume") && document["music_volume"].IsInt())
 	{
-		mMusicVolume = document["music_volume"].GetUint();
+		mMusicVolume = document["music_volume"].GetInt();
 	}
 
-	if (document.HasMember("sfx_volume") && document["sfx_volume"].IsUint())
+	if (document.HasMember("sfx_volume") && document["sfx_volume"].IsInt())
 	{
-		mSfxVolume = document["sfx_volume"].GetUint();
+		mSfxVolume = document["sfx_volume"].GetInt();
 	}
 
 	return true;
