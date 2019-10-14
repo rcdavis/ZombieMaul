@@ -7,6 +7,7 @@
 #include "../Level.h"
 
 class Game;
+class Player;
 
 class GameplayState : public IState
 {
@@ -22,9 +23,12 @@ public:
 	void Render(sf::RenderTarget* renderTarget) override;
 
 private:
+	void CreatePlayer();
+
 	Game& mGame;
 
 	Level mLevel;
+	Player* mPlayer;
 };
 
 #endif // !_GAMEPLAY_H_

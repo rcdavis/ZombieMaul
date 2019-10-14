@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Entity\EntityManager.cpp" />
+    <ClCompile Include="Entity\Player.cpp" />
     <ClCompile Include="Entity\TextEntity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Commands\ICommand.h" />
     <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="Entity\EntityManager.h" />
+    <ClInclude Include="Entity\Player.h" />
     <ClInclude Include="Entity\TextEntity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input\InputManager.h" />
