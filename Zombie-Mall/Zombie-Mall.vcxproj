@@ -124,6 +124,7 @@
     <ClCompile Include="Entity\TextEntity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input\InputManager.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Messaging\EventManager.cpp" />
     <ClCompile Include="Renderer\FontManager.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Entity\TextEntity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input\InputManager.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Messaging\Event.h" />
     <ClInclude Include="Messaging\EventManager.h" />
     <ClInclude Include="Messaging\IEventListener.h" />

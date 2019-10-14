@@ -4,6 +4,8 @@
 
 #include "IState.h"
 
+#include "../Level.h"
+
 class Game;
 
 class GameplayState : public IState
@@ -21,6 +23,8 @@ public:
 
 private:
 	Game& mGame;
+
+	Level mLevel;
 };
 
 #endif // !_GAMEPLAY_H_

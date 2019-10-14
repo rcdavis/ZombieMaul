@@ -1,26 +1,25 @@
 
 #include "GameplayState.h"
 
-#include <iostream>
-
 #include "../Game.h"
 #include "../Input/InputManager.h"
 #include "MainMenuState.h"
 
 GameplayState::GameplayState(Game& game) :
-	mGame(game)
+	mGame(game),
+	mLevel(game)
 {}
 
 GameplayState::~GameplayState() {}
 
 void GameplayState::Enter()
 {
-	std::cout << "Entering Gameplay State" << std::endl;
+	mLevel.LoadLevel();
 }
 
 void GameplayState::Exit()
 {
-	std::cout << "Exiting Gameplay State" << std::endl;
+
 }
 
 bool GameplayState::Input()
@@ -40,5 +39,5 @@ void GameplayState::Update()
 
 void GameplayState::Render(sf::RenderTarget* renderTarget)
 {
-
+	mLevel.Render(renderTarget);
 }
