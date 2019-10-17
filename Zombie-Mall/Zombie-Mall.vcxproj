@@ -146,6 +146,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Messaging\Event.h" />
     <ClInclude Include="Messaging\EventManager.h" />
     <ClInclude Include="Messaging\IEventListener.h" />

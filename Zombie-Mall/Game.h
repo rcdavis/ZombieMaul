@@ -3,6 +3,7 @@
 #define _GAME_H_
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Time.hpp>
 
 #include <lua.hpp>
 
@@ -30,6 +31,8 @@ public:
 	StateManager& GetStateManager() { return mStateManager; }
 
 	Settings& GetSettings() { return mSettings; }
+
+	sf::RenderWindow& GetWindow() { return mWindow; }
 
 private:
 	Game(const Game&) = delete;
@@ -63,6 +66,8 @@ private:
 	float mTimeMultiplier;
 
 	TextEntity* mTextEntity;
+
+	const sf::Time mTimeStepPerFrame;
 };
 
 #endif // !_GAME_H_

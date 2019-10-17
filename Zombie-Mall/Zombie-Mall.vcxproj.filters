@@ -146,5 +146,8 @@
     <ClInclude Include="Entity\Player.h">
       <Filter>Entity</Filter>
     </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,11 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Vector2.hpp>
+
 namespace sf
 {
 	class RenderTarget;
@@ -19,8 +24,32 @@ public:
 	virtual void Update();
 	virtual void Render(sf::RenderTarget* renderTarget);
 
-private:
-	
+	void SetSprite(sf::Sprite sprite) { mSprite = sprite; }
+
+	void SetOrigin(sf::Vector2f pos) { mSprite.setOrigin(pos); }
+	const sf::Vector2f GetOrigin() const { return mSprite.getOrigin(); }
+
+	void Move(sf::Vector2f pos) { mSprite.move(pos); }
+	void SetPosition(sf::Vector2f pos) { mSprite.setPosition(pos); }
+	const sf::Vector2f GetPosition() const { return mSprite.getPosition(); }
+
+	void Rotate(float rotation) { mSprite.rotate(rotation); }
+	void SetRotation(float rotation) { mSprite.setRotation(rotation); }
+	const float GetRotation() const { return mSprite.getRotation(); }
+
+	void SetSpeed(float speed) { mSpeed = speed; }
+	const float GetSpeed() const { return mSpeed; }
+
+	void SetTextureRect(sf::IntRect rect) { mSprite.setTextureRect(rect); }
+
+	void SetTexture(sf::Texture* texture) { mSprite.setTexture(*texture); }
+
+	const sf::Vector2f GetDirection() const;
+
+protected:
+	sf::Sprite mSprite;
+
+	float mSpeed;
 };
 
 #endif // !_ENTITY_H_

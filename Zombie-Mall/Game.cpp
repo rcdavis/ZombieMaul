@@ -3,7 +3,6 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
-#include <SFML/System/Time.hpp>
 
 #include <LuaBridge/LuaBridge.h>
 
@@ -22,7 +21,8 @@ Game::Game() :
 	mSettings(),
 	mLuaState(luaL_newstate()),
 	mTimeMultiplier(1.0f),
-	mTextEntity(nullptr)
+	mTextEntity(nullptr),
+	mTimeStepPerFrame(sf::seconds(1.0f / 60.0f))
 {
 	luaL_openlibs(mLuaState);
 }
@@ -39,7 +39,6 @@ bool Game::Run()
 
 	sf::Clock clock;
 	sf::Time lag;
-	const sf::Time timeStepPerFrame(sf::seconds(1.0f / 60.0f));
 
 	while (mWindow.isOpen())
 	{
@@ -56,13 +55,13 @@ bool Game::Run()
 			break;
 		}
 
-		while (lag >= timeStepPerFrame)
+		while (lag >= mTimeStepPerFrame)
 		{
 			Update();
-			lag -= timeStepPerFrame;
+			lag -= mTimeStepPerFrame;
 		}
 
-		Render(lag / timeStepPerFrame);
+		Render(lag / mTimeStepPerFrame);
 	}
 
 	Shutdown();

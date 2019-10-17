@@ -21,10 +21,16 @@ public:
 
 	void Render(sf::RenderTarget* renderTarget);
 
+	const float GetWidth() const { return mWidth; }
+	const float GetHeight() const { return mHeight; }
+
 private:
 	Game& mGame;
 
 	sf::Sprite mBGImage;
+
+	float mWidth;
+	float mHeight;
 };
 
 #endif // !_LEVEL_H_
