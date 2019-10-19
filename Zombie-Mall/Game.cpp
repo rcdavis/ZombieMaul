@@ -15,6 +15,7 @@ Game::Game() :
 	mWindow(),
 	mTextureManager(),
 	mFontManager(),
+	mAnimationManager(),
 	mEventManager(),
 	mEntityManager(),
 	mStateManager(),

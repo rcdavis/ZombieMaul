@@ -9,6 +9,7 @@
 
 #include "Renderer/TextureManager.h"
 #include "Renderer/FontManager.h"
+#include "Renderer/AnimationManager.h"
 #include "Messaging/EventManager.h"
 #include "Entity/EntityManager.h"
 #include "States/StateManager.h"
@@ -27,6 +28,7 @@ public:
 
 	TextureManager& GetTextureManager() { return mTextureManager; }
 	FontManager& GetFontManager() { return mFontManager; }
+	AnimationManager& GetAnimationManager() { return mAnimationManager; }
 	EntityManager& GetEntityManager() { return mEntityManager; }
 	StateManager& GetStateManager() { return mStateManager; }
 
@@ -55,6 +57,7 @@ private:
 
 	TextureManager mTextureManager;
 	FontManager mFontManager;
+	AnimationManager mAnimationManager;
 	EventManager mEventManager;
 	EntityManager mEntityManager;
 	StateManager mStateManager;

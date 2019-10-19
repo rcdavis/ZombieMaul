@@ -28,6 +28,6 @@ const sf::Vector2f Entity::GetDirection() const
 	const float cosVal = std::cosf(radians);
 	const float sinVal = std::sinf(radians);
 
-	sf::Vector2f dir(-sinVal, cosVal);
+	const sf::Vector2f dir(-sinVal, cosVal);
 	return -dir;
 }

@@ -76,6 +76,12 @@ void GameplayState::CreatePlayer()
 		player->SetTexture(texture);
 	}
 
+	auto anim = mGame.GetAnimationManager().LoadAnimation("Resources/Data/Player.json");
+	if (anim)
+	{
+		player->SetAnimation(anim);
+	}
+
 	mPlayer = player.get();
 	mGame.GetEntityManager().AddEntity(std::move(player));
 }

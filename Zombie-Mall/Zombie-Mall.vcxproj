@@ -128,6 +128,9 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Messaging\EventManager.cpp" />
+    <ClCompile Include="Renderer\Animation.cpp" />
+    <ClCompile Include="Renderer\AnimationManager.cpp" />
+    <ClCompile Include="Renderer\AnimationPlayer.cpp" />
     <ClCompile Include="Renderer\FontManager.cpp" />
     <ClCompile Include="Renderer\TextureManager.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -150,6 +153,9 @@
     <ClInclude Include="Messaging\Event.h" />
     <ClInclude Include="Messaging\EventManager.h" />
     <ClInclude Include="Messaging\IEventListener.h" />
+    <ClInclude Include="Renderer\Animation.h" />
+    <ClInclude Include="Renderer\AnimationManager.h" />
+    <ClInclude Include="Renderer\AnimationPlayer.h" />
     <ClInclude Include="Renderer\FontManager.h" />
     <ClInclude Include="Renderer\TextureManager.h" />
     <ClInclude Include="Settings.h" />

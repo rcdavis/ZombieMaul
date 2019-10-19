@@ -8,6 +8,7 @@
 #include <rapidjson/prettywriter.h>
 
 #include <fstream>
+#include <iostream>
 
 Settings::Settings() :
 	mMusicVolume(100),
@@ -18,15 +19,22 @@ bool Settings::Load(std::filesystem::path file)
 {
 	std::ifstream ifs(file.string());
 	if (!ifs.is_open())
+	{
+		std::cout << "Settings: Could not open file at " << file.string() << std::endl;
 		return false;
+	}
 
 	rapidjson::IStreamWrapper isw(ifs);
 
 	rapidjson::Document document;
-	document.ParseStream(isw);
+	rapidjson::ParseResult parseResult = document.ParseStream(isw);
 
-	if (!document.IsObject())
+	if (!parseResult)
+	{
+		std::cout << "Settings: Document parse error from " << file.string() << std::endl;
+		std::cout << "Settings: RapidJSON error code: " << parseResult.Code() << std::endl;
 		return false;
+	}
 
 	if (document.HasMember("music_volume") && document["music_volume"].IsInt())
 	{
