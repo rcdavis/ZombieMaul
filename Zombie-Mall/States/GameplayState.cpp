@@ -41,7 +41,7 @@ bool GameplayState::Input()
 
 void GameplayState::Update()
 {
-
+	mLevel.HandleCollision(mPlayer);
 }
 
 void GameplayState::Render(sf::RenderTarget* renderTarget)

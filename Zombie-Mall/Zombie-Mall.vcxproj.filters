@@ -93,6 +93,12 @@
     <ClCompile Include="Renderer\AnimationPlayer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="MathUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -166,6 +172,15 @@
     </ClInclude>
     <ClInclude Include="Renderer\AnimationPlayer.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Capsule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugUtils.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
