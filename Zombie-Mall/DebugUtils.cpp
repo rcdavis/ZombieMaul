@@ -5,7 +5,7 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Vertex.hpp>
 
-void DrawCapsule(sf::RenderTarget* renderTarget, const Capsule& capsule, const sf::Color& color)
+void DrawCapsule(sf::RenderTarget* const renderTarget, const Capsule& capsule, const sf::Color& color)
 {
 	const sf::Vector2f offset(capsule.GetRadius(), capsule.GetRadius());
 

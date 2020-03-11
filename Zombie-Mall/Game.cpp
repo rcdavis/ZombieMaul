@@ -59,6 +59,12 @@ bool Game::Run()
 		while (lag >= mTimeStepPerFrame)
 		{
 			Update();
+
+#ifdef _DEBUG
+			if (lag >= (mTimeStepPerFrame * 2.0f))
+				lag = mTimeStepPerFrame;
+#endif // _DEBUG
+
 			lag -= mTimeStepPerFrame;
 		}
 

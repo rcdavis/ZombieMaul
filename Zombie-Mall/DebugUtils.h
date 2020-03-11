@@ -11,6 +11,6 @@ namespace sf
 	class Color;
 }
 
-void DrawCapsule(sf::RenderTarget* renderTarget, const Capsule& capsule, const sf::Color& color);
+void DrawCapsule(sf::RenderTarget* const renderTarget, const Capsule& capsule, const sf::Color& color);
 
 #endif // !_DEBUG_UTILS_H_

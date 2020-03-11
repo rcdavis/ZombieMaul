@@ -35,7 +35,7 @@ bool Level::LoadLevel()
 	return true;
 }
 
-void Level::HandleCollision(Entity* entity) const
+void Level::HandleCollision(Entity* const entity) const
 {
 	for (const auto& capsule : mCollisionBounds)
 	{
@@ -45,23 +45,25 @@ void Level::HandleCollision(Entity* entity) const
 
 		if (CircleCollision(testCircle, entityCircle))
 		{
-			const sf::Vector2f testToEntity = Normalize(entityCircle.GetPosition() - testCircle.GetPosition());
-			const float pushBackDist = (entityCircle.GetRadius() + testCircle.GetRadius()) * 0.01f;
-			const sf::Vector2f newPos = entityCircle.GetPosition() + (testToEntity * pushBackDist);
+			const sf::Vector2f vecDistance = entityCircle.GetPosition() - testCircle.GetPosition();
+			const sf::Vector2f testToEntity = Normalize(vecDistance);
+			const float pushBackDist = (entityCircle.GetRadius() + testCircle.GetRadius()) - VectorLength(vecDistance);
 
-			entity->SetPosition(newPos);
+			entity->Move(testToEntity * pushBackDist);
 		}
 	}
 }
 
-void Level::Render(sf::RenderTarget* renderTarget)
+void Level::Render(sf::RenderTarget* const renderTarget)
 {
 	renderTarget->draw(mBGImage);
 
+#ifdef DEBUG_RENDER
 	for (const auto& capsule : mCollisionBounds)
 	{
 		DrawCapsule(renderTarget, capsule, sf::Color::Green);
 	}
+#endif // DEBUG_RENDER
 }
 
 std::vector<Capsule> Level::CreateCollisionBounds() const

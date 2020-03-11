@@ -24,9 +24,9 @@ public:
 
 	bool LoadLevel();
 
-	void HandleCollision(Entity* entity) const;
+	void HandleCollision(Entity* const entity) const;
 
-	void Render(sf::RenderTarget* renderTarget);
+	void Render(sf::RenderTarget* const renderTarget);
 
 	const float GetWidth() const { return mWidth; }
 	const float GetHeight() const { return mHeight; }
