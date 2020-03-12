@@ -4,7 +4,12 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+#include <vector>
+
+#include "Capsule.h"
+
 class Game;
+class Entity;
 
 namespace sf
 {
@@ -19,12 +24,18 @@ public:
 
 	bool LoadLevel();
 
-	void Render(sf::RenderTarget* renderTarget);
+	void HandleCollision(Entity* const entity) const;
+
+	void Render(sf::RenderTarget* const renderTarget);
 
 	const float GetWidth() const { return mWidth; }
 	const float GetHeight() const { return mHeight; }
 
 private:
+	std::vector<Capsule> CreateCollisionBounds() const;
+
+	std::vector<Capsule> mCollisionBounds;
+
 	Game& mGame;
 
 	sf::Sprite mBGImage;
