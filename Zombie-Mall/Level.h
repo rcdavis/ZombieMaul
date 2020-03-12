@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include <vector>
+#include <filesystem>
 
 #include "Capsule.h"
 
@@ -22,7 +23,7 @@ public:
 	Level(Game& game);
 	~Level();
 
-	bool LoadLevel();
+	bool LoadLevel(const std::filesystem::path& file);
 
 	void HandleCollision(Entity* const entity) const;
 
@@ -32,8 +33,6 @@ public:
 	const float GetHeight() const { return mHeight; }
 
 private:
-	std::vector<Capsule> CreateCollisionBounds() const;
-
 	std::vector<Capsule> mCollisionBounds;
 
 	Game& mGame;
