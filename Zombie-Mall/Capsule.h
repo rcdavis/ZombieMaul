@@ -12,8 +12,11 @@ public:
 		mStart(start), mEnd(end), mRadius(radius) {}
 
 	const sf::Vector2f GetStart() const { return mStart; }
+	void SetStart(const sf::Vector2f& start) { mStart = start; }
 	const sf::Vector2f GetEnd() const { return mEnd; }
+	void SetEnd(const sf::Vector2f& end) { mEnd = end; }
 	const float GetRadius() const { return mRadius; }
+	void SetRadius(float radius) { mRadius = radius; }
 
 private:
 	sf::Vector2f mStart;

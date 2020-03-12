@@ -16,7 +16,7 @@ GameplayState::~GameplayState() {}
 
 void GameplayState::Enter()
 {
-	mLevel.LoadLevel();
+	mLevel.LoadLevel("Resources/Data/Level.json");
 
 	CreatePlayer();
 }

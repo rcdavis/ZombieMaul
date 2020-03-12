@@ -8,6 +8,15 @@
 
 #include "DebugUtils.h"
 
+#define RAPIDJSON_NOMEMBERITERATORCLASS
+#include <rapidjson/document.h>
+#include <rapidjson/istreamwrapper.h>
+#include <rapidjson/ostreamwrapper.h>
+#include <rapidjson/prettywriter.h>
+
+#include <fstream>
+#include <iostream>
+
 Level::Level(Game& game) :
 	mCollisionBounds(),
 	mGame(game),
@@ -18,19 +27,92 @@ Level::Level(Game& game) :
 
 Level::~Level() {}
 
-bool Level::LoadLevel()
+bool Level::LoadLevel(const std::filesystem::path& file)
 {
-	// TODO: Should be loaded from file and not hard coded.
-	auto image = mGame.GetTextureManager().LoadTexture("Resources/Textures/MallMap.png");
-	if (image)
+	std::ifstream ifs(file.string());
+	if (!ifs.is_open())
 	{
-		mBGImage.setTexture(*image);
+		std::cout << "Settings: Could not open file at " << file.string() << std::endl;
+		return false;
 	}
 
-	mWidth = 1600.0f;
-	mHeight = 1200.0f;
+	rapidjson::IStreamWrapper isw(ifs);
 
-	mCollisionBounds = CreateCollisionBounds();
+	rapidjson::Document document;
+	rapidjson::ParseResult parseResult = document.ParseStream(isw);
+
+	if (!parseResult)
+	{
+		std::cout << "Settings: Document parse error from " << file.string() << std::endl;
+		std::cout << "Settings: RapidJSON error code: " << parseResult.Code() << std::endl;
+		return false;
+	}
+
+	if (document.HasMember("texture") && document["texture"].IsString())
+	{
+		auto image = mGame.GetTextureManager().LoadTexture(document["texture"].GetString());
+		if (image)
+		{
+			mBGImage.setTexture(*image);
+		}
+	}
+
+	if (document.HasMember("width") && document["width"].IsFloat())
+	{
+		mWidth = document["width"].GetFloat();
+	}
+
+	if (document.HasMember("height") && document["height"].IsFloat())
+	{
+		mHeight = document["height"].GetFloat();
+	}
+
+	mCollisionBounds.clear();
+	if (document.HasMember("collision") && document["collision"].IsArray())
+	{
+		for (auto& object : document["collision"].GetArray())
+		{
+			if (object.HasMember("type") && object["type"].IsString())
+			{
+				if (strcmp(object["type"].GetString(), "Capsule") == 0)
+				{
+					Capsule capsule;
+					if (object.HasMember("start") && object["start"].IsObject())
+					{
+						sf::Vector2f start;
+						auto startPoint = object["start"].GetObject();
+
+						if (startPoint.HasMember("x") && startPoint["x"].IsFloat())
+							start.x = startPoint["x"].GetFloat();
+
+						if (startPoint.HasMember("y") && startPoint["y"].IsFloat())
+							start.y = startPoint["y"].GetFloat();
+
+						capsule.SetStart(start);
+					}
+
+					if (object.HasMember("end") && object["end"].IsObject())
+					{
+						sf::Vector2f end;
+						auto endPoint = object["end"].GetObject();
+
+						if (endPoint.HasMember("x") && endPoint["x"].IsFloat())
+							end.x = endPoint["x"].GetFloat();
+
+						if (endPoint.HasMember("y") && endPoint["y"].IsFloat())
+							end.y = endPoint["y"].GetFloat();
+
+						capsule.SetEnd(end);
+					}
+
+					if (object.HasMember("radius") && object["radius"].IsFloat())
+						capsule.SetRadius(object["radius"].GetFloat());
+
+					mCollisionBounds.push_back(capsule);
+				}
+			}
+		}
+	}
 
 	return true;
 }
@@ -64,36 +146,4 @@ void Level::Render(sf::RenderTarget* const renderTarget)
 		DrawCapsule(renderTarget, capsule, sf::Color::Green);
 	}
 #endif // DEBUG_RENDER
-}
-
-std::vector<Capsule> Level::CreateCollisionBounds() const
-{
-	std::vector<Capsule> bounds;
-
-	// Benches
-	bounds.push_back(Capsule(sf::Vector2f(600.0f, 200.0f), sf::Vector2f(600.0f, 280.0f), 30.0f));
-	bounds.push_back(Capsule(sf::Vector2f(645.0f, 405.0f), sf::Vector2f(720.0f, 405.0f), 30.0f));
-	bounds.push_back(Capsule(sf::Vector2f(900.0f, 405.0f), sf::Vector2f(980.0f, 405.0f), 30.0f));
-	bounds.push_back(Capsule(sf::Vector2f(1013.0f, 200.0f), sf::Vector2f(1013.0f, 280.0f), 30.0f));
-
-	// Hotdog stands
-	bounds.push_back(Capsule(sf::Vector2f(767.0f, 188.0f), sf::Vector2f(767.0f, 265.0f), 45.0f));
-	bounds.push_back(Capsule(sf::Vector2f(767.0f, 265.0f), sf::Vector2f(855.0f, 250.0f), 45.0f));
-
-	// Walls
-	bounds.push_back(Capsule(sf::Vector2f(540.0f, 880.0f), sf::Vector2f(1050.0f, 880.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(540.0f, 880.0f), sf::Vector2f(540.0f, 1175.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(1050.0f, 880.0f), sf::Vector2f(1050.0f, 1175.0f), 40.0f));
-
-	// World WALLS
-	bounds.push_back(Capsule(sf::Vector2f(165.0f, 10.0f), sf::Vector2f(1420.0f, 10.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(165.0f, 10.0f), sf::Vector2f(165.0f, 1000.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(165.0f, 1020.0f), sf::Vector2f(10.0f, 1020.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(10.0f, 1020.0f), sf::Vector2f(10.0f, 1230.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(10.0f, 1220.0f), sf::Vector2f(1595.0f, 1220.0f), 35.0f));
-	bounds.push_back(Capsule(sf::Vector2f(1420.0f, 10.0f), sf::Vector2f(1420.0f, 1020.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(1420.0f, 1020.0f), sf::Vector2f(1595.0f, 1020.0f), 40.0f));
-	bounds.push_back(Capsule(sf::Vector2f(1595.0f, 1020.0f), sf::Vector2f(1595.0f, 1230.0f), 40.0f));
-
-	return bounds;
 }
