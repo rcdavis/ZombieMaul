@@ -4,8 +4,6 @@
 
 #include "Entity.h"
 
-#include "../Renderer/AnimationPlayer.h"
-
 class Player : public Entity
 {
 public:
@@ -15,10 +13,7 @@ public:
 	void Update() override;
 	void Render(sf::RenderTarget* renderTarget) override;
 
-	void SetAnimation(const Animation* anim);
-
 private:
-	AnimationPlayer mAnimPlayer;
 };
 
 #endif // !_PLAYER_H_

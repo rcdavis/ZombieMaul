@@ -3,17 +3,10 @@
 
 #include "../Input/InputManager.h"
 
-Player::Player() :
-	mAnimPlayer()
+Player::Player()
 {}
 
 Player::~Player() {}
-
-void Player::SetAnimation(const Animation* anim)
-{
-	mAnimPlayer.SetAnimation(anim);
-	mAnimPlayer.Start();
-}
 
 void Player::Update()
 {
@@ -26,17 +19,10 @@ void Player::Update()
 		Rotate(4.0f);
 	}
 
-	mAnimPlayer.Update();
-
 	Entity::Update();
 }
 
 void Player::Render(sf::RenderTarget* renderTarget)
 {
-	if (mAnimPlayer.IsPlaying())
-	{
-		mSprite.setTextureRect(mAnimPlayer.GetAnimRect());
-	}
-
 	Entity::Render(renderTarget);
 }

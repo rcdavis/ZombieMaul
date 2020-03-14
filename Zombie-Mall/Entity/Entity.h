@@ -7,6 +7,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "../Renderer/AnimationPlayer.h"
+
 namespace sf
 {
 	class RenderTarget;
@@ -46,8 +48,14 @@ public:
 
 	const sf::Vector2f GetDirection() const;
 
+	sf::FloatRect getGlobalBounds() const { return mSprite.getGlobalBounds(); }
+
+	void SetAnimation(const Animation* anim);
+
 protected:
 	sf::Sprite mSprite;
+
+	AnimationPlayer mAnimPlayer;
 
 	float mSpeed;
 };

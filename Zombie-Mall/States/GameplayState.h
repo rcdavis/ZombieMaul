@@ -8,6 +8,7 @@
 
 class Game;
 class Player;
+class Entity;
 
 class GameplayState : public IState
 {
@@ -24,6 +25,7 @@ public:
 
 private:
 	void CreatePlayer();
+	bool LoadEntity(std::filesystem::path file, Entity* const entity);
 
 	Game& mGame;
 
