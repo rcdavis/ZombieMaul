@@ -85,7 +85,7 @@ void MainMenuState::Update()
 	UpdateSizesAndPositions();
 }
 
-void MainMenuState::Render(sf::RenderTarget* renderTarget)
+void MainMenuState::Render(sf::RenderTarget* const renderTarget)
 {
 	renderTarget->draw(mBgImage);
 

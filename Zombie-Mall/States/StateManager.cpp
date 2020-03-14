@@ -85,7 +85,7 @@ void StateManager::Update()
 	}
 }
 
-void StateManager::Render(sf::RenderTarget* renderTarget)
+void StateManager::Render(sf::RenderTarget* const renderTarget)
 {
 	for (auto iter = std::begin(mStates); iter != std::end(mStates); ++iter)
 	{

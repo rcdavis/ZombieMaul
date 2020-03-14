@@ -27,7 +27,7 @@ public:
 
 	bool Input() override;
 	void Update() override;
-	void Render(sf::RenderTarget* renderTarget) override;
+	void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
 	void AddTextEntry(std::string str, sf::Font* font, sf::Vector2f pos);

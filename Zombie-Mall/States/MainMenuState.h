@@ -31,7 +31,7 @@ public:
 
 	bool Input() override;
 	void Update() override;
-	void Render(sf::RenderTarget* renderTarget) override;
+	void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
 	bool ProcessEnter();

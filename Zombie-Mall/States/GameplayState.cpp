@@ -53,7 +53,7 @@ void GameplayState::Update()
 	mLevel.HandleCollision(mPlayer);
 }
 
-void GameplayState::Render(sf::RenderTarget* renderTarget)
+void GameplayState::Render(sf::RenderTarget* const renderTarget)
 {
 	const sf::Vector2f playerPos(mPlayer->GetPosition());
 	const sf::Vector2f windowSize(mGame.GetWindow().getSize());

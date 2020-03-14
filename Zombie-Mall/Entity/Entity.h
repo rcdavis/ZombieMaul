@@ -24,7 +24,7 @@ public:
 	Entity& operator=(const Entity&) = default;
 
 	virtual void Update();
-	virtual void Render(sf::RenderTarget* renderTarget);
+	virtual void Render(sf::RenderTarget* const renderTarget);
 
 	void SetSprite(sf::Sprite sprite) { mSprite = sprite; }
 
@@ -44,13 +44,13 @@ public:
 
 	void SetTextureRect(sf::IntRect rect) { mSprite.setTextureRect(rect); }
 
-	void SetTexture(sf::Texture* texture) { mSprite.setTexture(*texture); }
+	void SetTexture(sf::Texture* const texture) { mSprite.setTexture(*texture); }
 
 	const sf::Vector2f GetDirection() const;
 
 	sf::FloatRect getGlobalBounds() const { return mSprite.getGlobalBounds(); }
 
-	void SetAnimation(const Animation* anim);
+	void SetAnimation(const Animation* const anim);
 
 protected:
 	sf::Sprite mSprite;

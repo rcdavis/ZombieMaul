@@ -32,7 +32,7 @@ public:
 
 	bool Input();
 	void Update();
-	void Render(sf::RenderTarget* renderTarget);
+	void Render(sf::RenderTarget* const renderTarget);
 
 	IState* GetCurrentState();
 

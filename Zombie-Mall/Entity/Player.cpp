@@ -22,7 +22,7 @@ void Player::Update()
 	Entity::Update();
 }
 
-void Player::Render(sf::RenderTarget* renderTarget)
+void Player::Render(sf::RenderTarget* const renderTarget)
 {
 	Entity::Render(renderTarget);
 }
