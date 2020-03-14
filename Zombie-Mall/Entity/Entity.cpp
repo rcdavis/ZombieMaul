@@ -5,10 +5,13 @@
 
 #include "../MathUtils.h"
 
+#include "../Capsule.h"
+
 Entity::Entity() :
 	mSprite(),
 	mAnimPlayer(),
-	mSpeed(0.0f)
+	mSpeed(0.0f),
+	mType(Type::Entity)
 {}
 
 Entity::~Entity() {}
@@ -44,4 +47,9 @@ void Entity::SetAnimation(const Animation* const anim)
 {
 	mAnimPlayer.SetAnimation(anim);
 	mAnimPlayer.Start();
+}
+
+void Entity::HandleCollision(const Capsule& capsule)
+{
+
 }

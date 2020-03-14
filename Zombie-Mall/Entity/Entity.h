@@ -14,8 +14,20 @@ namespace sf
 	class RenderTarget;
 }
 
+class Capsule;
+
 class Entity
 {
+public:
+	enum class Type
+	{
+		Entity,
+		Player,
+		Person,
+		Zombie,
+		Guard
+	};
+
 public:
 	Entity();
 	virtual ~Entity();
@@ -42,6 +54,9 @@ public:
 	void SetSpeed(float speed) { mSpeed = speed; }
 	const float GetSpeed() const { return mSpeed; }
 
+	void SetType(Type type) { mType = type; }
+	Type GetType() const { return mType; }
+
 	void SetTextureRect(sf::IntRect rect) { mSprite.setTextureRect(rect); }
 
 	void SetTexture(sf::Texture* const texture) { mSprite.setTexture(*texture); }
@@ -52,12 +67,15 @@ public:
 
 	void SetAnimation(const Animation* const anim);
 
+	virtual void HandleCollision(const Capsule& capsule);
+
 protected:
 	sf::Sprite mSprite;
 
 	AnimationPlayer mAnimPlayer;
 
 	float mSpeed;
+	Type mType;
 };
 
 #endif // !_ENTITY_H_

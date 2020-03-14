@@ -120,20 +120,7 @@ bool Level::LoadLevel(const std::filesystem::path& file)
 void Level::HandleCollision(Entity* const entity) const
 {
 	for (const auto& capsule : mCollisionBounds)
-	{
-		const sf::Vector2f closestPoint = ClosestPointOnALine(capsule.GetStart(), capsule.GetEnd(), entity->GetPosition());
-		const Circle testCircle(closestPoint, capsule.GetRadius());
-		const Circle entityCircle(entity->GetPosition(), 32.0f);
-
-		if (CircleCollision(testCircle, entityCircle))
-		{
-			const sf::Vector2f vecDistance = entityCircle.GetPosition() - testCircle.GetPosition();
-			const sf::Vector2f testToEntity = Normalize(vecDistance);
-			const float pushBackDist = (entityCircle.GetRadius() + testCircle.GetRadius()) - VectorLength(vecDistance);
-
-			entity->Move(testToEntity * pushBackDist);
-		}
-	}
+		entity->HandleCollision(capsule);
 }
 
 void Level::Render(sf::RenderTarget* const renderTarget)

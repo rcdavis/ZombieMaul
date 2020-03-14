@@ -13,6 +13,8 @@ public:
 	void Update() override;
 	void Render(sf::RenderTarget* const renderTarget) override;
 
+	void HandleCollision(const Capsule& capsule) override;
+
 private:
 };
 

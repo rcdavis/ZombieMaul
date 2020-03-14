@@ -5,6 +5,7 @@
 #include "../Input/InputManager.h"
 #include "MainMenuState.h"
 #include "../Entity/Player.h"
+#include "../Entity/Person.h"
 
 #define RAPIDJSON_NOMEMBERITERATORCLASS
 #include <rapidjson/document.h>
@@ -75,6 +76,14 @@ void GameplayState::CreatePlayer()
 
 	mPlayer = player.get();
 	mGame.GetEntityManager().AddEntity(std::move(player));
+}
+
+void GameplayState::CreatePerson()
+{
+	std::unique_ptr<Person> person = std::make_unique<Person>();
+	LoadEntity("Resources/Data/Person.json", person.get());
+
+	mGame.GetEntityManager().AddEntity(std::move(person));
 }
 
 bool GameplayState::LoadEntity(std::filesystem::path file, Entity* const entity)

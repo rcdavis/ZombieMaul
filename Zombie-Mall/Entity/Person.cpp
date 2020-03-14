@@ -1,39 +1,28 @@
 
-#include "Player.h"
-
-#include "../Input/InputManager.h"
+#include "Person.h"
 
 #include "../Capsule.h"
 #include "../Circle.h"
 #include "../MathUtils.h"
 
-Player::Player()
+Person::Person()
 {
-	SetType(Entity::Type::Player);
+	SetType(Entity::Type::Person);
 }
 
-Player::~Player() {}
+Person::~Person() {}
 
-void Player::Update()
+void Person::Update()
 {
-	if (InputManager::Global.IsKeyDown(sf::Keyboard::Left))
-	{
-		Rotate(-4.0f);
-	}
-	else if (InputManager::Global.IsKeyDown(sf::Keyboard::Right))
-	{
-		Rotate(4.0f);
-	}
-
 	Entity::Update();
 }
 
-void Player::Render(sf::RenderTarget* const renderTarget)
+void Person::Render(sf::RenderTarget* const renderTarget)
 {
 	Entity::Render(renderTarget);
 }
 
-void Player::HandleCollision(const Capsule& capsule)
+void Person::HandleCollision(const Capsule& capsule)
 {
 	const sf::Vector2f closestPoint = ClosestPointOnALine(capsule.GetStart(), capsule.GetEnd(), GetPosition());
 	const Circle testCircle(closestPoint, capsule.GetRadius());

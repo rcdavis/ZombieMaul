@@ -25,6 +25,7 @@ public:
 
 private:
 	void CreatePlayer();
+	void CreatePerson();
 	bool LoadEntity(std::filesystem::path file, Entity* const entity);
 
 	Game& mGame;
