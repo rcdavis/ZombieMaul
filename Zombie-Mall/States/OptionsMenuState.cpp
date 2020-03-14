@@ -95,7 +95,7 @@ void OptionsMenuState::Update()
 	mEntries[MenuItems::SFX_VOLUME].setString(buffer);
 }
 
-void OptionsMenuState::Render(sf::RenderTarget* renderTarget)
+void OptionsMenuState::Render(sf::RenderTarget* const renderTarget)
 {
 	for (auto& entry : mEntries)
 	{

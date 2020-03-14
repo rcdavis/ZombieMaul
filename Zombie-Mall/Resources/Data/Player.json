@@ -1,37 +1,22 @@
 {
-	"name": "Player Walking",
-	"duration": 0.375,
-	"looping": true,
-	"frames": [
-		{
-			"rect": {
-				"left": 0,
-				"top": 0,
-				"width": 64,
-				"height": 64
-			},
-			"timestamp": 0.0,
-			"duration": 0.125
-		},
-		{
-			"rect": {
-				"left": 0,
-				"top": 64,
-				"width": 64,
-				"height": 64
-			},
-			"timestamp": 0.125,
-			"duration": 0.125
-		},
-		{
-			"rect": {
-				"left": 0,
-				"top": 128,
-				"width": 64,
-				"height": 64
-			},
-			"timestamp": 0.25,
-			"duration": 0.125
+	"position": {
+		"x": 300.0,
+		"y": 300.0
+	},
+	"origin": {
+		"x": 32.0,
+		"y": 32.0
+	},
+	"rotation": 180.0,
+	"speed": 5.0,
+	"texture": {
+		"file": "Resources/Textures/CharacterSprite.png",
+		"rect": {
+			"left": 0,
+			"top": 0,
+			"width": 64,
+			"height": 64
 		}
-	]
+	},
+	"animation": "Resources/Data/PlayerWalkAnim.json"
 }

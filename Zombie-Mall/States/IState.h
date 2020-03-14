@@ -17,7 +17,7 @@ public:
 
 	virtual bool Input() = 0;
 	virtual void Update() = 0;
-	virtual void Render(sf::RenderTarget* renderTarget) = 0;
+	virtual void Render(sf::RenderTarget* const renderTarget) = 0;
 };
 
 #endif // !_ISTATE_H_

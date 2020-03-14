@@ -7,6 +7,7 @@
 
 Entity::Entity() :
 	mSprite(),
+	mAnimPlayer(),
 	mSpeed(0.0f)
 {}
 
@@ -15,10 +16,17 @@ Entity::~Entity() {}
 void Entity::Update()
 {
 	Move(GetDirection() * GetSpeed());
+
+	mAnimPlayer.Update();
 }
 
-void Entity::Render(sf::RenderTarget* renderTarget)
+void Entity::Render(sf::RenderTarget* const renderTarget)
 {
+	if (mAnimPlayer.IsPlaying())
+	{
+		mSprite.setTextureRect(mAnimPlayer.GetAnimRect());
+	}
+
 	renderTarget->draw(mSprite);
 }
 
@@ -30,4 +38,10 @@ const sf::Vector2f Entity::GetDirection() const
 
 	const sf::Vector2f dir(-sinVal, cosVal);
 	return -dir;
+}
+
+void Entity::SetAnimation(const Animation* const anim)
+{
+	mAnimPlayer.SetAnimation(anim);
+	mAnimPlayer.Start();
 }

@@ -55,7 +55,7 @@ bool CreditsMenuState::Input()
 
 void CreditsMenuState::Update() {}
 
-void CreditsMenuState::Render(sf::RenderTarget* renderTarget)
+void CreditsMenuState::Render(sf::RenderTarget* const renderTarget)
 {
 	for (auto entry : mEntries)
 	{

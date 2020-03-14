@@ -8,6 +8,7 @@
 
 class Game;
 class Player;
+class Entity;
 
 class GameplayState : public IState
 {
@@ -20,10 +21,11 @@ public:
 
 	bool Input() override;
 	void Update() override;
-	void Render(sf::RenderTarget* renderTarget) override;
+	void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
 	void CreatePlayer();
+	bool LoadEntity(std::filesystem::path file, Entity* const entity);
 
 	Game& mGame;
 
