@@ -6,7 +6,8 @@
 
 #include "../Input/InputManager.h"
 
-TextEntity::TextEntity(const sf::Font& font, const std::string& text)
+TextEntity::TextEntity(Game& game, const sf::Font& font, const std::string& text) :
+	Entity(game)
 {
 	mText.setFont(font);
 	mText.setString(text);

@@ -7,14 +7,13 @@
 class Person : public Entity
 {
 public:
-	Person();
+	Person(Game& game);
 	~Person();
 
 	Person(const Person&) = default;
 	Person& operator=(const Person&) = default;
 
 	void Update() override;
-	void Render(sf::RenderTarget* const renderTarget) override;
 
 	void HandleCollision(const Capsule& capsule) override;
 

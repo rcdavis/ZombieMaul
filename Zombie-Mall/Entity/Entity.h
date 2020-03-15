@@ -2,6 +2,8 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 
+#include <filesystem>
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -14,6 +16,7 @@ namespace sf
 	class RenderTarget;
 }
 
+class Game;
 class Capsule;
 
 class Entity
@@ -29,7 +32,7 @@ public:
 	};
 
 public:
-	Entity();
+	Entity(Game& game);
 	virtual ~Entity();
 
 	Entity(const Entity&) = default;
@@ -70,7 +73,10 @@ public:
 	virtual void HandleCollision(const Capsule& capsule);
 	virtual void HandleCollision(Entity* const entity);
 
+	virtual bool Load(std::filesystem::path file);
+
 protected:
+	Game& mGame;
 	sf::Sprite mSprite;
 
 	AnimationPlayer mAnimPlayer;

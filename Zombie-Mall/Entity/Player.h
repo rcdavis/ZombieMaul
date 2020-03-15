@@ -9,11 +9,10 @@ class Person;
 class Player : public Entity
 {
 public:
-	Player();
+	Player(Game& game);
 	~Player();
 
 	void Update() override;
-	void Render(sf::RenderTarget* const renderTarget) override;
 
 	void HandleCollision(const Capsule& capsule) override;
 	void HandleCollision(Entity* const entity) override;

@@ -16,7 +16,7 @@ namespace sf
 class TextEntity : public Entity
 {
 public:
-	TextEntity(const sf::Font& font, const std::string& text);
+	TextEntity(Game& game, const sf::Font& font, const std::string& text);
 	~TextEntity();
 
 	void Update() override;

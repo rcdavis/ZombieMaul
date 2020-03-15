@@ -7,7 +7,8 @@
 
 #include <iostream>
 
-Person::Person()
+Person::Person(Game& game) :
+	Entity(game)
 {
 	SetType(Entity::Type::Person);
 }
@@ -17,11 +18,6 @@ Person::~Person() {}
 void Person::Update()
 {
 	Entity::Update();
-}
-
-void Person::Render(sf::RenderTarget* const renderTarget)
-{
-	Entity::Render(renderTarget);
 }
 
 void Person::HandleCollision(const Capsule& capsule)
@@ -43,5 +39,6 @@ void Person::HandleCollision(const Capsule& capsule)
 void Person::ConvertToZombie()
 {
 	SetType(Entity::Type::Zombie);
+	Load("Resources/Data/Zombie.json");
 	std::cout << "Converted Person to Zombie" << std::endl;
 }

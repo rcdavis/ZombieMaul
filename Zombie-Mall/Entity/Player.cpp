@@ -9,7 +9,8 @@
 
 #include "Person.h"
 
-Player::Player()
+Player::Player(Game& game) :
+	Entity(game)
 {
 	SetType(Entity::Type::Player);
 }
@@ -28,11 +29,6 @@ void Player::Update()
 	}
 
 	Entity::Update();
-}
-
-void Player::Render(sf::RenderTarget* const renderTarget)
-{
-	Entity::Render(renderTarget);
 }
 
 void Player::HandleCollision(const Capsule& capsule)
