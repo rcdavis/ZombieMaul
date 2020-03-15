@@ -118,6 +118,8 @@ void Level::HandleCollisions() const
 {
 	for (const auto& capsule : mCollisionBounds)
 		mGame.GetEntityManager().HandleCollision(capsule);
+
+	mGame.GetEntityManager().HandleEntityCollisions();
 }
 
 void Level::Render(sf::RenderTarget* const renderTarget)

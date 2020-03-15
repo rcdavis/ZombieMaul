@@ -25,6 +25,7 @@ public:
 	void ClearEntities();
 
 	void HandleCollision(const Capsule& capsule);
+	void HandleEntityCollisions();
 	void Update();
 	void Render(sf::RenderTarget* renderTarget);
 

@@ -42,6 +42,18 @@ void EntityManager::HandleCollision(const Capsule& capsule)
 		(*iter)->HandleCollision(capsule);
 }
 
+void EntityManager::HandleEntityCollisions()
+{
+	for (auto first = std::begin(mEntities); first != std::end(mEntities); ++first)
+	{
+		for (auto second = std::begin(mEntities); second != std::end(mEntities); ++second)
+		{
+			if (first != second)
+				(*first)->HandleCollision(second->get());
+		}
+	}
+}
+
 void EntityManager::Update()
 {
 	for (auto iter = std::begin(mEntities); iter != std::end(mEntities); ++iter)

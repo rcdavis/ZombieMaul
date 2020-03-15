@@ -53,3 +53,8 @@ void Entity::HandleCollision(const Capsule& capsule)
 {
 
 }
+
+void Entity::HandleCollision(Entity* const entity)
+{
+
+}

@@ -7,6 +7,8 @@
 #include "../Circle.h"
 #include "../MathUtils.h"
 
+#include "Person.h"
+
 Player::Player()
 {
 	SetType(Entity::Type::Player);
@@ -47,4 +49,26 @@ void Player::HandleCollision(const Capsule& capsule)
 
 		Move(testToEntity * pushBackDist);
 	}
+}
+
+void Player::HandleCollision(Entity* const entity)
+{
+	switch (entity->GetType())
+	{
+	case Entity::Type::Person:
+		HandleCollision(static_cast<Person* const>(entity));
+		break;
+
+	default:
+		break;
+	}
+}
+
+void Player::HandleCollision(Person* const person)
+{
+	const Circle personCircle(person->GetPosition(), 32.0f);
+	const Circle playerCircle(GetPosition(), 32.0f);
+
+	if (CircleCollision(playerCircle, personCircle))
+		person->ConvertToZombie();
 }

@@ -4,6 +4,8 @@
 
 #include "Entity.h"
 
+class Person;
+
 class Player : public Entity
 {
 public:
@@ -14,6 +16,9 @@ public:
 	void Render(sf::RenderTarget* const renderTarget) override;
 
 	void HandleCollision(const Capsule& capsule) override;
+	void HandleCollision(Entity* const entity) override;
+
+	void HandleCollision(Person* const person);
 
 private:
 };

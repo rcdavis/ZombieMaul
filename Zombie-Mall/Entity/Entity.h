@@ -68,6 +68,7 @@ public:
 	void SetAnimation(const Animation* const anim);
 
 	virtual void HandleCollision(const Capsule& capsule);
+	virtual void HandleCollision(Entity* const entity);
 
 protected:
 	sf::Sprite mSprite;

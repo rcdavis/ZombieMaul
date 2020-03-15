@@ -5,6 +5,8 @@
 #include "../Circle.h"
 #include "../MathUtils.h"
 
+#include <iostream>
+
 Person::Person()
 {
 	SetType(Entity::Type::Person);
@@ -36,4 +38,10 @@ void Person::HandleCollision(const Capsule& capsule)
 
 		Move(testToEntity * pushBackDist);
 	}
+}
+
+void Person::ConvertToZombie()
+{
+	SetType(Entity::Type::Zombie);
+	std::cout << "Converted Person to Zombie" << std::endl;
 }

@@ -17,6 +17,8 @@ public:
 	void Render(sf::RenderTarget* const renderTarget) override;
 
 	void HandleCollision(const Capsule& capsule) override;
+
+	void ConvertToZombie();
 };
 
 #endif // !_PERSON_H_
