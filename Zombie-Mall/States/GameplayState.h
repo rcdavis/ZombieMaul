@@ -5,6 +5,7 @@
 #include "IState.h"
 
 #include "../Level.h"
+#include <SFML/System/Clock.hpp>
 
 class Game;
 class Player;
@@ -25,10 +26,12 @@ public:
 
 private:
 	void CreatePlayer();
+	void CreatePerson();
 	bool LoadEntity(std::filesystem::path file, Entity* const entity);
 
 	Game& mGame;
 
+	sf::Clock mSpawnTimer;
 	Level mLevel;
 	Player* mPlayer;
 };

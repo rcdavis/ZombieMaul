@@ -2,6 +2,8 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
 
+#include <filesystem>
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -14,10 +16,23 @@ namespace sf
 	class RenderTarget;
 }
 
+class Game;
+class Capsule;
+
 class Entity
 {
 public:
-	Entity();
+	enum class Type
+	{
+		Entity,
+		Player,
+		Person,
+		Zombie,
+		Guard
+	};
+
+public:
+	Entity(Game& game);
 	virtual ~Entity();
 
 	Entity(const Entity&) = default;
@@ -42,6 +57,9 @@ public:
 	void SetSpeed(float speed) { mSpeed = speed; }
 	const float GetSpeed() const { return mSpeed; }
 
+	void SetType(Type type) { mType = type; }
+	Type GetType() const { return mType; }
+
 	void SetTextureRect(sf::IntRect rect) { mSprite.setTextureRect(rect); }
 
 	void SetTexture(sf::Texture* const texture) { mSprite.setTexture(*texture); }
@@ -52,12 +70,19 @@ public:
 
 	void SetAnimation(const Animation* const anim);
 
+	virtual void HandleCollision(const Capsule& capsule);
+	virtual void HandleCollision(Entity* const entity);
+
+	virtual bool Load(std::filesystem::path file);
+
 protected:
+	Game& mGame;
 	sf::Sprite mSprite;
 
 	AnimationPlayer mAnimPlayer;
 
 	float mSpeed;
+	Type mType;
 };
 
 #endif // !_ENTITY_H_

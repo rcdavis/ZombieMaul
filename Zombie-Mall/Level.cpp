@@ -52,20 +52,17 @@ bool Level::LoadLevel(const std::filesystem::path& file)
 	{
 		auto image = mGame.GetTextureManager().LoadTexture(document["texture"].GetString());
 		if (image)
-		{
 			mBGImage.setTexture(*image);
-		}
 	}
 
 	if (document.HasMember("width") && document["width"].IsFloat())
-	{
 		mWidth = document["width"].GetFloat();
-	}
 
 	if (document.HasMember("height") && document["height"].IsFloat())
-	{
 		mHeight = document["height"].GetFloat();
-	}
+
+	if (document.HasMember("spawnTime") && document["spawnTime"].IsFloat())
+		mSpawnTime = sf::seconds(document["spawnTime"].GetFloat());
 
 	mCollisionBounds.clear();
 	if (document.HasMember("collision") && document["collision"].IsArray())
@@ -117,23 +114,12 @@ bool Level::LoadLevel(const std::filesystem::path& file)
 	return true;
 }
 
-void Level::HandleCollision(Entity* const entity) const
+void Level::HandleCollisions() const
 {
 	for (const auto& capsule : mCollisionBounds)
-	{
-		const sf::Vector2f closestPoint = ClosestPointOnALine(capsule.GetStart(), capsule.GetEnd(), entity->GetPosition());
-		const Circle testCircle(closestPoint, capsule.GetRadius());
-		const Circle entityCircle(entity->GetPosition(), 32.0f);
+		mGame.GetEntityManager().HandleCollision(capsule);
 
-		if (CircleCollision(testCircle, entityCircle))
-		{
-			const sf::Vector2f vecDistance = entityCircle.GetPosition() - testCircle.GetPosition();
-			const sf::Vector2f testToEntity = Normalize(vecDistance);
-			const float pushBackDist = (entityCircle.GetRadius() + testCircle.GetRadius()) - VectorLength(vecDistance);
-
-			entity->Move(testToEntity * pushBackDist);
-		}
-	}
+	mGame.GetEntityManager().HandleEntityCollisions();
 }
 
 void Level::Render(sf::RenderTarget* const renderTarget)
