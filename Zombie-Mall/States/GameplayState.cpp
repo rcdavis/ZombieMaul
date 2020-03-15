@@ -29,11 +29,14 @@ void GameplayState::Enter()
 	mLevel.LoadLevel("Resources/Data/Level.json");
 
 	CreatePlayer();
+	CreatePerson();
+
+	mSpawnTimer.restart();
 }
 
 void GameplayState::Exit()
 {
-	mGame.GetEntityManager().RemoveEntity(mPlayer);
+	mGame.GetEntityManager().ClearEntities();
 	mPlayer = nullptr;
 
 	mGame.GetWindow().setView(mGame.GetWindow().getDefaultView());
@@ -51,7 +54,13 @@ bool GameplayState::Input()
 
 void GameplayState::Update()
 {
-	mLevel.HandleCollision(mPlayer);
+	mLevel.HandleCollisions();
+
+	if (mSpawnTimer.getElapsedTime() > mLevel.GetSpawnTime())
+	{
+		CreatePerson();
+		mSpawnTimer.restart();
+	}
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget)
@@ -59,9 +68,9 @@ void GameplayState::Render(sf::RenderTarget* const renderTarget)
 	const sf::Vector2f playerPos(mPlayer->GetPosition());
 	const sf::Vector2f windowSize(mGame.GetWindow().getSize());
 
-	sf::Vector2f center;
-	center.x = std::clamp(playerPos.x, windowSize.x / 2.0f, mLevel.GetWidth() - (windowSize.x / 2.0f));
-	center.y = std::clamp(playerPos.y, windowSize.y / 2.0f, mLevel.GetHeight() - (windowSize.y / 2.0f));
+	const sf::Vector2f center(
+	std::clamp(playerPos.x, windowSize.x / 2.0f, mLevel.GetWidth() - (windowSize.x / 2.0f)),
+	std::clamp(playerPos.y, windowSize.y / 2.0f, mLevel.GetHeight() - (windowSize.y / 2.0f)));
 
 	const sf::View view(center, windowSize);
 	mGame.GetWindow().setView(view);
@@ -82,6 +91,11 @@ void GameplayState::CreatePerson()
 {
 	std::unique_ptr<Person> person = std::make_unique<Person>();
 	LoadEntity("Resources/Data/Person.json", person.get());
+
+	if (mPlayer->GetPosition().x > (mLevel.GetWidth() / 2.0f))
+		person->SetPosition(sf::Vector2f(300.0f, 100.0f));
+	else
+		person->SetPosition(sf::Vector2f(1300.0f, 100.0f));
 
 	mGame.GetEntityManager().AddEntity(std::move(person));
 }

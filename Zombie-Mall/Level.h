@@ -3,6 +3,7 @@
 #define _LEVEL_H_
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Time.hpp>
 
 #include <vector>
 #include <filesystem>
@@ -25,12 +26,13 @@ public:
 
 	bool LoadLevel(const std::filesystem::path& file);
 
-	void HandleCollision(Entity* const entity) const;
+	void HandleCollisions() const;
 
 	void Render(sf::RenderTarget* const renderTarget);
 
 	const float GetWidth() const { return mWidth; }
 	const float GetHeight() const { return mHeight; }
+	const sf::Time GetSpawnTime() const { return mSpawnTime; }
 
 private:
 	std::vector<Capsule> mCollisionBounds;
@@ -38,6 +40,8 @@ private:
 	Game& mGame;
 
 	sf::Sprite mBGImage;
+
+	sf::Time mSpawnTime;
 
 	float mWidth;
 	float mHeight;

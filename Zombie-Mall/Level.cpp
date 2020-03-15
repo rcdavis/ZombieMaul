@@ -52,20 +52,17 @@ bool Level::LoadLevel(const std::filesystem::path& file)
 	{
 		auto image = mGame.GetTextureManager().LoadTexture(document["texture"].GetString());
 		if (image)
-		{
 			mBGImage.setTexture(*image);
-		}
 	}
 
 	if (document.HasMember("width") && document["width"].IsFloat())
-	{
 		mWidth = document["width"].GetFloat();
-	}
 
 	if (document.HasMember("height") && document["height"].IsFloat())
-	{
 		mHeight = document["height"].GetFloat();
-	}
+
+	if (document.HasMember("spawnTime") && document["spawnTime"].IsFloat())
+		mSpawnTime = sf::seconds(document["spawnTime"].GetFloat());
 
 	mCollisionBounds.clear();
 	if (document.HasMember("collision") && document["collision"].IsArray())
@@ -117,10 +114,10 @@ bool Level::LoadLevel(const std::filesystem::path& file)
 	return true;
 }
 
-void Level::HandleCollision(Entity* const entity) const
+void Level::HandleCollisions() const
 {
 	for (const auto& capsule : mCollisionBounds)
-		entity->HandleCollision(capsule);
+		mGame.GetEntityManager().HandleCollision(capsule);
 }
 
 void Level::Render(sf::RenderTarget* const renderTarget)

@@ -5,6 +5,7 @@
 #include "IState.h"
 
 #include "../Level.h"
+#include <SFML/System/Clock.hpp>
 
 class Game;
 class Player;
@@ -30,6 +31,7 @@ private:
 
 	Game& mGame;
 
+	sf::Clock mSpawnTimer;
 	Level mLevel;
 	Player* mPlayer;
 };

@@ -12,6 +12,8 @@ namespace sf
 	class RenderTarget;
 }
 
+class Capsule;
+
 class EntityManager
 {
 public:
@@ -20,7 +22,9 @@ public:
 
 	void AddEntity(std::unique_ptr<Entity> entity);
 	void RemoveEntity(Entity* entity);
+	void ClearEntities();
 
+	void HandleCollision(const Capsule& capsule);
 	void Update();
 	void Render(sf::RenderTarget* renderTarget);
 
