@@ -15,8 +15,6 @@ public:
 
 	void Update() override;
 
-	void HandleCollision(const Capsule& capsule) override;
-
 	void ConvertToZombie();
 };
 

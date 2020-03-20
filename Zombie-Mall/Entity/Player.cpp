@@ -8,6 +8,7 @@
 #include "../MathUtils.h"
 
 #include "Person.h"
+#include "Guard.h"
 
 Player::Player(Game& game) :
 	Entity(game)
@@ -31,28 +32,16 @@ void Player::Update()
 	Entity::Update();
 }
 
-void Player::HandleCollision(const Capsule& capsule)
-{
-	const sf::Vector2f closestPoint = ClosestPointOnALine(capsule.GetStart(), capsule.GetEnd(), GetPosition());
-	const Circle testCircle(closestPoint, capsule.GetRadius());
-	const Circle entityCircle(GetPosition(), 32.0f);
-
-	if (CircleCollision(testCircle, entityCircle))
-	{
-		const sf::Vector2f vecDistance = entityCircle.GetPosition() - testCircle.GetPosition();
-		const sf::Vector2f testToEntity = Normalize(vecDistance);
-		const float pushBackDist = (entityCircle.GetRadius() + testCircle.GetRadius()) - VectorLength(vecDistance);
-
-		Move(testToEntity * pushBackDist);
-	}
-}
-
 void Player::HandleCollision(Entity* const entity)
 {
 	switch (entity->GetType())
 	{
 	case Entity::Type::Person:
 		HandleCollision(static_cast<Person* const>(entity));
+		break;
+
+	case Entity::Type::Guard:
+		HandleCollision(static_cast<Guard* const>(entity));
 		break;
 
 	default:
@@ -67,4 +56,14 @@ void Player::HandleCollision(Person* const person)
 
 	if (CircleCollision(playerCircle, personCircle))
 		person->ConvertToZombie();
+}
+
+void Player::HandleCollision(Guard* const guard)
+{
+	const Circle guardCircle(guard->GetPosition(), 32.0f);
+	const Circle playerCircle(GetPosition(), 32.0f);
+
+	if (CircleCollision(playerCircle, guardCircle))
+	{
+	}
 }

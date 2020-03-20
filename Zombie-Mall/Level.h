@@ -32,7 +32,9 @@ public:
 
 	const float GetWidth() const { return mWidth; }
 	const float GetHeight() const { return mHeight; }
-	const sf::Time GetSpawnTime() const { return mSpawnTime; }
+
+	const sf::Time GetPersonSpawnTime() const { return mPersonSpawnTime; }
+	const sf::Time GetGuardSpawnTime() const { return mGuardSpawnTime; }
 
 private:
 	std::vector<Capsule> mCollisionBounds;
@@ -41,7 +43,8 @@ private:
 
 	sf::Sprite mBGImage;
 
-	sf::Time mSpawnTime;
+	sf::Time mPersonSpawnTime;
+	sf::Time mGuardSpawnTime;
 
 	float mWidth;
 	float mHeight;

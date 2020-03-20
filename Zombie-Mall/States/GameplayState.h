@@ -27,11 +27,13 @@ public:
 private:
 	void CreatePlayer();
 	void CreatePerson();
-	bool LoadEntity(std::filesystem::path file, Entity* const entity);
+	void CreateGuard();
 
 	Game& mGame;
 
-	sf::Clock mSpawnTimer;
+	sf::Clock mPersonSpawnTimer;
+	sf::Clock mGuardSpawnTimer;
+
 	Level mLevel;
 	Player* mPlayer;
 };

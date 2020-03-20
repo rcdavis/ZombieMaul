@@ -123,6 +123,7 @@
     <ClCompile Include="DebugUtils.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Entity\EntityManager.cpp" />
+    <ClCompile Include="Entity\Guard.cpp" />
     <ClCompile Include="Entity\Person.cpp" />
     <ClCompile Include="Entity\Player.cpp" />
     <ClCompile Include="Entity\TextEntity.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="DebugUtils.h" />
     <ClInclude Include="Entity\Entity.h" />
     <ClInclude Include="Entity\EntityManager.h" />
+    <ClInclude Include="Entity\Guard.h" />
     <ClInclude Include="Entity\Person.h" />
     <ClInclude Include="Entity\Player.h" />
     <ClInclude Include="Entity\TextEntity.h" />

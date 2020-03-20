@@ -37,21 +37,14 @@ void Entity::Update()
 void Entity::Render(sf::RenderTarget* const renderTarget)
 {
 	if (mAnimPlayer.IsPlaying())
-	{
 		mSprite.setTextureRect(mAnimPlayer.GetAnimRect());
-	}
 
 	renderTarget->draw(mSprite);
 }
 
 const sf::Vector2f Entity::GetDirection() const
 {
-	const float radians = DegreesToRadians(GetRotation());
-	const float cosVal = std::cosf(radians);
-	const float sinVal = std::sinf(radians);
-
-	const sf::Vector2f dir(-sinVal, cosVal);
-	return -dir;
+	return RotateVector(sf::Vector2f(0.0f, -1.0f), DegreesToRadians(GetRotation()));
 }
 
 void Entity::SetAnimation(const Animation* const anim)
@@ -62,7 +55,18 @@ void Entity::SetAnimation(const Animation* const anim)
 
 void Entity::HandleCollision(const Capsule& capsule)
 {
+	const sf::Vector2f closestPoint = ClosestPointOnALine(capsule.GetStart(), capsule.GetEnd(), GetPosition());
+	const Circle testCircle(closestPoint, capsule.GetRadius());
+	const Circle entityCircle(GetPosition(), 32.0f);
 
+	if (CircleCollision(testCircle, entityCircle))
+	{
+		const sf::Vector2f vecDistance = entityCircle.GetPosition() - testCircle.GetPosition();
+		const sf::Vector2f testToEntity = Normalize(vecDistance);
+		const float pushBackDist = (entityCircle.GetRadius() + testCircle.GetRadius()) - VectorLength(vecDistance);
+
+		Move(testToEntity * pushBackDist);
+	}
 }
 
 void Entity::HandleCollision(Entity* const entity)
