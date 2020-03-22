@@ -17,8 +17,9 @@
 #include "Settings.h"
 
 #include "Entity/TextEntity.h"
+#include "Messaging/IEventListener.h"
 
-class Game
+class Game : public IEventListener
 {
 public:
 	Game();
@@ -26,10 +27,13 @@ public:
 
 	bool Run();
 
+	void HandleEvent(const Event* const pEvent) override;
+
 	TextureManager& GetTextureManager() { return mTextureManager; }
 	FontManager& GetFontManager() { return mFontManager; }
 	AnimationManager& GetAnimationManager() { return mAnimationManager; }
 	EntityManager& GetEntityManager() { return mEntityManager; }
+	EventManager& GetEventManager() { return mEventManager; }
 	StateManager& GetStateManager() { return mStateManager; }
 
 	Settings& GetSettings() { return mSettings; }

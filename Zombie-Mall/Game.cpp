@@ -83,6 +83,8 @@ bool Game::Init()
 
 	mSettings.Load("Resources/Data/Settings.json");
 
+	mEventManager.RegisterListener("Player Died", this);
+
 	mStateManager.PushState(std::make_unique<MainMenuState>(*this));
 
 	return true;
@@ -133,6 +135,14 @@ void Game::PollWindowEvents()
 			Close();
 			break;
 		}
+	}
+}
+
+void Game::HandleEvent(const Event* const pEvent)
+{
+	if (pEvent->GetId() == "Player Died")
+	{
+		mStateManager.ClearAndSetState(std::make_unique<MainMenuState>(*this));
 	}
 }
 

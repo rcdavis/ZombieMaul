@@ -16,10 +16,10 @@ public:
 	EventManager();
 	~EventManager();
 
-	void RegisterListener(Event::ID id, IEventListener* listener);
-	void UnregisterListener(Event::ID id, IEventListener* listener);
+	void RegisterListener(Event::ID id, IEventListener* const listener);
+	void UnregisterListener(Event::ID id, IEventListener* const listener);
 
-	void QueueEvent(Event::ID id, void* data = nullptr);
+	void QueueEvent(Event::ID id, void* const data = nullptr);
 
 	void ProcessEvents();
 

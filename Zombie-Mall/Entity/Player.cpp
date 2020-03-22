@@ -3,6 +3,7 @@
 
 #include "../Input/InputManager.h"
 
+#include "../Game.h"
 #include "../Capsule.h"
 #include "../Circle.h"
 #include "../MathUtils.h"
@@ -65,5 +66,6 @@ void Player::HandleCollision(Guard* const guard)
 
 	if (CircleCollision(playerCircle, guardCircle))
 	{
+		mGame.GetEventManager().QueueEvent("Player Died");
 	}
 }

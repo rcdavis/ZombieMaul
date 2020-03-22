@@ -8,7 +8,7 @@
 EventManager::EventManager() {}
 EventManager::~EventManager() {}
 
-void EventManager::RegisterListener(Event::ID id, IEventListener* listener)
+void EventManager::RegisterListener(Event::ID id, IEventListener* const listener)
 {
 	auto& registeredListeners = mListeners[id];
 	auto iter = std::find(std::begin(registeredListeners), std::end(registeredListeners), listener);
@@ -18,7 +18,7 @@ void EventManager::RegisterListener(Event::ID id, IEventListener* listener)
 	}
 }
 
-void EventManager::UnregisterListener(Event::ID id, IEventListener* listener)
+void EventManager::UnregisterListener(Event::ID id, IEventListener* const listener)
 {
 	auto& registeredListeners = mListeners[id];
 	auto iter = std::find(std::begin(registeredListeners), std::end(registeredListeners), listener);
@@ -28,7 +28,7 @@ void EventManager::UnregisterListener(Event::ID id, IEventListener* listener)
 	}
 }
 
-void EventManager::QueueEvent(Event::ID id, void* data)
+void EventManager::QueueEvent(Event::ID id, void* const data)
 {
 	mEvents.push(Event(id, data));
 }
