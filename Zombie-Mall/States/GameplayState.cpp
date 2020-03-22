@@ -6,6 +6,7 @@
 #include "MainMenuState.h"
 #include "../Entity/Player.h"
 #include "../Entity/Person.h"
+#include "../Entity/Guard.h"
 
 GameplayState::GameplayState(Game& game) :
 	mGame(game),
@@ -22,7 +23,8 @@ void GameplayState::Enter()
 	CreatePlayer();
 	CreatePerson();
 
-	mSpawnTimer.restart();
+	mPersonSpawnTimer.restart();
+	mGuardSpawnTimer.restart();
 }
 
 void GameplayState::Exit()
@@ -36,9 +38,7 @@ void GameplayState::Exit()
 bool GameplayState::Input()
 {
 	if (InputManager::Global.IsKeyPressed(sf::Keyboard::Escape))
-	{
 		mGame.GetStateManager().ClearAndSetState(std::make_unique<MainMenuState>(mGame));
-	}
 
 	return true;
 }
@@ -47,10 +47,16 @@ void GameplayState::Update()
 {
 	mLevel.HandleCollisions();
 
-	if (mSpawnTimer.getElapsedTime() > mLevel.GetSpawnTime())
+	if (mPersonSpawnTimer.getElapsedTime() > mLevel.GetPersonSpawnTime())
 	{
 		CreatePerson();
-		mSpawnTimer.restart();
+		mPersonSpawnTimer.restart();
+	}
+
+	if (mGuardSpawnTimer.getElapsedTime() > mLevel.GetGuardSpawnTime())
+	{
+		CreateGuard();
+		mGuardSpawnTimer.restart();
 	}
 }
 
@@ -89,4 +95,17 @@ void GameplayState::CreatePerson()
 		person->SetPosition(sf::Vector2f(1300.0f, 100.0f));
 
 	mGame.GetEntityManager().AddEntity(std::move(person));
+}
+
+void GameplayState::CreateGuard()
+{
+	std::unique_ptr<Guard> guard = std::make_unique<Guard>(mGame, mPlayer);
+	guard->Load("Resources/Data/Guard.json");
+
+	if (mPlayer->GetPosition().x > (mLevel.GetWidth() / 2.0f))
+		guard->SetPosition(sf::Vector2f(300.0f, 100.0f));
+	else
+		guard->SetPosition(sf::Vector2f(1300.0f, 100.0f));
+
+	mGame.GetEntityManager().AddEntity(std::move(guard));
 }

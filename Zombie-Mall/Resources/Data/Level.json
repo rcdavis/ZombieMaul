@@ -2,7 +2,8 @@
 	"texture": "Resources/Textures/MallMap.png",
 	"width": 1600.0,
 	"height": 1200.0,
-	"spawnTime": 3.0,
+	"personSpawnTime": 3.0,
+	"guardSpawnTime": 10.0,
 	"collision": [
 		{
 			"type": "Capsule",

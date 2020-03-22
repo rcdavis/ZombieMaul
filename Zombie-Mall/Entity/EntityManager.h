@@ -21,13 +21,13 @@ public:
 	~EntityManager();
 
 	void AddEntity(std::unique_ptr<Entity> entity);
-	void RemoveEntity(Entity* entity);
+	void RemoveEntity(Entity* const entity);
 	void ClearEntities();
 
 	void HandleCollision(const Capsule& capsule);
 	void HandleEntityCollisions();
 	void Update();
-	void Render(sf::RenderTarget* renderTarget);
+	void Render(sf::RenderTarget* const renderTarget);
 
 private:
 	EntityManager(const EntityManager&) = delete;

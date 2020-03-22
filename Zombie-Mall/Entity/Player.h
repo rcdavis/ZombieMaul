@@ -5,6 +5,7 @@
 #include "Entity.h"
 
 class Person;
+class Guard;
 
 class Player : public Entity
 {
@@ -14,10 +15,10 @@ public:
 
 	void Update() override;
 
-	void HandleCollision(const Capsule& capsule) override;
 	void HandleCollision(Entity* const entity) override;
 
 	void HandleCollision(Person* const person);
+	void HandleCollision(Guard* const guard);
 
 private:
 };

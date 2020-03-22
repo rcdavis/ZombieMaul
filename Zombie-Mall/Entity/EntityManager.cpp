@@ -16,7 +16,7 @@ void EntityManager::AddEntity(std::unique_ptr<Entity> entity)
 		mEntities.push_back(std::move(entity));
 }
 
-void EntityManager::RemoveEntity(Entity* entity)
+void EntityManager::RemoveEntity(Entity* const entity)
 {
 	if (entity == nullptr)
 		return;
@@ -38,30 +38,30 @@ void EntityManager::ClearEntities()
 
 void EntityManager::HandleCollision(const Capsule& capsule)
 {
-	for (auto iter = std::begin(mEntities); iter != std::end(mEntities); ++iter)
-		(*iter)->HandleCollision(capsule);
+	for (auto& entity : mEntities)
+		entity->HandleCollision(capsule);
 }
 
 void EntityManager::HandleEntityCollisions()
 {
 	for (auto first = std::begin(mEntities); first != std::end(mEntities); ++first)
 	{
-		for (auto second = std::begin(mEntities); second != std::end(mEntities); ++second)
+		auto second = first;
+		for (second = std::next(second); second != std::end(mEntities); ++second)
 		{
-			if (first != second)
-				(*first)->HandleCollision(second->get());
+			(*first)->HandleCollision(second->get());
 		}
 	}
 }
 
 void EntityManager::Update()
 {
-	for (auto iter = std::begin(mEntities); iter != std::end(mEntities); ++iter)
-		(*iter)->Update();
+	for (auto& entity : mEntities)
+		entity->Update();
 }
 
-void EntityManager::Render(sf::RenderTarget* renderTarget)
+void EntityManager::Render(sf::RenderTarget* const renderTarget)
 {
-	for (auto iter = std::begin(mEntities); iter != std::end(mEntities); ++iter)
-		(*iter)->Render(renderTarget);
+	for (auto& entity : mEntities)
+		entity->Render(renderTarget);
 }

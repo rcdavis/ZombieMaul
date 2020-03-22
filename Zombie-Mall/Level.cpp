@@ -61,8 +61,11 @@ bool Level::LoadLevel(const std::filesystem::path& file)
 	if (document.HasMember("height") && document["height"].IsFloat())
 		mHeight = document["height"].GetFloat();
 
-	if (document.HasMember("spawnTime") && document["spawnTime"].IsFloat())
-		mSpawnTime = sf::seconds(document["spawnTime"].GetFloat());
+	if (document.HasMember("personSpawnTime") && document["personSpawnTime"].IsFloat())
+		mPersonSpawnTime = sf::seconds(document["personSpawnTime"].GetFloat());
+
+	if (document.HasMember("guardSpawnTime") && document["guardSpawnTime"].IsFloat())
+		mGuardSpawnTime = sf::seconds(document["guardSpawnTime"].GetFloat());
 
 	mCollisionBounds.clear();
 	if (document.HasMember("collision") && document["collision"].IsArray())
