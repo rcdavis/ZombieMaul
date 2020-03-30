@@ -105,6 +105,9 @@
     <ClCompile Include="Entity\Guard.cpp">
       <Filter>Entity</Filter>
     </ClCompile>
+    <ClCompile Include="States\PauseMenuState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Entity\Guard.h">
       <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PauseMenuState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

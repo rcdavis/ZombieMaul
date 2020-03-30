@@ -54,11 +54,11 @@ public:
 	void SetRotation(float rotation) { mSprite.setRotation(rotation); }
 	const float GetRotation() const { return mSprite.getRotation(); }
 
-	void SetSpeed(float speed) { mSpeed = speed; }
-	const float GetSpeed() const { return mSpeed; }
+	constexpr void SetSpeed(float speed) { mSpeed = speed; }
+	constexpr const float GetSpeed() const { return mSpeed; }
 
-	void SetType(Type type) { mType = type; }
-	Type GetType() const { return mType; }
+	constexpr void SetType(Type type) { mType = type; }
+	constexpr Type GetType() const { return mType; }
 
 	void SetTextureRect(sf::IntRect rect) { mSprite.setTextureRect(rect); }
 

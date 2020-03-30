@@ -143,6 +143,7 @@
     <ClCompile Include="States\GameplayState.cpp" />
     <ClCompile Include="States\MainMenuState.cpp" />
     <ClCompile Include="States\OptionsMenuState.cpp" />
+    <ClCompile Include="States\PauseMenuState.cpp" />
     <ClCompile Include="States\StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +175,7 @@
     <ClInclude Include="States\IState.h" />
     <ClInclude Include="States\MainMenuState.h" />
     <ClInclude Include="States\OptionsMenuState.h" />
+    <ClInclude Include="States\PauseMenuState.h" />
     <ClInclude Include="States\StateManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -13,7 +13,7 @@ void EntityManager::AddEntity(std::unique_ptr<Entity> entity)
 
 	auto iter = std::find(std::begin(mEntities), std::end(mEntities), entity);
 	if (iter == std::end(mEntities))
-		mEntities.push_back(std::move(entity));
+		mEntities.emplace_back(std::move(entity));
 }
 
 void EntityManager::RemoveEntity(Entity* const entity)

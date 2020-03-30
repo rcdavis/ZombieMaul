@@ -30,8 +30,8 @@ public:
 
 	void Render(sf::RenderTarget* const renderTarget);
 
-	const float GetWidth() const { return mWidth; }
-	const float GetHeight() const { return mHeight; }
+	constexpr float GetWidth() const { return mWidth; }
+	constexpr float GetHeight() const { return mHeight; }
 
 	const sf::Time GetPersonSpawnTime() const { return mPersonSpawnTime; }
 	const sf::Time GetGuardSpawnTime() const { return mGuardSpawnTime; }
