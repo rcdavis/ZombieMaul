@@ -3,7 +3,7 @@
 
 #include "../Game.h"
 #include "../Input/InputManager.h"
-#include "MainMenuState.h"
+#include "PauseMenuState.h"
 #include "../Entity/Player.h"
 #include "../Entity/Person.h"
 #include "../Entity/Guard.h"
@@ -38,13 +38,20 @@ void GameplayState::Exit()
 bool GameplayState::Input()
 {
 	if (InputManager::Global.IsKeyPressed(sf::Keyboard::Escape))
-		mGame.GetStateManager().ClearAndSetState(std::make_unique<MainMenuState>(mGame));
+		mGame.GetStateManager().PushState(std::make_unique<PauseMenuState>(mGame));
 
 	return true;
 }
 
 void GameplayState::Update()
 {
+	if (mGame.GetStateManager().GetCurrentState() != this)
+	{
+		mPersonSpawnTimer.restart();
+		mGuardSpawnTimer.restart();
+		return;
+	}
+
 	mLevel.HandleCollisions();
 
 	if (mPersonSpawnTimer.getElapsedTime() > mLevel.GetPersonSpawnTime())
@@ -58,10 +65,15 @@ void GameplayState::Update()
 		CreateGuard();
 		mGuardSpawnTimer.restart();
 	}
+
+	mGame.GetEntityManager().Update();
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget)
 {
+	if (mGame.GetStateManager().GetCurrentState() != this)
+		return;
+
 	const sf::Vector2f playerPos(mPlayer->GetPosition());
 	const sf::Vector2f windowSize(mGame.GetWindow().getSize());
 
@@ -73,6 +85,8 @@ void GameplayState::Render(sf::RenderTarget* const renderTarget)
 	mGame.GetWindow().setView(view);
 
 	mLevel.Render(renderTarget);
+
+	mGame.GetEntityManager().Render(&mGame.GetWindow());
 }
 
 void GameplayState::CreatePlayer()

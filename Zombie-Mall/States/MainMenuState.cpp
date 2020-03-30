@@ -23,23 +23,24 @@ void MainMenuState::Enter()
 {
 	mCurEntry = 0;
 
-	auto texture = mGame.GetTextureManager().LoadTexture("Resources/Textures/MenuPlay.png");
+	TextureManager& textureManager = mGame.GetTextureManager();
+	auto texture = textureManager.LoadTexture("Resources/Textures/MenuPlay.png");
 	if (texture)
-		mEntries.push_back(sf::Sprite(*texture));
+		mEntries.emplace_back(*texture);
 
-	texture = mGame.GetTextureManager().LoadTexture("Resources/Textures/MenuOptions.png");
+	texture = textureManager.LoadTexture("Resources/Textures/MenuOptions.png");
 	if (texture)
-		mEntries.push_back(sf::Sprite(*texture));
+		mEntries.emplace_back(*texture);
 
-	texture = mGame.GetTextureManager().LoadTexture("Resources/Textures/MenuCredits.png");
+	texture = textureManager.LoadTexture("Resources/Textures/MenuCredits.png");
 	if (texture)
-		mEntries.push_back(sf::Sprite(*texture));
+		mEntries.emplace_back(*texture);
 
-	texture = mGame.GetTextureManager().LoadTexture("Resources/Textures/MenuExit.png");
+	texture = textureManager.LoadTexture("Resources/Textures/MenuExit.png");
 	if (texture)
-		mEntries.push_back(sf::Sprite(*texture));
+		mEntries.emplace_back(*texture);
 
-	texture = mGame.GetTextureManager().LoadTexture("Resources/Textures/MenuBG1.png");
+	texture = textureManager.LoadTexture("Resources/Textures/MenuBG1.png");
 	if (texture)
 	{
 		mBgImage.setTexture(*texture);
@@ -47,7 +48,7 @@ void MainMenuState::Enter()
 		mBgImage.setPosition(0.0f, -20.0f);
 	}
 
-	auto icon = mGame.GetTextureManager().LoadTexture("Resources/Textures/MenuPointer.png");
+	auto icon = textureManager.LoadTexture("Resources/Textures/MenuPointer.png");
 	if (icon)
 	{
 		mIcon.setTexture(*icon);
@@ -92,9 +93,7 @@ void MainMenuState::Render(sf::RenderTarget* const renderTarget)
 	if (mGame.GetStateManager().GetCurrentState() == this)
 	{
 		for (auto& entry : mEntries)
-		{
 			renderTarget->draw(entry);
-		}
 
 		renderTarget->draw(mIcon);
 	}

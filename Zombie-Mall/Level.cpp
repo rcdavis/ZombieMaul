@@ -119,10 +119,11 @@ bool Level::LoadLevel(const std::filesystem::path& file)
 
 void Level::HandleCollisions() const
 {
+	EntityManager& entityManager = mGame.GetEntityManager();
 	for (const auto& capsule : mCollisionBounds)
-		mGame.GetEntityManager().HandleCollision(capsule);
+		entityManager.HandleCollision(capsule);
 
-	mGame.GetEntityManager().HandleEntityCollisions();
+	entityManager.HandleEntityCollisions();
 }
 
 void Level::Render(sf::RenderTarget* const renderTarget)

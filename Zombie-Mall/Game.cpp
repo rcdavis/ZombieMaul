@@ -108,8 +108,6 @@ void Game::Update()
 {
 	mStateManager.Update();
 
-	mEntityManager.Update();
-
 	mEventManager.ProcessEvents();
 }
 
@@ -118,8 +116,6 @@ void Game::Render(float lerpBetweenFrame)
 	mWindow.clear(sf::Color::Magenta);
 
 	mStateManager.Render(&mWindow);
-
-	mEntityManager.Render(&mWindow);
 
 	mWindow.display();
 }
