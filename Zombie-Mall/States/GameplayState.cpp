@@ -23,12 +23,13 @@ void GameplayState::Enter()
 	CreatePlayer();
 	CreatePerson();
 
-	mPersonSpawnTimer.restart();
-	mGuardSpawnTimer.restart();
+	mSpawns.emplace_back(mLevel.GetPersonSpawnTime(), std::bind(&GameplayState::CreatePerson, this));
+	mSpawns.emplace_back(mLevel.GetGuardSpawnTime(), std::bind(&GameplayState::CreateGuard, this));
 }
 
 void GameplayState::Exit()
 {
+	mSpawns.clear();
 	mGame.GetEntityManager().ClearEntities();
 	mPlayer = nullptr;
 
@@ -47,24 +48,16 @@ void GameplayState::Update()
 {
 	if (mGame.GetStateManager().GetCurrentState() != this)
 	{
-		mPersonSpawnTimer.restart();
-		mGuardSpawnTimer.restart();
+		for (auto& spawn : mSpawns)
+			spawn.ResetTimer();
+
 		return;
 	}
 
 	mLevel.HandleCollisions();
 
-	if (mPersonSpawnTimer.getElapsedTime() > mLevel.GetPersonSpawnTime())
-	{
-		CreatePerson();
-		mPersonSpawnTimer.restart();
-	}
-
-	if (mGuardSpawnTimer.getElapsedTime() > mLevel.GetGuardSpawnTime())
-	{
-		CreateGuard();
-		mGuardSpawnTimer.restart();
-	}
+	for (auto& spawn : mSpawns)
+		spawn.Update();
 
 	mGame.GetEntityManager().Update();
 }

@@ -98,9 +98,7 @@ void OptionsMenuState::Update()
 void OptionsMenuState::Render(sf::RenderTarget* const renderTarget)
 {
 	for (auto& entry : mEntries)
-	{
 		renderTarget->draw(entry);
-	}
 
 	renderTarget->draw(mIcon);
 }

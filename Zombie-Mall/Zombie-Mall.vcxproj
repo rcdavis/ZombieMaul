@@ -139,6 +139,7 @@
     <ClCompile Include="Renderer\FontManager.cpp" />
     <ClCompile Include="Renderer\TextureManager.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="IntervalTrigger.cpp" />
     <ClCompile Include="States\CreditsMenuState.cpp" />
     <ClCompile Include="States\GameplayState.cpp" />
     <ClCompile Include="States\MainMenuState.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Renderer\FontManager.h" />
     <ClInclude Include="Renderer\TextureManager.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="IntervalTrigger.h" />
     <ClInclude Include="States\CreditsMenuState.h" />
     <ClInclude Include="States\GameplayState.h" />
     <ClInclude Include="States\IState.h" />

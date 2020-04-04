@@ -108,6 +108,9 @@
     <ClCompile Include="States\PauseMenuState.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="IntervalTrigger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="States\PauseMenuState.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="IntervalTrigger.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
