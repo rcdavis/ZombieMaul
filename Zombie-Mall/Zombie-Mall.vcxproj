@@ -138,6 +138,7 @@
     <ClCompile Include="Renderer\AnimationPlayer.cpp" />
     <ClCompile Include="Renderer\FontManager.cpp" />
     <ClCompile Include="Renderer\TextureManager.cpp" />
+    <ClCompile Include="RNG.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="IntervalTrigger.cpp" />
     <ClCompile Include="States\CreditsMenuState.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Renderer\AnimationPlayer.h" />
     <ClInclude Include="Renderer\FontManager.h" />
     <ClInclude Include="Renderer\TextureManager.h" />
+    <ClInclude Include="RNG.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="IntervalTrigger.h" />
     <ClInclude Include="States\CreditsMenuState.h" />

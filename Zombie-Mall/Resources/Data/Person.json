@@ -7,7 +7,6 @@
 		"x": 32.0,
 		"y": 32.0
 	},
-	"rotation": 180.0,
 	"speed": 3.0,
 	"texture": {
 		"file": "Resources/Textures/CharacterSprite.png",

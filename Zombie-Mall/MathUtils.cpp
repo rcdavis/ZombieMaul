@@ -76,3 +76,8 @@ const sf::Vector2f RotateVector(const sf::Vector2f& vec, const float radians)
 	rotatedVec.y *= -1.0f;
 	return rotatedVec;
 }
+
+const sf::Vector2f Perpendicular(const sf::Vector2f& vec)
+{
+	return sf::Vector2f(vec.y, -vec.x);
+}
