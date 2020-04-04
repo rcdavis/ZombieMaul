@@ -4,12 +4,14 @@
 
 #include "IState.h"
 
+#include "../IntervalTrigger.h"
 #include "../Level.h"
 #include <SFML/System/Clock.hpp>
 
+#include <vector>
+
 class Game;
 class Player;
-class Entity;
 
 class GameplayState : public IState
 {
@@ -31,8 +33,7 @@ private:
 
 	Game& mGame;
 
-	sf::Clock mPersonSpawnTimer;
-	sf::Clock mGuardSpawnTimer;
+	std::vector<IntervalTrigger> mSpawns;
 
 	Level mLevel;
 	Player* mPlayer;

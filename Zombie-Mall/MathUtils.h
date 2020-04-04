@@ -39,4 +39,6 @@ const float AngleBetweenVectors(const sf::Vector2f& first, const sf::Vector2f& s
 
 const sf::Vector2f RotateVector(const sf::Vector2f& vec, const float radians);
 
+const sf::Vector2f Perpendicular(const sf::Vector2f& vec);
+
 #endif // !_MATH_UTILS_H_
