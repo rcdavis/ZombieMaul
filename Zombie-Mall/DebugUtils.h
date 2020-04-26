@@ -7,8 +7,8 @@
 
 namespace sf
 {
-	class RenderTarget;
-	class Color;
+    class RenderTarget;
+    class Color;
 }
 
 void DrawCapsule(sf::RenderTarget* const renderTarget, const Capsule& capsule, const sf::Color& color);

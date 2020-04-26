@@ -9,7 +9,7 @@
 
 namespace sf
 {
-	class RenderTarget;
+    class RenderTarget;
 }
 
 class Capsule;
@@ -17,23 +17,23 @@ class Capsule;
 class EntityManager
 {
 public:
-	EntityManager();
-	~EntityManager();
+    EntityManager();
+    ~EntityManager();
 
-	void AddEntity(std::unique_ptr<Entity> entity);
-	void RemoveEntity(Entity* const entity);
-	void ClearEntities();
+    void AddEntity(std::unique_ptr<Entity> entity);
+    void RemoveEntity(Entity* const entity);
+    void ClearEntities();
 
-	void HandleCollision(const Capsule& capsule);
-	void HandleEntityCollisions();
-	void Update();
-	void Render(sf::RenderTarget* const renderTarget);
+    void HandleCollision(const Capsule& capsule);
+    void HandleEntityCollisions();
+    void Update();
+    void Render(sf::RenderTarget* const renderTarget);
 
 private:
-	EntityManager(const EntityManager&) = delete;
-	EntityManager& operator=(const EntityManager&) = delete;
+    EntityManager(const EntityManager&) = delete;
+    EntityManager& operator=(const EntityManager&) = delete;
 
-	std::list<std::unique_ptr<Entity> > mEntities;
+    std::list<std::unique_ptr<Entity> > mEntities;
 };
 
 #endif // !_ENTITY_MANAGER_H_

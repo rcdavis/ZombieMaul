@@ -7,15 +7,15 @@
 class Circle
 {
 public:
-	Circle() : mPos(), mRadius(0.0f) {}
-	Circle(sf::Vector2f pos, float radius) : mPos(pos), mRadius(radius) {}
+    Circle() : mPos(), mRadius(0.0f) {}
+    Circle(sf::Vector2f pos, float radius) : mPos(pos), mRadius(radius) {}
 
-	const sf::Vector2f GetPosition() const { return mPos; }
-	const float GetRadius() const { return mRadius; }
+    const sf::Vector2f GetPosition() const { return mPos; }
+    constexpr float GetRadius() const { return mRadius; }
 
 private:
-	sf::Vector2f mPos;
-	float mRadius;
+    sf::Vector2f mPos;
+    float mRadius;
 };
 
 #endif // !_CIRCLE_H_

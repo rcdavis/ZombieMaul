@@ -8,20 +8,20 @@
 class Settings
 {
 public:
-	Settings();
+    Settings();
 
-	bool Load(std::filesystem::path file);
-	bool Save(std::filesystem::path file);
+    bool Load(std::filesystem::path file);
+    bool Save(std::filesystem::path file);
 
-	int GetMusicVolume() const { return mMusicVolume; }
-	int GetSfxVolume() const { return mSfxVolume; }
+    constexpr int GetMusicVolume() const { return mMusicVolume; }
+    constexpr int GetSfxVolume() const { return mSfxVolume; }
 
-	void SetMusicVolume(int volume) { mMusicVolume = std::clamp(volume, 0, 100); }
-	void SetSfxVolume(int volume) { mSfxVolume = std::clamp(volume, 0, 100); }
+    void SetMusicVolume(int volume) { mMusicVolume = std::clamp(volume, 0, 100); }
+    void SetSfxVolume(int volume) { mSfxVolume = std::clamp(volume, 0, 100); }
 
 private:
-	int mMusicVolume;
-	int mSfxVolume;
+    int mMusicVolume;
+    int mSfxVolume;
 };
 
 #endif // !_SETTINGS_H_

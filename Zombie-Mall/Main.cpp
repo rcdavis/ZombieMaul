@@ -5,9 +5,9 @@
 
 int main()
 {
-	Game game;
+    Game game;
 
-	game.Run();
+    game.Run();
 
-	return 0;
+    return 0;
 }

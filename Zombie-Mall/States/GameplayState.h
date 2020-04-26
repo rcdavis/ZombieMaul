@@ -16,27 +16,27 @@ class Player;
 class GameplayState : public IState
 {
 public:
-	GameplayState(Game& game);
-	~GameplayState();
+    GameplayState(Game& game);
+    ~GameplayState();
 
-	void Enter() override;
-	void Exit() override;
+    void Enter() override;
+    void Exit() override;
 
-	bool Input() override;
-	void Update() override;
-	void Render(sf::RenderTarget* const renderTarget) override;
+    bool Input() override;
+    void Update() override;
+    void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
-	void CreatePlayer();
-	void CreatePerson();
-	void CreateGuard();
+    void CreatePlayer();
+    void CreatePerson();
+    void CreateGuard();
 
-	Game& mGame;
+    Game& mGame;
 
-	std::vector<IntervalTrigger> mSpawns;
+    std::vector<IntervalTrigger> mSpawns;
 
-	Level mLevel;
-	Player* mPlayer;
+    Level mLevel;
+    Player* mPlayer;
 };
 
 #endif // !_GAMEPLAY_H_

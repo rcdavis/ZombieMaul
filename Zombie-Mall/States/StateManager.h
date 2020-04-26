@@ -10,44 +10,44 @@
 class StateManager
 {
 private:
-	enum class State
-	{
-		PUSH,
-		POP,
-		SET,
-		NONE
-	};
+    enum class State
+    {
+        PUSH,
+        POP,
+        SET,
+        NONE
+    };
 
 public:
-	StateManager();
-	~StateManager();
+    StateManager();
+    ~StateManager();
 
-	void ClearStates();
+    void ClearStates();
 
-	void PushState(std::unique_ptr<IState> state);
-	void PopState();
-	void ClearAndSetState(std::unique_ptr<IState> state);
+    void PushState(std::unique_ptr<IState> state);
+    void PopState();
+    void ClearAndSetState(std::unique_ptr<IState> state);
 
-	void ProcessStateChange();
+    void ProcessStateChange();
 
-	bool Input();
-	void Update();
-	void Render(sf::RenderTarget* const renderTarget);
+    bool Input();
+    void Update();
+    void Render(sf::RenderTarget* const renderTarget);
 
-	IState* GetCurrentState();
+    IState* GetCurrentState();
 
 private:
-	StateManager(const StateManager&) = delete;
-	StateManager& operator=(const StateManager&) = delete;
+    StateManager(const StateManager&) = delete;
+    StateManager& operator=(const StateManager&) = delete;
 
-	void OnPushState();
-	void OnPopState();
-	void OnSetState();
+    void OnPushState();
+    void OnPopState();
+    void OnSetState();
 
-	std::vector<std::unique_ptr<IState> > mStates;
+    std::vector<std::unique_ptr<IState> > mStates;
 
-	std::unique_ptr<IState> mPendingState;
-	State mPendingChange;
+    std::unique_ptr<IState> mPendingState;
+    State mPendingChange;
 };
 
 #endif // !_STATE_MANAGER_H_

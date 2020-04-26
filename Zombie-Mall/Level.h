@@ -15,39 +15,39 @@ class Entity;
 
 namespace sf
 {
-	class RenderTarget;
+    class RenderTarget;
 }
 
 class Level
 {
 public:
-	Level(Game& game);
-	~Level();
+    Level(Game& game);
+    ~Level();
 
-	bool LoadLevel(const std::filesystem::path& file);
+    bool LoadLevel(const std::filesystem::path& file);
 
-	void HandleCollisions() const;
+    void HandleCollisions() const;
 
-	void Render(sf::RenderTarget* const renderTarget);
+    void Render(sf::RenderTarget* const renderTarget);
 
-	constexpr float GetWidth() const { return mWidth; }
-	constexpr float GetHeight() const { return mHeight; }
+    constexpr float GetWidth() const { return mWidth; }
+    constexpr float GetHeight() const { return mHeight; }
 
-	const sf::Time GetPersonSpawnTime() const { return mPersonSpawnTime; }
-	const sf::Time GetGuardSpawnTime() const { return mGuardSpawnTime; }
+    const sf::Time GetPersonSpawnTime() const { return mPersonSpawnTime; }
+    const sf::Time GetGuardSpawnTime() const { return mGuardSpawnTime; }
 
 private:
-	std::vector<Capsule> mCollisionBounds;
+    std::vector<Capsule> mCollisionBounds;
 
-	Game& mGame;
+    Game& mGame;
 
-	sf::Sprite mBGImage;
+    sf::Sprite mBGImage;
 
-	sf::Time mPersonSpawnTime;
-	sf::Time mGuardSpawnTime;
+    sf::Time mPersonSpawnTime;
+    sf::Time mGuardSpawnTime;
 
-	float mWidth;
-	float mHeight;
+    float mWidth;
+    float mHeight;
 };
 
 #endif // !_LEVEL_H_

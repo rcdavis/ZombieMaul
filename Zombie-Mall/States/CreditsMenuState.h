@@ -13,28 +13,28 @@ class Game;
 
 namespace sf
 {
-	class Font;
+    class Font;
 }
 
 class CreditsMenuState : public IState
 {
 public:
-	CreditsMenuState(Game& game);
-	~CreditsMenuState();
+    CreditsMenuState(Game& game);
+    ~CreditsMenuState();
 
-	void Enter() override;
-	void Exit() override;
+    void Enter() override;
+    void Exit() override;
 
-	bool Input() override;
-	void Update() override;
-	void Render(sf::RenderTarget* const renderTarget) override;
+    bool Input() override;
+    void Update() override;
+    void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
-	void AddTextEntry(std::string str, sf::Font* font, sf::Vector2f pos);
+    void AddTextEntry(std::string str, sf::Font* font, sf::Vector2f pos);
 
-	std::vector<sf::Text> mEntries;
+    std::vector<sf::Text> mEntries;
 
-	Game& mGame;
+    Game& mGame;
 };
 
 #endif // !_CREDITS_MENU_STATE_H_

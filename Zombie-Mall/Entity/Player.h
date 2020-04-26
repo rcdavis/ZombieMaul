@@ -10,15 +10,15 @@ class Guard;
 class Player : public Entity
 {
 public:
-	Player(Game& game);
-	~Player();
+    Player(Game& game);
+    ~Player();
 
-	void Update() override;
+    void Update() override;
 
-	void HandleCollision(Entity* const entity) override;
+    void HandleCollision(Entity* const entity) override;
 
-	void HandleCollision(Person* const person);
-	void HandleCollision(Guard* const guard);
+    void HandleCollision(Person* const person);
+    void HandleCollision(Guard* const guard);
 
 private:
 };

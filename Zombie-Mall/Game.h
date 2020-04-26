@@ -22,59 +22,59 @@
 class Game : public IEventListener
 {
 public:
-	Game();
-	~Game();
+    Game();
+    ~Game();
 
-	bool Run();
+    bool Run();
 
-	void HandleEvent(const Event* const pEvent) override;
+    void HandleEvent(const Event* const pEvent) override;
 
-	TextureManager& GetTextureManager() { return mTextureManager; }
-	FontManager& GetFontManager() { return mFontManager; }
-	AnimationManager& GetAnimationManager() { return mAnimationManager; }
-	EntityManager& GetEntityManager() { return mEntityManager; }
-	EventManager& GetEventManager() { return mEventManager; }
-	StateManager& GetStateManager() { return mStateManager; }
+    TextureManager& GetTextureManager() { return mTextureManager; }
+    FontManager& GetFontManager() { return mFontManager; }
+    AnimationManager& GetAnimationManager() { return mAnimationManager; }
+    EntityManager& GetEntityManager() { return mEntityManager; }
+    EventManager& GetEventManager() { return mEventManager; }
+    StateManager& GetStateManager() { return mStateManager; }
 
-	Settings& GetSettings() { return mSettings; }
+    Settings& GetSettings() { return mSettings; }
 
-	sf::RenderWindow& GetWindow() { return mWindow; }
+    sf::RenderWindow& GetWindow() { return mWindow; }
 
 private:
-	Game(const Game&) = delete;
-	Game& operator=(const Game&) = delete;
+    Game(const Game&) = delete;
+    Game& operator=(const Game&) = delete;
 
-	bool Init();
-	void Shutdown();
+    bool Init();
+    void Shutdown();
 
-	bool Input();
-	void Update();
-	void Render(float lerpBetweenFrame);
+    bool Input();
+    void Update();
+    void Render(float lerpBetweenFrame);
 
-	void PollWindowEvents();
+    void PollWindowEvents();
 
-	bool LoadConfig();
+    bool LoadConfig();
 
-	void Close();
+    void Close();
 
-	sf::RenderWindow mWindow;
+    sf::RenderWindow mWindow;
 
-	TextureManager mTextureManager;
-	FontManager mFontManager;
-	AnimationManager mAnimationManager;
-	EventManager mEventManager;
-	EntityManager mEntityManager;
-	StateManager mStateManager;
+    TextureManager mTextureManager;
+    FontManager mFontManager;
+    AnimationManager mAnimationManager;
+    EventManager mEventManager;
+    EntityManager mEntityManager;
+    StateManager mStateManager;
 
-	Settings mSettings;
+    Settings mSettings;
 
-	lua_State* mLuaState;
+    lua_State* mLuaState;
 
-	float mTimeMultiplier;
+    float mTimeMultiplier;
 
-	TextEntity* mTextEntity;
+    TextEntity* mTextEntity;
 
-	const sf::Time mTimeStepPerFrame;
+    const sf::Time mTimeStepPerFrame;
 };
 
 #endif // !_GAME_H_

@@ -10,27 +10,27 @@ class Animation;
 class AnimationPlayer
 {
 public:
-	AnimationPlayer();
-	~AnimationPlayer();
+    AnimationPlayer();
+    ~AnimationPlayer();
 
-	void SetAnimation(const Animation* anim) { mAnim = anim; }
+    void SetAnimation(const Animation* anim) { mAnim = anim; }
 
-	void Update();
+    void Update();
 
-	void Start();
-	void Stop();
+    void Start();
+    void Stop();
 
-	const bool IsPlaying() const { return mIsPlaying; }
+    const bool IsPlaying() const { return mIsPlaying; }
 
-	const sf::IntRect GetAnimRect() const { return mAnimRect; }
+    const sf::IntRect GetAnimRect() const { return mAnimRect; }
 
 private:
-	const Animation* mAnim;
+    const Animation* mAnim;
 
-	sf::Clock mClock;
-	sf::IntRect mAnimRect;
+    sf::Clock mClock;
+    sf::IntRect mAnimRect;
 
-	bool mIsPlaying;
+    bool mIsPlaying;
 };
 
 #endif // !_ANIMATION_PLAYER_H_

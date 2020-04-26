@@ -11,59 +11,55 @@
 #include <iostream>
 
 Settings::Settings() :
-	mMusicVolume(100),
-	mSfxVolume(100)
+    mMusicVolume(100),
+    mSfxVolume(100)
 {}
 
 bool Settings::Load(std::filesystem::path file)
 {
-	std::ifstream ifs(file.string());
-	if (!ifs.is_open())
-	{
-		std::cout << "Settings: Could not open file at " << file.string() << std::endl;
-		return false;
-	}
+    std::ifstream ifs(file.string());
+    if (!ifs.is_open())
+    {
+        std::cout << "Settings: Could not open file at " << file.string() << std::endl;
+        return false;
+    }
 
-	rapidjson::IStreamWrapper isw(ifs);
+    rapidjson::IStreamWrapper isw(ifs);
 
-	rapidjson::Document document;
-	rapidjson::ParseResult parseResult = document.ParseStream(isw);
+    rapidjson::Document document;
+    rapidjson::ParseResult parseResult = document.ParseStream(isw);
 
-	if (!parseResult)
-	{
-		std::cout << "Settings: Document parse error from " << file.string() << std::endl;
-		std::cout << "Settings: RapidJSON error code: " << parseResult.Code() << std::endl;
-		return false;
-	}
+    if (!parseResult)
+    {
+        std::cout << "Settings: Document parse error from " << file.string() << std::endl;
+        std::cout << "Settings: RapidJSON error code: " << parseResult.Code() << std::endl;
+        return false;
+    }
 
-	if (document.HasMember("music_volume") && document["music_volume"].IsInt())
-	{
-		mMusicVolume = document["music_volume"].GetInt();
-	}
+    if (document.HasMember("music_volume") && document["music_volume"].IsInt())
+        mMusicVolume = document["music_volume"].GetInt();
 
-	if (document.HasMember("sfx_volume") && document["sfx_volume"].IsInt())
-	{
-		mSfxVolume = document["sfx_volume"].GetInt();
-	}
+    if (document.HasMember("sfx_volume") && document["sfx_volume"].IsInt())
+        mSfxVolume = document["sfx_volume"].GetInt();
 
-	return true;
+    return true;
 }
 
 bool Settings::Save(std::filesystem::path file)
 {
-	rapidjson::Document document;
-	document.SetObject();
+    rapidjson::Document document;
+    document.SetObject();
 
-	document.AddMember("music_volume", mMusicVolume, document.GetAllocator());
-	document.AddMember("sfx_volume", mSfxVolume, document.GetAllocator());
+    document.AddMember("music_volume", mMusicVolume, document.GetAllocator());
+    document.AddMember("sfx_volume", mSfxVolume, document.GetAllocator());
 
-	std::ofstream ofs(file.string());
-	if (!ofs.is_open())
-		return false;
+    std::ofstream ofs(file.string());
+    if (!ofs.is_open())
+        return false;
 
-	rapidjson::OStreamWrapper osw(ofs);
-	rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
-	document.Accept(writer);
+    rapidjson::OStreamWrapper osw(ofs);
+    rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
+    document.Accept(writer);
 
-	return true;
+    return true;
 }

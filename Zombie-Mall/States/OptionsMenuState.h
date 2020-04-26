@@ -14,37 +14,37 @@ class Game;
 class OptionsMenuState : public IState
 {
 private:
-	enum MenuItems
-	{
-		MUSIC_VOLUME,
-		SFX_VOLUME,
-		EXIT,
-		COUNT
-	};
+    enum MenuItems
+    {
+        MUSIC_VOLUME,
+        SFX_VOLUME,
+        EXIT,
+        COUNT
+    };
 
 public:
-	OptionsMenuState(Game& game);
-	~OptionsMenuState();
+    OptionsMenuState(Game& game);
+    ~OptionsMenuState();
 
-	void Enter() override;
-	void Exit() override;
+    void Enter() override;
+    void Exit() override;
 
-	bool Input() override;
-	void Update() override;
-	void Render(sf::RenderTarget* const renderTarget) override;
+    bool Input() override;
+    void Update() override;
+    void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
-	bool ProcessEnter();
+    bool ProcessEnter();
 
-	void DecreaseMenuItemValue();
-	void IncreaseMenuItemValue();
+    void DecreaseMenuItemValue();
+    void IncreaseMenuItemValue();
 
-	std::vector<sf::Text> mEntries;
-	std::size_t mCurEntry;
+    std::vector<sf::Text> mEntries;
+    std::size_t mCurEntry;
 
-	sf::Sprite mIcon;
+    sf::Sprite mIcon;
 
-	Game& mGame;
+    Game& mGame;
 };
 
 #endif // !_OPTIONS_MENU_STATE_H_

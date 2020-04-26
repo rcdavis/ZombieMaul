@@ -7,9 +7,9 @@ class Event;
 class IEventListener
 {
 public:
-	virtual ~IEventListener() {}
+    virtual ~IEventListener() {}
 
-	virtual void HandleEvent(const Event* const pEvent) = 0;
+    virtual void HandleEvent(const Event* const pEvent) = 0;
 };
 
 #endif // !_IEVENTLISTENER_H_

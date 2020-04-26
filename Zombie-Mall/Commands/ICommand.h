@@ -5,11 +5,11 @@
 class ICommand
 {
 public:
-	virtual ~ICommand() {}
+    virtual ~ICommand() {}
 
-	virtual void Execute() = 0;
+    virtual void Execute() = 0;
 
-	virtual void Undo() {}
+    virtual void Undo() {}
 };
 
 #endif // !_ICOMMAND_H_

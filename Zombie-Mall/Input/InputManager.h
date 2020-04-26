@@ -9,22 +9,22 @@
 class InputManager
 {
 public:
-	static InputManager Global;
+    static InputManager Global;
 
-	void Poll();
+    void Poll();
 
-	bool IsKeyPressed(sf::Keyboard::Key key) const;
-	bool IsKeyDown(sf::Keyboard::Key key) const;
-	bool IsKeyReleased(sf::Keyboard::Key key) const;
+    bool IsKeyPressed(sf::Keyboard::Key key) const;
+    bool IsKeyDown(sf::Keyboard::Key key) const;
+    bool IsKeyReleased(sf::Keyboard::Key key) const;
 
 private:
-	InputManager();
-	~InputManager();
-	InputManager(const InputManager&) = delete;
-	InputManager& operator=(const InputManager&) = delete;
+    InputManager();
+    ~InputManager();
+    InputManager(const InputManager&) = delete;
+    InputManager& operator=(const InputManager&) = delete;
 
-	std::array<bool, sf::Keyboard::KeyCount> mPrevKeyboardState;
-	std::array<bool, sf::Keyboard::KeyCount> mCurKeyboardState;
+    std::array<bool, sf::Keyboard::KeyCount> mPrevKeyboardState;
+    std::array<bool, sf::Keyboard::KeyCount> mCurKeyboardState;
 };
 
 #endif // !_INPUT_MANAGER_H_

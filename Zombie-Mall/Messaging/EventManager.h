@@ -13,22 +13,22 @@ class IEventListener;
 class EventManager
 {
 public:
-	EventManager();
-	~EventManager();
+    EventManager();
+    ~EventManager();
 
-	void RegisterListener(Event::ID id, IEventListener* const listener);
-	void UnregisterListener(Event::ID id, IEventListener* const listener);
+    void RegisterListener(Event::ID id, IEventListener* const listener);
+    void UnregisterListener(Event::ID id, IEventListener* const listener);
 
-	void QueueEvent(Event::ID id, void* const data = nullptr);
+    void QueueEvent(Event::ID id, void* const data = nullptr);
 
-	void ProcessEvents();
+    void ProcessEvents();
 
 private:
-	EventManager(const EventManager&) = delete;
-	EventManager& operator=(const EventManager&) = delete;
+    EventManager(const EventManager&) = delete;
+    EventManager& operator=(const EventManager&) = delete;
 
-	std::map<Event::ID, std::vector<IEventListener*> > mListeners;
-	std::queue<Event> mEvents;
+    std::map<Event::ID, std::vector<IEventListener*> > mListeners;
+    std::queue<Event> mEvents;
 };
 
 #endif // !_EVENT_MANAGER_H_

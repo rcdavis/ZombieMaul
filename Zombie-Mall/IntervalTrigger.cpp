@@ -1,25 +1,25 @@
 
 #include "IntervalTrigger.h"
 
-IntervalTrigger::IntervalTrigger(const sf::Time& interval, std::function<void()> callback) :
-	mTimer(),
-	mCurrentTime(),
-	mInterval(interval),
-	mCallback(callback)
+IntervalTrigger::IntervalTrigger(const sf::Time& interval, const std::function<void()>& callback) :
+    mTimer(),
+    mCurrentTime(),
+    mInterval(interval),
+    mCallback(callback)
 {}
 
 void IntervalTrigger::ResetTimer()
 {
-	mTimer.restart();
+    mTimer.restart();
 }
 
 void IntervalTrigger::Update()
 {
-	mCurrentTime += mTimer.restart();
+    mCurrentTime += mTimer.restart();
 
-	if (mCurrentTime >= mInterval)
-	{
-		mCurrentTime -= mInterval;
-		mCallback();
-	}
+    if (mCurrentTime >= mInterval)
+    {
+        mCurrentTime -= mInterval;
+        mCallback();
+    }
 }

@@ -9,13 +9,13 @@ class Player;
 class Guard : public Entity
 {
 public:
-	Guard(Game& game, Player* const player);
-	~Guard();
+    Guard(Game& game, Player* const player);
+    ~Guard();
 
-	void Update() override;
+    void Update() override;
 
 private:
-	Player* mPlayer;
+    Player* mPlayer;
 };
 
 #endif // !_GUARD_H_

@@ -11,15 +11,15 @@
 class AnimationManager
 {
 public:
-	AnimationManager();
-	~AnimationManager();
+    AnimationManager();
+    ~AnimationManager();
 
-	Animation* LoadAnimation(std::filesystem::path path);
+    Animation* LoadAnimation(std::filesystem::path path);
 
 private:
-	std::unique_ptr<Animation> ParseAnimation(std::filesystem::path path);
+    std::unique_ptr<Animation> ParseAnimation(std::filesystem::path path);
 
-	std::map<std::filesystem::path, std::unique_ptr<Animation> > mAnimations;
+    std::map<std::filesystem::path, std::unique_ptr<Animation> > mAnimations;
 };
 
 #endif // !_ANIMATION_MANAGER_H_

@@ -12,17 +12,17 @@ const float PI = std::atanf(1.0f) * 4.0f;
 
 constexpr float DegreesToRadians(float degrees)
 {
-	return degrees * (PI / 180.0f);
+    return degrees * (PI / 180.0f);
 }
 
 constexpr float RadiansToDegrees(float radians)
 {
-	return radians * (180.0f / PI);
+    return radians * (180.0f / PI);
 }
 
 constexpr float Lerp(float start, float end, float percent)
 {
-	return start + ((end - start) * percent);
+    return start + ((end - start) * percent);
 }
 
 bool CircleCollision(const Circle& first, const Circle& second);

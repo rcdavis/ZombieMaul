@@ -12,181 +12,181 @@
 #include "States/MainMenuState.h"
 
 Game::Game() :
-	mWindow(),
-	mTextureManager(),
-	mFontManager(),
-	mAnimationManager(),
-	mEventManager(),
-	mEntityManager(),
-	mStateManager(),
-	mSettings(),
-	mLuaState(luaL_newstate()),
-	mTimeMultiplier(1.0f),
-	mTextEntity(nullptr),
-	mTimeStepPerFrame(sf::seconds(1.0f / 60.0f))
+    mWindow(),
+    mTextureManager(),
+    mFontManager(),
+    mAnimationManager(),
+    mEventManager(),
+    mEntityManager(),
+    mStateManager(),
+    mSettings(),
+    mLuaState(luaL_newstate()),
+    mTimeMultiplier(1.0f),
+    mTextEntity(nullptr),
+    mTimeStepPerFrame(sf::seconds(1.0f / 60.0f))
 {
-	luaL_openlibs(mLuaState);
+    luaL_openlibs(mLuaState);
 }
 
 Game::~Game()
 {
-	lua_close(mLuaState);
+    lua_close(mLuaState);
 }
 
 bool Game::Run()
 {
-	if (Init() == false)
-		return false;
+    if (Init() == false)
+        return false;
 
-	sf::Clock clock;
-	sf::Time lag;
+    sf::Clock clock;
+    sf::Time lag;
 
-	while (mWindow.isOpen())
-	{
-		PollWindowEvents();
+    while (mWindow.isOpen())
+    {
+        PollWindowEvents();
 
-		mStateManager.ProcessStateChange();
+        mStateManager.ProcessStateChange();
 
-		const sf::Time elapsedTime = clock.restart() * mTimeMultiplier;
-		lag += elapsedTime;
+        const sf::Time elapsedTime = clock.restart() * mTimeMultiplier;
+        lag += elapsedTime;
 
-		if (Input() == false)
-		{
-			Close();
-			break;
-		}
+        if (Input() == false)
+        {
+            Close();
+            break;
+        }
 
-		while (lag >= mTimeStepPerFrame)
-		{
-			Update();
+        while (lag >= mTimeStepPerFrame)
+        {
+            Update();
 
 #ifdef _DEBUG
-			if (lag >= (mTimeStepPerFrame * 2.0f))
-				lag = mTimeStepPerFrame;
+            if (lag >= (mTimeStepPerFrame * 2.0f))
+                lag = mTimeStepPerFrame;
 #endif // _DEBUG
 
-			lag -= mTimeStepPerFrame;
-		}
+            lag -= mTimeStepPerFrame;
+        }
 
-		Render(lag / mTimeStepPerFrame);
-	}
+        Render(lag / mTimeStepPerFrame);
+    }
 
-	Shutdown();
+    Shutdown();
 
-	return true;
+    return true;
 }
 
 bool Game::Init()
 {
-	if (!LoadConfig())
-		return false;
+    if (!LoadConfig())
+        return false;
 
-	mSettings.Load("Resources/Data/Settings.json");
+    mSettings.Load("Resources/Data/Settings.json");
 
-	mEventManager.RegisterListener("Player Died", this);
+    mEventManager.RegisterListener("Player Died", this);
 
-	mStateManager.PushState(std::make_unique<MainMenuState>(*this));
+    mStateManager.PushState(std::make_unique<MainMenuState>(*this));
 
-	return true;
+    return true;
 }
 
 void Game::Shutdown()
 {
-	mSettings.Save("Resources/Data/Settings.json");
+    mSettings.Save("Resources/Data/Settings.json");
 
-	mStateManager.ClearStates();
+    mStateManager.ClearStates();
 }
 
 bool Game::Input()
 {
-	InputManager::Global.Poll();
+    InputManager::Global.Poll();
 
-	return mStateManager.Input();
+    return mStateManager.Input();
 }
 
 void Game::Update()
 {
-	mStateManager.Update();
+    mStateManager.Update();
 
-	mEventManager.ProcessEvents();
+    mEventManager.ProcessEvents();
 }
 
 void Game::Render(float lerpBetweenFrame)
 {
-	mWindow.clear(sf::Color::Magenta);
+    mWindow.clear(sf::Color::Magenta);
 
-	mStateManager.Render(&mWindow);
+    mStateManager.Render(&mWindow);
 
-	mWindow.display();
+    mWindow.display();
 }
 
 void Game::PollWindowEvents()
 {
-	sf::Event e;
-	while (mWindow.pollEvent(e))
-	{
-		switch (e.type)
-		{
-		case sf::Event::Closed:
-			Close();
-			break;
-		}
-	}
+    sf::Event e;
+    while (mWindow.pollEvent(e))
+    {
+        switch (e.type)
+        {
+        case sf::Event::Closed:
+            Close();
+            break;
+        }
+    }
 }
 
 void Game::HandleEvent(const Event* const pEvent)
 {
-	if (pEvent->GetId() == "Player Died")
-	{
-		mStateManager.ClearAndSetState(std::make_unique<MainMenuState>(*this));
-	}
+    if (pEvent->GetId() == "Player Died")
+    {
+        mStateManager.ClearAndSetState(std::make_unique<MainMenuState>(*this));
+    }
 }
 
 bool Game::LoadConfig()
 {
-	luaL_dofile(mLuaState, "Resources/Scripts/Config.lua");
+    luaL_dofile(mLuaState, "Resources/Scripts/Config.lua");
 
-	std::string title = "Default Title";
-	unsigned int width = 400U, height = 300U;
+    std::string title = "Default Title";
+    unsigned int width = 400U, height = 300U;
 
-	luabridge::LuaRef appRef = luabridge::getGlobal(mLuaState, "app");
-	if (!appRef.isTable())
-		return false;
+    luabridge::LuaRef appRef = luabridge::getGlobal(mLuaState, "app");
+    if (!appRef.isTable())
+        return false;
 
-	luabridge::LuaRef windowRef = appRef["window"];
-	if (!windowRef.isTable())
-		return false;
+    luabridge::LuaRef windowRef = appRef["window"];
+    if (!windowRef.isTable())
+        return false;
 
-	luabridge::LuaRef titleRef = windowRef["title"];
-	if (titleRef.isString())
-		title = titleRef.cast<std::string>();
+    luabridge::LuaRef titleRef = windowRef["title"];
+    if (titleRef.isString())
+        title = titleRef.cast<std::string>();
 
-	luabridge::LuaRef sizeRef = windowRef["size"];
-	if (sizeRef.isTable())
-	{
-		if (sizeRef["width"].isNumber())
-			width = sizeRef["width"].cast<unsigned int>();
+    luabridge::LuaRef sizeRef = windowRef["size"];
+    if (sizeRef.isTable())
+    {
+        if (sizeRef["width"].isNumber())
+            width = sizeRef["width"].cast<unsigned int>();
 
-		if (sizeRef["height"].isNumber())
-			height = sizeRef["height"].cast<unsigned int>();
-	}
+        if (sizeRef["height"].isNumber())
+            height = sizeRef["height"].cast<unsigned int>();
+    }
 
-	mWindow.create(sf::VideoMode(width, height), title);
+    mWindow.create(sf::VideoMode(width, height), title);
 
-	luabridge::LuaRef iconRef = windowRef["icon"];
-	if (iconRef.isString())
-	{
-		sf::Image icon;
-		if (icon.loadFromFile(iconRef.cast<std::string>()))
-		{
-			mWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-		}
-	}
+    luabridge::LuaRef iconRef = windowRef["icon"];
+    if (iconRef.isString())
+    {
+        sf::Image icon;
+        if (icon.loadFromFile(iconRef.cast<std::string>()))
+        {
+            mWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+        }
+    }
 
-	return true;
+    return true;
 }
 
 void Game::Close()
 {
-	mWindow.close();
+    mWindow.close();
 }

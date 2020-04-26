@@ -10,20 +10,20 @@
 
 namespace sf
 {
-	class Font;
+    class Font;
 }
 
 class TextEntity : public Entity
 {
 public:
-	TextEntity(Game& game, const sf::Font& font, const std::string& text);
-	~TextEntity();
+    TextEntity(Game& game, const sf::Font& font, const std::string& text);
+    ~TextEntity();
 
-	void Update() override;
-	void Render(sf::RenderTarget* renderTarget) override;
+    void Update() override;
+    void Render(sf::RenderTarget* renderTarget) override;
 
 private:
-	sf::Text mText;
+    sf::Text mText;
 };
 
 #endif // !_TEXT_ENTITY_H_

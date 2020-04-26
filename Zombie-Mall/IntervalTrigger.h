@@ -10,17 +10,17 @@
 class IntervalTrigger
 {
 public:
-	IntervalTrigger(const sf::Time& interval, std::function<void()> callback);
+    IntervalTrigger(const sf::Time& interval, const std::function<void()>& callback);
 
-	void ResetTimer();
-	void Update();
+    void ResetTimer();
+    void Update();
 
 private:
-	sf::Clock mTimer;
-	sf::Time mCurrentTime;
-	sf::Time mInterval;
+    sf::Clock mTimer;
+    sf::Time mCurrentTime;
+    sf::Time mInterval;
 
-	std::function<void()> mCallback;
+    std::function<void()> mCallback;
 };
 
 #endif // !_INTERVAL_TRIGGER_H_

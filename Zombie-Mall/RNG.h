@@ -7,13 +7,13 @@
 class UniformDistributor
 {
 public:
-	UniformDistributor(int start, int end);
+    UniformDistributor(int start, int end);
 
-	int GetRandomValue();
+    int GetRandomValue();
 
 private:
-	std::default_random_engine rng;
-	std::uniform_int_distribution<int> distributor;
+    std::default_random_engine rng;
+    std::uniform_int_distribution<int> distributor;
 };
 
 #endif // !_RNG_H_

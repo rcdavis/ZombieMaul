@@ -9,20 +9,20 @@
 class Person : public Entity
 {
 public:
-	Person(Game& game);
-	~Person();
+    Person(Game& game);
+    ~Person();
 
-	Person(const Person&) = default;
-	Person& operator=(const Person&) = default;
+    Person(const Person&) = default;
+    Person& operator=(const Person&) = default;
 
-	void HandleCollision(const Capsule& capsule) override;
+    void HandleCollision(const Capsule& capsule) override;
 
-	void Update() override;
+    void Update() override;
 
-	void ConvertToZombie();
+    void ConvertToZombie();
 
 private:
-	UniformDistributor rng;
+    UniformDistributor rng;
 };
 
 #endif // !_PERSON_H_
