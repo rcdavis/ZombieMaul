@@ -23,7 +23,8 @@ Game::Game() :
     mLuaState(luaL_newstate()),
     mTimeMultiplier(1.0f),
     mTextEntity(nullptr),
-    mTimeStepPerFrame(sf::seconds(1.0f / 60.0f))
+    mTimeStepPerFrame(sf::seconds(1.0f / 60.0f)),
+    mScore(0)
 {
     luaL_openlibs(mLuaState);
 }
@@ -60,10 +61,10 @@ bool Game::Run()
         {
             Update();
 
-#ifdef _DEBUG
+#ifdef DEBUG
             if (lag >= (mTimeStepPerFrame * 2.0f))
                 lag = mTimeStepPerFrame;
-#endif // _DEBUG
+#endif // DEBUG
 
             lag -= mTimeStepPerFrame;
         }
@@ -84,6 +85,7 @@ bool Game::Init()
     mSettings.Load("Resources/Data/Settings.json");
 
     mEventManager.RegisterListener("Player Died", this);
+    mEventManager.RegisterListener("Player Hit Civilian", this);
 
     mStateManager.PushState(std::make_unique<MainMenuState>(*this));
 
@@ -139,6 +141,10 @@ void Game::HandleEvent(const Event* const pEvent)
     if (pEvent->GetId() == "Player Died")
     {
         mStateManager.ClearAndSetState(std::make_unique<MainMenuState>(*this));
+    }
+    else if (pEvent->GetId() == "Player Hit Civilian")
+    {
+        ++mScore;
     }
 }
 

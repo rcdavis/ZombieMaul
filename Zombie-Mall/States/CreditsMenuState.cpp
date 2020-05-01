@@ -58,9 +58,7 @@ void CreditsMenuState::Update() {}
 void CreditsMenuState::Render(sf::RenderTarget* const renderTarget)
 {
     for (auto entry : mEntries)
-    {
         renderTarget->draw(entry);
-    }
 }
 
 void CreditsMenuState::AddTextEntry(std::string str, sf::Font* font, sf::Vector2f pos)
