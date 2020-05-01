@@ -41,6 +41,10 @@ void Player::HandleCollision(Entity* const entity)
         HandleCollision(static_cast<Person* const>(entity));
         break;
 
+    case Entity::Type::Zombie:
+        HandleZombieCollision(static_cast<Person* const>(entity));
+        break;
+
     case Entity::Type::Guard:
         HandleCollision(static_cast<Guard* const>(entity));
         break;
@@ -59,6 +63,20 @@ void Player::HandleCollision(Person* const person)
     {
         person->ConvertToZombie();
         mGame.GetEventManager().QueueEvent("Player Hit Civilian");
+    }
+}
+
+void Player::HandleZombieCollision(Person* const zombie)
+{
+    if (zombie->CanHurtPlayer())
+    {
+        const Circle zombieCircle(zombie->GetPosition(), 32.0f);
+        const Circle playerCircle(GetPosition(), 32.0f);
+
+        if (CircleCollision(playerCircle, zombieCircle))
+        {
+            mGame.GetEventManager().QueueEvent("Player Died");
+        }
     }
 }
 
