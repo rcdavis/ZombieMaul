@@ -61,7 +61,7 @@ void CreditsMenuState::Render(sf::RenderTarget* const renderTarget)
         renderTarget->draw(entry);
 }
 
-void CreditsMenuState::AddTextEntry(std::string str, sf::Font* font, sf::Vector2f pos)
+void CreditsMenuState::AddTextEntry(const std::string& str, sf::Font* font, sf::Vector2f pos)
 {
     sf::Text text = sf::Text(str, *font);
     text.setPosition(pos);

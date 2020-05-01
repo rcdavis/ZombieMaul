@@ -10,6 +10,7 @@
 
 #include "Input/InputManager.h"
 #include "States/MainMenuState.h"
+#include "States/GameOverState.h"
 
 Game::Game() :
     mWindow(),
@@ -140,7 +141,7 @@ void Game::HandleEvent(const Event* const pEvent)
 {
     if (pEvent->GetId() == "Player Died")
     {
-        mStateManager.ClearAndSetState(std::make_unique<MainMenuState>(*this));
+        mStateManager.ClearAndSetState(std::make_unique<GameOverState>(*this));
     }
     else if (pEvent->GetId() == "Player Hit Civilian")
     {
