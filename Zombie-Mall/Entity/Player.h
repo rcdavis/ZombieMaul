@@ -17,10 +17,10 @@ public:
 
     void HandleCollision(Entity* const entity) override;
 
-    void HandleCollision(Person* const person);
-    void HandleCollision(Guard* const guard);
-
 private:
+    void HandleCollision(Person* const person);
+    void HandleZombieCollision(Person* const zombie);
+    void HandleCollision(Guard* const guard);
 };
 
 #endif // !_PLAYER_H_

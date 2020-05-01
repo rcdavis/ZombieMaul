@@ -7,7 +7,9 @@
 
 Person::Person(Game& game) :
     Entity(game),
-    rng(0, 360)
+    rng(0, 360),
+    mTransformationTime(nullptr),
+    mCanHurtPlayer(true)
 {
     SetType(Entity::Type::Person);
     SetRotation(static_cast<float>(rng.GetRandomValue()));
@@ -17,6 +19,18 @@ Person::~Person() {}
 
 void Person::Update()
 {
+    if (GetType() == Entity::Type::Zombie)
+    {
+        if (mCanHurtPlayer)
+        {
+            mTransformationTime = nullptr;
+        }
+        else if(mTransformationTime)
+        {
+            mTransformationTime->Update();
+        }
+    }
+
     Entity::Update();
 }
 
@@ -24,6 +38,11 @@ void Person::ConvertToZombie()
 {
     SetType(Entity::Type::Zombie);
     Load("Resources/Data/Zombie.json");
+
+    mCanHurtPlayer = false;
+    mTransformationTime = std::make_unique<IntervalTrigger>(sf::milliseconds(1000), [=]() {
+        mCanHurtPlayer = true;
+    });
 }
 
 void Person::HandleCollision(const Capsule& capsule)

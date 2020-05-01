@@ -23,6 +23,10 @@ void GameOverState::Enter()
     if (font)
     {
         AddTextEntry("Game Over", font, sf::Vector2f(300.0f, 400.0f));
+
+        char buffer[16] = {};
+        sprintf_s(buffer, "Score: %i", mGame.GetScore());
+        AddTextEntry(buffer, font, sf::Vector2f(300.0f, 500.0f));
     }
 
     auto texture = mGame.GetTextureManager().LoadTexture("Resources/Textures/MenuBG1.png");

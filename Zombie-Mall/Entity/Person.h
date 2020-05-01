@@ -5,6 +5,9 @@
 #include "Entity.h"
 
 #include "../RNG.h"
+#include "../IntervalTrigger.h"
+
+#include <memory>
 
 class Person : public Entity
 {
@@ -21,8 +24,12 @@ public:
 
     void ConvertToZombie();
 
+    constexpr bool CanHurtPlayer() const { return mCanHurtPlayer; }
+
 private:
     UniformDistributor rng;
+    std::unique_ptr<IntervalTrigger> mTransformationTime;
+    bool mCanHurtPlayer;
 };
 
 #endif // !_PERSON_H_
