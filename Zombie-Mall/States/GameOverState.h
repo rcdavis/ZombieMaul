@@ -1,26 +1,21 @@
 
-#ifndef _CREDITS_MENU_STATE_H_
-#define _CREDITS_MENU_STATE_H_
+#ifndef _GAMEOVERSTATE_H_
+#define _GAMEOVERSTATE_H_
 
 #include "IState.h"
 
 #include <SFML/Graphics/Text.hpp>
-#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+
 #include <vector>
-#include <string>
 
 class Game;
 
-namespace sf
-{
-    class Font;
-}
-
-class CreditsMenuState : public IState
+class GameOverState : public IState
 {
 public:
-    CreditsMenuState(Game& game);
-    ~CreditsMenuState();
+	GameOverState(Game& game);
+	~GameOverState();
 
     void Enter() override;
     void Exit() override;
@@ -33,8 +28,9 @@ private:
     void AddTextEntry(const std::string& str, sf::Font* font, sf::Vector2f pos);
 
     std::vector<sf::Text> mEntries;
+    sf::Sprite mBgImage;
 
     Game& mGame;
 };
 
-#endif // !_CREDITS_MENU_STATE_H_
+#endif // !_GAMEOVERSTATE_H_

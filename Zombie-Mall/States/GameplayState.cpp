@@ -72,7 +72,7 @@ void GameplayState::Update()
     mGame.GetEntityManager().Update();
 
     char buffer[16] = {};
-    sprintf(buffer, "Score: %i", mGame.GetScore());
+    sprintf_s(buffer, "Score: %i", mGame.GetScore());
     mScoreText.setString(buffer);
 }
 
