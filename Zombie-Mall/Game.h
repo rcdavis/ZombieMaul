@@ -40,6 +40,9 @@ public:
 
     sf::RenderWindow& GetWindow() { return mWindow; }
 
+    void ResetScore() { mScore = 0; }
+    constexpr unsigned int GetScore() const { return mScore; }
+
 private:
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
@@ -75,6 +78,8 @@ private:
     TextEntity* mTextEntity;
 
     const sf::Time mTimeStepPerFrame;
+
+    unsigned int mScore;
 };
 
 #endif // !_GAME_H_

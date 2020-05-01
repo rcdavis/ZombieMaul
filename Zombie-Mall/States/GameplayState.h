@@ -6,7 +6,9 @@
 
 #include "../IntervalTrigger.h"
 #include "../Level.h"
+
 #include <SFML/System/Clock.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include <vector>
 
@@ -37,6 +39,7 @@ private:
 
     Level mLevel;
     Player* mPlayer;
+    sf::Text mScoreText;
 };
 
 #endif // !_GAMEPLAY_H_

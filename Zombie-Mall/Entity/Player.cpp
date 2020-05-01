@@ -56,7 +56,10 @@ void Player::HandleCollision(Person* const person)
     const Circle playerCircle(GetPosition(), 32.0f);
 
     if (CircleCollision(playerCircle, personCircle))
+    {
         person->ConvertToZombie();
+        mGame.GetEventManager().QueueEvent("Player Hit Civilian");
+    }
 }
 
 void Player::HandleCollision(Guard* const guard)
