@@ -4,9 +4,9 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
 
-#include <LuaBridge/LuaBridge.h>
-
 #include <iostream>
+
+#include "LuaUtils.h"
 
 #include "Input/InputManager.h"
 #include "States/MainMenuState.h"
@@ -21,18 +21,16 @@ Game::Game() :
     mEntityManager(),
     mStateManager(),
     mSettings(),
-    mLuaState(luaL_newstate()),
     mTimeMultiplier(1.0f),
-    mTextEntity(nullptr),
     mTimeStepPerFrame(sf::seconds(1.0f / 60.0f)),
     mScore(0)
 {
-    luaL_openlibs(mLuaState);
+    LuaUtils::Init();
 }
 
 Game::~Game()
 {
-    lua_close(mLuaState);
+    LuaUtils::Shutdown();
 }
 
 bool Game::Run()
@@ -151,12 +149,13 @@ void Game::HandleEvent(const Event* const pEvent)
 
 bool Game::LoadConfig()
 {
-    luaL_dofile(mLuaState, "Resources/Scripts/Config.lua");
+    if (!LuaUtils::DoFile("Resources/Scripts/Config.lua"))
+        return false;
 
     std::string title = "Default Title";
     unsigned int width = 400U, height = 300U;
 
-    luabridge::LuaRef appRef = luabridge::getGlobal(mLuaState, "app");
+    luabridge::LuaRef appRef = LuaUtils::GetGlobal("app");
     if (!appRef.isTable())
         return false;
 

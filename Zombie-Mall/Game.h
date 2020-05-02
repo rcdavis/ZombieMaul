@@ -5,8 +5,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Time.hpp>
 
-#include <lua.hpp>
-
 #include "Renderer/TextureManager.h"
 #include "Renderer/FontManager.h"
 #include "Renderer/AnimationManager.h"
@@ -71,11 +69,7 @@ private:
 
     Settings mSettings;
 
-    lua_State* mLuaState;
-
     float mTimeMultiplier;
-
-    TextEntity* mTextEntity;
 
     const sf::Time mTimeStepPerFrame;
 
