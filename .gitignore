@@ -1,9 +1,48 @@
-x64/
-.vs/
+# Prerequisites
+*.d
 
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+*.spv
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Executables
+*.exe
+*.out
+*.app
+
+!Vendor/Premake/premake5.exe
+
+# VS files
+.vs/
 *.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
 
 Build/
+
+*.log
+*.tlog
+
+JSON/
