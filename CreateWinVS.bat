@@ -1,2 +1,2 @@
-premake5 vs2019
+"Vendor/Premake/premake5" vs2022
 PAUSE
