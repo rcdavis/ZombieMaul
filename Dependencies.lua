@@ -12,6 +12,11 @@ Library["sfml_window"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.
 Library["sfml_graphics"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-graphics.lib"
 Library["sfml_audio"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-audio.lib"
 
+Library["sfml_system_dll_d"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-system-d-2.dll"
+Library["sfml_window_dll_d"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-window-d-2.dll"
+Library["sfml_graphics_dll_d"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-graphics-d-2.dll"
+Library["sfml_audio_dll_d"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-audio-d-2.dll"
+
 Library["sfml_system_dll"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-system-2.dll"
 Library["sfml_window_dll"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-window-2.dll"
 Library["sfml_graphics_dll"] = "%{wks.location}/Vendor/SFML/lib/%{cfg.platform}-%{cfg.buildcfg}/sfml-graphics-2.dll"

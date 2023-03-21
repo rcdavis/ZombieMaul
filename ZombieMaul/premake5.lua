@@ -31,10 +31,22 @@ project "ZombieMaul"
         kind "ConsoleApp"
         symbols "On"
         defines { "DEBUG", "DEBUG_RENDER" }
+        postbuildcommands {
+            "{COPY} %{Library.sfml_system_dll_d} %{outputTargetDir}",
+            "{COPY} %{Library.sfml_window_dll_d} %{outputTargetDir}",
+            "{COPY} %{Library.sfml_graphics_dll_d} %{outputTargetDir}",
+            "{COPY} %{Library.sfml_audio_dll_d} %{outputTargetDir}"
+        }
 
     filter { "configurations:Release or configurations:Dist" }
         optimize "On"
         defines { "NDEBUG" }
+        postbuildcommands {
+            "{COPY} %{Library.sfml_system_dll} %{outputTargetDir}",
+            "{COPY} %{Library.sfml_window_dll} %{outputTargetDir}",
+            "{COPY} %{Library.sfml_graphics_dll} %{outputTargetDir}",
+            "{COPY} %{Library.sfml_audio_dll} %{outputTargetDir}"
+        }
 
     filter { "configurations:Release" }
         kind "ConsoleApp"
