@@ -177,7 +177,7 @@ bool Game::LoadConfig()
             height = sizeRef["height"].cast<unsigned int>();
     }
 
-    mWindow.create(sf::VideoMode(width, height), title);
+    mWindow.create(sf::VideoMode(width, height), title, sf::Style::Titlebar | sf::Style::Close);
 
     luabridge::LuaRef iconRef = windowRef["icon"];
     if (iconRef.isString())
