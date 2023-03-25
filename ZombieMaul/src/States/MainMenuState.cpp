@@ -63,12 +63,12 @@ void MainMenuState::Exit()
 
 bool MainMenuState::Input()
 {
-    if (InputManager::Global.IsKeyPressed(sf::Keyboard::Up))
+    if (InputManager::Global.IsKeyPressed(sf::Keyboard::Up) || InputManager::Global.IsKeyPressed(sf::Keyboard::Left))
     {
         if (mCurEntry > 0)
             --mCurEntry;
     }
-    else if (InputManager::Global.IsKeyPressed(sf::Keyboard::Down))
+    else if (InputManager::Global.IsKeyPressed(sf::Keyboard::Down) || InputManager::Global.IsKeyPressed(sf::Keyboard::Right))
     {
         if (mCurEntry < std::size(mEntries) - 1)
             ++mCurEntry;

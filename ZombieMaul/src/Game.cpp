@@ -6,11 +6,13 @@
 
 #include <iostream>
 
-#include "LuaUtils.h"
+#include "Lua/LuaUtils.h"
 
 #include "Input/InputManager.h"
 #include "States/MainMenuState.h"
 #include "States/GameOverState.h"
+
+#include "States/MenuState.h"
 
 Game::Game() :
     mWindow(),
@@ -24,14 +26,9 @@ Game::Game() :
     mTimeMultiplier(1.0f),
     mTimeStepPerFrame(sf::seconds(1.0f / 60.0f)),
     mScore(0)
-{
-    LuaUtils::Init();
-}
+{}
 
-Game::~Game()
-{
-    LuaUtils::Shutdown();
-}
+Game::~Game() {}
 
 bool Game::Run()
 {
@@ -81,12 +78,26 @@ bool Game::Init()
     if (!LoadConfig())
         return false;
 
+    LuaUtils::GetGlobalNamespace()
+        .addFunction("cout", &Game::Print);
+
+    MenuState::BindLua();
+
+    /*for (const auto& file : std::filesystem::directory_iterator("Resources/Menus"))
+    {
+        const auto filepath = file.path().string();
+        if (!LuaUtils::DoFile(filepath.c_str()))
+            std::cout << "Failed to load " << filepath << std::endl;
+    }*/
+
     mSettings.Load("Resources/Data/Settings.json");
 
     mEventManager.RegisterListener("Player Died", this);
     mEventManager.RegisterListener("Player Hit Civilian", this);
 
-    mStateManager.PushState(std::make_unique<MainMenuState>(*this));
+    //mStateManager.PushState(std::make_unique<MainMenuState>(*this));
+    //mStateManager.PushState(std::make_unique<MenuState>(*this, "mainMenu"));
+    mStateManager.PushState(std::make_unique<MenuState>(*this, "Resources/Menus/MainMenu.lua"));
 
     return true;
 }
@@ -195,4 +206,9 @@ bool Game::LoadConfig()
 void Game::Close()
 {
     mWindow.close();
+}
+
+void Game::Print(const char* s)
+{
+    std::cout << s << std::endl;
 }

@@ -42,6 +42,9 @@ public:
     constexpr unsigned int GetScore() const { return mScore; }
 
 private:
+    static void Print(const char* s);
+
+private:
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
 
