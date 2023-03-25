@@ -11,11 +11,13 @@
 
 MenuState::MenuState(Game& game, const char* const file) :
     mName(),
+    mSourceFile(file),
     mBg(),
     mIcon(),
     mEntries(),
     mCurEntry(0),
-    mTable(LuaUtils::CreateRefFromFile(file)),
+    mOnUpdate(LuaUtils::NewRef()),
+    mOnUpdateCurEntry(LuaUtils::NewRef()),
     mGame(game)
 {}
 
@@ -27,50 +29,33 @@ void MenuState::Enter()
 
     mCurEntry = 0;
 
-    if (auto name = mTable["name"]; name.isString())
+    auto table = LuaUtils::CreateRefFromFile(std::data(mSourceFile));
+    if (!table.isTable())
+    {
+        std::cout << "Couldn't get lua table for " << mSourceFile << std::endl;
+        return;
+    }
+
+    if (auto name = table["name"]; name.isString())
         mName = name.cast<std::string>();
 
-    if (auto bg = mTable["background"]; bg.isTable())
+    if (auto callback = table["onUpdate"]; callback.isCallable())
+        mOnUpdate = callback;
+
+    if (auto callback = table["onUpdateCurrentEntry"]; callback.isCallable())
+        mOnUpdateCurEntry = callback;
+
+    LuaUtils::LuaTableToSprite(table["background"], mBg, textureManager);
+    LuaUtils::LuaTableToSprite(table["icon"], mIcon, textureManager);
+
+    if (auto entries = table["entries"]; entries.isTable())
     {
-        if (auto textureRef = bg["texture"]; textureRef.isString())
-        {
-            auto texture = textureManager.LoadTexture(textureRef.cast<std::string>());
-            if (texture)
-                mBg.setTexture(*texture);
-        }
-
-        mBg.setPosition(LuaUtils::LuaTableToVec2(bg["position"]));
-        mBg.setScale(LuaUtils::LuaTableToVec2(bg["scale"]));
-    }
-
-    if (auto icon = mTable["icon"]; icon.isTable())
-    {
-        if (auto textureRef = icon["texture"]; textureRef.isString())
-        {
-            auto texture = textureManager.LoadTexture(textureRef.cast<std::string>());
-            if (texture)
-                mIcon.setTexture(*texture);
-        }
-
-        mIcon.setPosition(LuaUtils::LuaTableToVec2(icon["position"]));
-        mIcon.setScale(LuaUtils::LuaTableToVec2(icon["scale"]));
-    }
-
-    if (auto entries = mTable["entries"]; entries.isTable())
-    {
-        for (int i = 0; i < entries.length(); ++i)
+        for (int i = 1; i <= entries.length(); ++i)
         {
             MenuEntry menuEntry;
-            auto entry = entries[i + 1];
-            if (auto textureRef = entry["texture"]; textureRef.isString())
-            {
-                auto texture = textureManager.LoadTexture(textureRef.cast<std::string>());
-                if (texture)
-                    menuEntry.sprite.setTexture(*texture);
-            }
+            auto entry = entries[i];
 
-            menuEntry.sprite.setPosition(LuaUtils::LuaTableToVec2(entry["position"]));
-            menuEntry.sprite.setScale(LuaUtils::LuaTableToVec2(entry["scale"]));
+            LuaUtils::LuaTableToSprite(entry, menuEntry.sprite, textureManager);
 
             if (auto onClick = entry["onClick"]; onClick.isCallable())
                 menuEntry.onClick = onClick;
@@ -90,12 +75,18 @@ bool MenuState::Input()
     if (InputManager::Global.IsKeyPressed(sf::Keyboard::Up) || InputManager::Global.IsKeyPressed(sf::Keyboard::Left))
     {
         if (mCurEntry > 0)
+        {
             --mCurEntry;
+            OnUpdateCurrentEntry();
+        }
     }
     else if (InputManager::Global.IsKeyPressed(sf::Keyboard::Down) || InputManager::Global.IsKeyPressed(sf::Keyboard::Right))
     {
         if (mCurEntry < std::size(mEntries) - 1)
+        {
             ++mCurEntry;
+            OnUpdateCurrentEntry();
+        }
     }
     else if (InputManager::Global.IsKeyPressed(sf::Keyboard::Enter))
     {
@@ -107,17 +98,14 @@ bool MenuState::Input()
 
 void MenuState::Update()
 {
-    if (mTable)
+    try
     {
-        try
-        {
-            if (auto onUpdate = mTable["onUpdate"]; onUpdate.isCallable())
-                onUpdate(mTable, mCurEntry);
-        }
-        catch (const luabridge::LuaException& e)
-        {
-            std::cout << "MenuState(" << mName << ")::Update error: " << e.what() << std::endl;
-        }
+        if (mOnUpdate.isCallable())
+            mOnUpdate(this, mCurEntry);
+    }
+    catch (const luabridge::LuaException& e)
+    {
+        std::cout << "MenuState(" << mName << ")::Update error: " << e.what() << std::endl;
     }
 }
 
@@ -149,15 +137,30 @@ bool MenuState::ProcessEnter()
     return true;
 }
 
+void MenuState::OnUpdateCurrentEntry()
+{
+    try
+    {
+        if (mOnUpdateCurEntry.isCallable())
+            mOnUpdateCurEntry(this, mCurEntry);
+    }
+    catch (const luabridge::LuaException& e)
+    {
+        std::cout << "MenuState(" << mName << ")::UpdateCurEntry error "
+            << mCurEntry << ": " << e.what() << std::endl;
+    }
+}
+
 void MenuState::BindLua()
 {
     LuaUtils::GetGlobalNamespace()
         .beginClass<MenuState>("MenuState")
-            //.addConstructor<void(*)(void)>()
             .addProperty("name", &MenuState::GetName, &MenuState::SetName)
             .addFunction("setBgPos", &MenuState::SetBgPos)
             .addFunction("setBgScale", &MenuState::SetBgScale)
             .addFunction("setIconPos", &MenuState::SetIconPos)
             .addFunction("setIconScale", &MenuState::SetIconScale)
+            .addFunction("setEntryPos", &MenuState::SetEntryPos)
+            .addFunction("setEntryScale", &MenuState::SetEntryScale)
         .endClass();
 }

@@ -6,6 +6,13 @@
 
 #include "Lua/LuaState.h"
 
+namespace sf
+{
+    class Sprite;
+}
+
+class TextureManager;
+
 class LuaUtils
 {
 public:
@@ -45,18 +52,8 @@ public:
         return mLuaState.CreateRefFromFile(file);
     }
 
-    static sf::Vector2f LuaTableToVec2(luabridge::LuaRef table)
-    {
-        sf::Vector2f vec;
-        if (table.isTable())
-        {
-            if (auto xRef = table["x"]; xRef.isNumber())
-                vec.x = xRef.cast<float>();
-            if (auto yRef = table["y"]; yRef.isNumber())
-                vec.y = yRef.cast<float>();
-        }
-        return vec;
-    }
+    static void LuaTableToSprite(luabridge::LuaRef table, sf::Sprite& sprite, TextureManager& textureManager);
+    static sf::Vector2f LuaTableToVec2(luabridge::LuaRef table);
 
 private:
     static LuaState mLuaState;

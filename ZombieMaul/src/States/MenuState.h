@@ -58,9 +58,11 @@ public:
 
 private:
     bool ProcessEnter();
+    void OnUpdateCurrentEntry();
 
 private:
     std::string mName;
+    std::string mSourceFile;
 
     sf::Sprite mBg;
     sf::Sprite mIcon;
@@ -68,7 +70,8 @@ private:
     std::vector<MenuEntry> mEntries;
     std::size_t mCurEntry;
 
-    luabridge::LuaRef mTable;
+    luabridge::LuaRef mOnUpdate;
+    luabridge::LuaRef mOnUpdateCurEntry;
 
     Game& mGame;
 };
