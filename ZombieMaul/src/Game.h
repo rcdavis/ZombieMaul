@@ -43,8 +43,9 @@ public:
 
 private:
     static void Print(const char* s);
+    void ClearAndSetState(std::unique_ptr<IState> state) { mStateManager.ClearAndSetState(std::move(state)); }
+    void PushState(std::unique_ptr<IState> state) { mStateManager.PushState(std::move(state)); }
 
-private:
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
 
@@ -61,6 +62,12 @@ private:
 
     void Close();
 
+    // Menu States for Lua
+    void PushMenuState(const char* const file);
+    void PopState();
+    void ClearAndSetMenuState(const char* const file);
+
+private:
     sf::RenderWindow mWindow;
 
     TextureManager mTextureManager;

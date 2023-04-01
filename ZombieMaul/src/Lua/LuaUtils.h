@@ -52,6 +52,12 @@ public:
         return mLuaState.CreateRefFromFile(file);
     }
 
+    static std::unordered_map<std::string, luabridge::LuaRef> GetKeyValueMap(luabridge::LuaRef table)
+    {
+        return mLuaState.GetKeyValueMap(table);
+    }
+
+
     static void LuaTableToSprite(luabridge::LuaRef table, sf::Sprite& sprite, TextureManager& textureManager);
     static sf::Vector2f LuaTableToVec2(luabridge::LuaRef table);
 

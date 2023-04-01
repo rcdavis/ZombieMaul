@@ -79,9 +79,16 @@ bool Game::Init()
         return false;
 
     LuaUtils::GetGlobalNamespace()
-        .addFunction("cout", &Game::Print);
+        .addFunction("cout", &Game::Print)
+        .beginClass<Game>("Game")
+            //.addFunction("pushState", &Game::PushState)
+            .addFunction("popState", &Game::PopState)
+            .addFunction("pushMenuState", &Game::PushMenuState)
+        .endClass();
 
     MenuState::BindLua();
+
+    LuaUtils::SetGlobal("game", this);
 
     /*for (const auto& file : std::filesystem::directory_iterator("Resources/Menus"))
     {
@@ -95,9 +102,7 @@ bool Game::Init()
     mEventManager.RegisterListener("Player Died", this);
     mEventManager.RegisterListener("Player Hit Civilian", this);
 
-    //mStateManager.PushState(std::make_unique<MainMenuState>(*this));
-    //mStateManager.PushState(std::make_unique<MenuState>(*this, "mainMenu"));
-    mStateManager.PushState(std::make_unique<MenuState>(*this, "Resources/Menus/MainMenu.lua"));
+    PushMenuState("Resources/Menus/MainMenu.lua");
 
     return true;
 }
@@ -188,7 +193,9 @@ bool Game::LoadConfig()
             height = sizeRef["height"].cast<unsigned int>();
     }
 
-    mWindow.create(sf::VideoMode(width, height), title, sf::Style::Titlebar | sf::Style::Close);
+    // TODO: Fix issues with resizing
+    constexpr sf::Uint32 styleFlags = sf::Style::Titlebar | sf::Style::Close;
+    mWindow.create(sf::VideoMode(width, height), title, styleFlags);
 
     luabridge::LuaRef iconRef = windowRef["icon"];
     if (iconRef.isString())
@@ -211,4 +218,19 @@ void Game::Close()
 void Game::Print(const char* s)
 {
     std::cout << s << std::endl;
+}
+
+void Game::PushMenuState(const char* const file)
+{
+    mStateManager.PushState(std::make_unique<MenuState>(*this, file));
+}
+
+void Game::PopState()
+{
+    mStateManager.PopState();
+}
+
+void Game::ClearAndSetMenuState(const char* const file)
+{
+    mStateManager.ClearAndSetState(std::make_unique<MenuState>(*this, file));
 }

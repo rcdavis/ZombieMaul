@@ -127,7 +127,16 @@ bool MenuState::ProcessEnter()
     try
     {
         if (mEntries[mCurEntry].onClick.isCallable())
-            mEntries[mCurEntry].onClick();
+        {
+            auto result = mEntries[mCurEntry].onClick();
+            if (!result)
+            {
+                std::cout << "onClick result: " << result.errorMessage() << std::endl;
+                return false;
+            }
+
+            return result[0].cast<bool>();
+        }
     }
     catch (const luabridge::LuaException& e)
     {

@@ -3,6 +3,8 @@
 #include <lua.hpp>
 #include <LuaBridge.h>
 
+#include <unordered_map>
+
 class LuaState
 {
 public:
@@ -61,6 +63,30 @@ public:
             return NewNilRef();
 
         return luabridge::LuaRef::fromStack(mLuaState);
+    }
+
+    std::unordered_map<std::string, luabridge::LuaRef> GetKeyValueMap(luabridge::LuaRef table)
+    {
+        if (table.isNil())
+            return {};
+
+        std::error_code ec;
+        if (!luabridge::push(mLuaState, table, ec))
+        {
+            std::cout << "GetKeyValueMap error: " << ec << std::endl;
+            return {};
+        }
+
+        std::unordered_map<std::string, luabridge::LuaRef> result;
+        lua_pushnil(mLuaState);
+        while (lua_next(mLuaState, -2) != 0)
+        {
+            if (lua_isstring(mLuaState, -2))
+                result.emplace(lua_tostring(mLuaState, -2), luabridge::LuaRef::fromStack(mLuaState, -1));
+            lua_pop(mLuaState, 1);
+        }
+        lua_pop(mLuaState, 1);
+        return result;
     }
 
 private:

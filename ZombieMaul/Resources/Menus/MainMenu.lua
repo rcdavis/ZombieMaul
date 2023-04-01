@@ -35,6 +35,7 @@ local menu = {
             },
             onClick = function()
                 cout("onClick Play")
+                return true
             end
         },
         {
@@ -49,6 +50,8 @@ local menu = {
             },
             onClick = function()
                 cout("onClick Options")
+                --game.pushMenuState("Resources/Menus/MenuOptions")
+                return true
             end
         },
         {
@@ -63,6 +66,7 @@ local menu = {
             },
             onClick = function()
                 cout("onClick Credits")
+                return true
             end
         },
         {
@@ -77,6 +81,7 @@ local menu = {
             },
             onClick = function()
                 cout("onClick Exit")
+                return false
             end
         }
     },
