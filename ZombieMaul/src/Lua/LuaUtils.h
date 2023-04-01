@@ -9,9 +9,11 @@
 namespace sf
 {
     class Sprite;
+    class Text;
 }
 
 class TextureManager;
+class FontManager;
 
 class LuaUtils
 {
@@ -57,8 +59,8 @@ public:
         return mLuaState.GetKeyValueMap(table);
     }
 
-
     static void LuaTableToSprite(luabridge::LuaRef table, sf::Sprite& sprite, TextureManager& textureManager);
+    static void LuaTableToText(luabridge::LuaRef table, sf::Text& text, FontManager& fontManager);
     static sf::Vector2f LuaTableToVec2(luabridge::LuaRef table);
 
 private:

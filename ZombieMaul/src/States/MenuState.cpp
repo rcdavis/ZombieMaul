@@ -26,6 +26,7 @@ MenuState::~MenuState() {}
 void MenuState::Enter()
 {
     TextureManager& textureManager = mGame.GetTextureManager();
+    FontManager& fontManager = mGame.GetFontManager();
 
     mCurEntry = 0;
 
@@ -55,7 +56,13 @@ void MenuState::Enter()
             MenuEntry menuEntry;
             auto entry = entries[i];
 
-            LuaUtils::LuaTableToSprite(entry, menuEntry.sprite, textureManager);
+            if (auto spriteRef = entry["texture"]; spriteRef.isString())
+                menuEntry.hasSprite = true;
+
+            if (menuEntry.hasSprite)
+                LuaUtils::LuaTableToSprite(entry, menuEntry.sprite, textureManager);
+            else
+                LuaUtils::LuaTableToText(entry, menuEntry.text, fontManager);
 
             if (auto onClick = entry["onClick"]; onClick.isCallable())
                 menuEntry.onClick = onClick;
@@ -116,7 +123,12 @@ void MenuState::Render(sf::RenderTarget* const renderTarget)
     if (mGame.GetStateManager().GetCurrentState() == this)
     {
         for (auto& entry : mEntries)
-            renderTarget->draw(entry.sprite);
+        {
+            if (entry.hasSprite)
+                renderTarget->draw(entry.sprite);
+            else
+                renderTarget->draw(entry.text);
+        }
 
         renderTarget->draw(mIcon);
     }
@@ -131,7 +143,7 @@ bool MenuState::ProcessEnter()
             auto result = mEntries[mCurEntry].onClick();
             if (!result)
             {
-                std::cout << "onClick result: " << result.errorMessage() << std::endl;
+                std::cout << "onClick error: " << result.errorMessage() << std::endl;
                 return false;
             }
 

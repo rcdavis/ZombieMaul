@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "Lua/LuaUtils.h"
@@ -16,18 +17,25 @@ class MenuState : public IState
 private:
     struct MenuEntry
     {
+        sf::Text text;
         sf::Sprite sprite;
 
         luabridge::LuaRef onClick;
 
+        bool hasSprite;
+
         MenuEntry() :
+            text(),
             sprite(),
-            onClick(LuaUtils::NewRef())
+            onClick(LuaUtils::NewRef()),
+            hasSprite(false)
         {}
 
         MenuEntry(sf::Sprite sprite, luabridge::LuaRef onClick = LuaUtils::NewRef()) :
+            text(),
             sprite(sprite),
-            onClick(onClick)
+            onClick(onClick),
+            hasSprite(true)
         {}
     };
 

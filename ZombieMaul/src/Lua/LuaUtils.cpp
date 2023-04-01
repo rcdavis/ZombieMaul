@@ -2,8 +2,10 @@
 
 #include <string>
 
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "Renderer/FontManager.h"
 #include "Renderer/TextureManager.h"
 
 LuaState LuaUtils::mLuaState;
@@ -25,6 +27,31 @@ void LuaUtils::LuaTableToSprite(luabridge::LuaRef table, sf::Sprite& sprite, Tex
 
     sprite.setPosition(LuaUtils::LuaTableToVec2(table["position"]));
     sprite.setScale(LuaUtils::LuaTableToVec2(table["scale"]));
+}
+
+void LuaUtils::LuaTableToText(luabridge::LuaRef table, sf::Text& text, FontManager& fontManager)
+{
+    if (!table.isTable())
+    {
+        std::cout << "Passed in ref is not a table for sprite" << std::endl;
+        return;
+    }
+
+    if (auto fontRef = table["font"]; fontRef.isString())
+    {
+        auto font = fontManager.LoadFont(fontRef.cast<std::string>());
+        if (font)
+            text.setFont(*font);
+    }
+
+    if (auto textRef = table["text"]; textRef.isString())
+    {
+        const auto str = textRef.cast<std::string>();
+        text.setString(sf::String::fromUtf8(std::cbegin(str), std::cend(str)));
+    }
+
+    text.setPosition(LuaUtils::LuaTableToVec2(table["position"]));
+    text.setScale(LuaUtils::LuaTableToVec2(table["scale"]));
 }
 
 sf::Vector2f LuaUtils::LuaTableToVec2(luabridge::LuaRef table)

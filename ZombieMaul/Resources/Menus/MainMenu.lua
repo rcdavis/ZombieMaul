@@ -49,8 +49,7 @@ local menu = {
                 y = 0.6
             },
             onClick = function()
-                cout("onClick Options")
-                --game.pushMenuState("Resources/Menus/MenuOptions")
+                game:pushMenuState("Resources/Menus/OptionsMenu.lua")
                 return true
             end
         },
@@ -80,7 +79,6 @@ local menu = {
                 y = 0.8
             },
             onClick = function()
-                cout("onClick Exit")
                 return false
             end
         }
