@@ -79,7 +79,7 @@ void MenuState::Exit()
 
 bool MenuState::Input()
 {
-    if (InputManager::Global.IsKeyPressed(sf::Keyboard::Up) || InputManager::Global.IsKeyPressed(sf::Keyboard::Left))
+    if (InputManager::Global.IsKeyPressed(sf::Keyboard::Up))
     {
         if (mCurEntry > 0)
         {
@@ -87,7 +87,7 @@ bool MenuState::Input()
             OnUpdateCurrentEntry();
         }
     }
-    else if (InputManager::Global.IsKeyPressed(sf::Keyboard::Down) || InputManager::Global.IsKeyPressed(sf::Keyboard::Right))
+    else if (InputManager::Global.IsKeyPressed(sf::Keyboard::Down))
     {
         if (mCurEntry < std::size(mEntries) - 1)
         {
@@ -181,6 +181,7 @@ void MenuState::BindLua()
             .addFunction("setBgScale", &MenuState::SetBgScale)
             .addFunction("setIconPos", &MenuState::SetIconPos)
             .addFunction("setIconScale", &MenuState::SetIconScale)
+            .addFunction("setEntryText", &MenuState::SetEntryText)
             .addFunction("setEntryPos", &MenuState::SetEntryPos)
             .addFunction("setEntryScale", &MenuState::SetEntryScale)
         .endClass();

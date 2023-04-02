@@ -63,6 +63,15 @@ public:
     static void LuaTableToText(luabridge::LuaRef table, sf::Text& text, FontManager& fontManager);
     static sf::Vector2f LuaTableToVec2(luabridge::LuaRef table);
 
+    static void BindLuaFuncs();
+
+private:
+    // Functions able to be called within Lua code
+    static void Print(const char* const s);
+    static bool IsKeyPressed(int key);
+    static bool IsKeyDown(int key);
+    static bool IsKeyReleased(int key);
+
 private:
     static LuaState mLuaState;
 };

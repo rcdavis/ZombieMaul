@@ -7,6 +7,7 @@
 
 #include "Renderer/FontManager.h"
 #include "Renderer/TextureManager.h"
+#include "Input/InputManager.h"
 
 LuaState LuaUtils::mLuaState;
 
@@ -70,4 +71,33 @@ sf::Vector2f LuaUtils::LuaTableToVec2(luabridge::LuaRef table)
         vec.y = yRef.cast<float>();
 
     return vec;
+}
+
+void LuaUtils::BindLuaFuncs()
+{
+    mLuaState.GetGlobalNamespace()
+        .addFunction("cout", &LuaUtils::Print)
+        .addFunction("isKeyPressed", &LuaUtils::IsKeyPressed)
+        .addFunction("isKeyDown", &LuaUtils::IsKeyDown)
+        .addFunction("isKeyReleased", &LuaUtils::IsKeyReleased);
+}
+
+void LuaUtils::Print(const char* const s)
+{
+    std::cout << s << std::endl;
+}
+
+bool LuaUtils::IsKeyPressed(int key)
+{
+    return InputManager::Global.IsKeyPressed((sf::Keyboard::Key)key);
+}
+
+bool LuaUtils::IsKeyDown(int key)
+{
+    return InputManager::Global.IsKeyDown((sf::Keyboard::Key)key);
+}
+
+bool LuaUtils::IsKeyReleased(int key)
+{
+    return InputManager::Global.IsKeyReleased((sf::Keyboard::Key)key);
 }

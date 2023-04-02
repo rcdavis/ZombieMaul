@@ -13,12 +13,11 @@ InputManager::~InputManager() {}
 
 void InputManager::Poll()
 {
-    std::copy(std::begin(mCurKeyboardState), std::end(mCurKeyboardState), std::begin(mPrevKeyboardState));
+    //std::copy(std::cbegin(mCurKeyboardState), std::cend(mCurKeyboardState), std::begin(mPrevKeyboardState));
+    memcpy(std::data(mPrevKeyboardState), std::data(mCurKeyboardState), std::size(mCurKeyboardState));
 
     for (auto i = 0; i < sf::Keyboard::KeyCount; ++i)
-    {
         mCurKeyboardState[i] = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)i);
-    }
 }
 
 bool InputManager::IsKeyPressed(sf::Keyboard::Key key) const

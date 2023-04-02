@@ -78,15 +78,7 @@ bool Game::Init()
     if (!LoadConfig())
         return false;
 
-    LuaUtils::GetGlobalNamespace()
-        .addFunction("cout", &Game::Print)
-        .beginClass<Game>("Game")
-            //.addFunction("pushState", &Game::PushState)
-            .addFunction("popState", &Game::PopState)
-            .addFunction("pushMenuState", &Game::PushMenuState)
-        .endClass();
-
-    MenuState::BindLua();
+    BindLua();
 
     LuaUtils::SetGlobal("game", this);
 
@@ -215,11 +207,6 @@ void Game::Close()
     mWindow.close();
 }
 
-void Game::Print(const char* s)
-{
-    std::cout << s << std::endl;
-}
-
 void Game::PushMenuState(const char* const file)
 {
     mStateManager.PushState(std::make_unique<MenuState>(*this, file));
@@ -233,4 +220,19 @@ void Game::PopState()
 void Game::ClearAndSetMenuState(const char* const file)
 {
     mStateManager.ClearAndSetState(std::make_unique<MenuState>(*this, file));
+}
+
+void Game::BindLua()
+{
+    LuaUtils::BindLuaFuncs();
+
+    LuaUtils::GetGlobalNamespace()
+        .beginClass<Game>("Game")
+            .addProperty("settings", &Game::mSettings)
+            .addFunction("popState", &Game::PopState)
+            .addFunction("pushMenuState", &Game::PushMenuState)
+        .endClass();
+
+    Settings::BindLua();
+    MenuState::BindLua();
 }

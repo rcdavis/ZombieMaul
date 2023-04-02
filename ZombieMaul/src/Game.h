@@ -42,7 +42,6 @@ public:
     constexpr unsigned int GetScore() const { return mScore; }
 
 private:
-    static void Print(const char* s);
     void ClearAndSetState(std::unique_ptr<IState> state) { mStateManager.ClearAndSetState(std::move(state)); }
     void PushState(std::unique_ptr<IState> state) { mStateManager.PushState(std::move(state)); }
 
@@ -66,6 +65,8 @@ private:
     void PushMenuState(const char* const file);
     void PopState();
     void ClearAndSetMenuState(const char* const file);
+
+    static void BindLua();
 
 private:
     sf::RenderWindow mWindow;

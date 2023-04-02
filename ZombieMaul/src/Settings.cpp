@@ -1,6 +1,8 @@
 
 #include "Settings.h"
 
+#include "Lua/LuaUtils.h"
+
 #define RAPIDJSON_NOMEMBERITERATORCLASS
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
@@ -62,4 +64,13 @@ bool Settings::Save(std::filesystem::path file)
     document.Accept(writer);
 
     return true;
+}
+
+void Settings::BindLua()
+{
+    LuaUtils::GetGlobalNamespace()
+        .beginClass<Settings>("Settings")
+            .addProperty("musicVol", &Settings::GetMusicVolume, &Settings::SetMusicVolume)
+            .addProperty("sfxVol", &Settings::GetSfxVolume, &Settings::SetSfxVolume)
+        .endClass();
 }

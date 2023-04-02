@@ -13,11 +13,13 @@ public:
     bool Load(std::filesystem::path file);
     bool Save(std::filesystem::path file);
 
-    constexpr int GetMusicVolume() const { return mMusicVolume; }
-    constexpr int GetSfxVolume() const { return mSfxVolume; }
+    int GetMusicVolume() const { return mMusicVolume; }
+    int GetSfxVolume() const { return mSfxVolume; }
 
     void SetMusicVolume(int volume) { mMusicVolume = std::clamp(volume, 0, 100); }
     void SetSfxVolume(int volume) { mSfxVolume = std::clamp(volume, 0, 100); }
+
+    static void BindLua();
 
 private:
     int mMusicVolume;

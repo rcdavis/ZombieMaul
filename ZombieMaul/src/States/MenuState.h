@@ -59,6 +59,7 @@ public:
     void SetIconPos(float x, float y) { mIcon.setPosition(x, y); }
     void SetIconScale(float x, float y) { mIcon.setScale(x, y); }
 
+    void SetEntryText(int index, const char* const text) { mEntries[index].text.setString(text); }
     void SetEntryPos(int index, float x, float y) { mEntries[index].sprite.setPosition(x, y); }
     void SetEntryScale(int index, float x, float y) { mEntries[index].sprite.setScale(x, y); }
 
