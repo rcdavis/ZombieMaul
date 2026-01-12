@@ -1,7 +1,9 @@
 
-#include <iostream>
+#include "Utils/Log.h"
 
 int main(int argc, char** argv) {
-	std::cout << "Hello, Zombie Maul\n";
+	Log::Init();
+
+	LOG_INFO("Hello, Zombie Maul!");
 	return 0;
 }
