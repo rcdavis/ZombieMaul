@@ -3,11 +3,11 @@ project(Game)
 include(FetchContent)
 
 FetchContent_Declare(
-    glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.4
+    sfml
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 3.0.2
 )
-FetchContent_MakeAvailable(glfw)
+FetchContent_MakeAvailable(sfml)
 
 FetchContent_Declare(
     glm
@@ -31,6 +31,7 @@ FetchContent_MakeAvailable(spdlog)
 
 add_executable(Game
     src/Utils/Log.cpp
+    src/Game.cpp
     src/Main.cpp
 )
 
@@ -46,7 +47,8 @@ target_include_directories(Game PUBLIC
 )
 
 target_link_libraries(Game
+    SFML::Window
+    SFML::Graphics
     glm::glm
-    glfw
     spdlog::spdlog_header_only
 )

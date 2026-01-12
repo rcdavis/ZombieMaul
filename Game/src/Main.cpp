@@ -1,9 +1,12 @@
 
 #include "Utils/Log.h"
+#include "Game.h"
 
 int main(int argc, char** argv) {
 	Log::Init();
 
-	LOG_INFO("Hello, Zombie Maul!");
+	Game g;
+	g.Run();
+
 	return 0;
 }
