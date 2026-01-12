@@ -4,6 +4,10 @@
 		{
 			"name": "Linux (Debug)",
 			"includePath": [
+				"${workspaceFolder}/build-debug/_deps/spdlog-src/include",
+				"${workspaceFolder}/build-debug/_deps/glfw-src/include",
+				"${workspaceFolder}/build-debug/_deps/glm-src",
+				"${workspaceFolder}/Game/include",
 				"/usr/include",
 				"/usr/local/include"
 			],
