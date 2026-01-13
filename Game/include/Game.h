@@ -5,6 +5,7 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 
 #include "States/StateManager.h"
+#include "Settings.h"
 
 class Game {
 public:
@@ -14,6 +15,7 @@ public:
 	bool Run();
 
 	StateManager& GetStateManager() { return mStateManager; }
+	Settings& GetSettings() { return mSettings; }
 
 private:
 	bool Init();
@@ -29,6 +31,7 @@ private:
 
 private:
 	StateManager mStateManager;
+	Settings mSettings;
 
 	sf::RenderWindow mWindow;
 };

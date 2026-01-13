@@ -60,6 +60,9 @@ bool Game::Run() {
 }
 
 bool Game::Init() {
+	if (!mSettings.Load("res/data/Settings.txt"))
+		return false;
+
 	mWindow.create(sf::VideoMode({800, 600}), "Zombie Maul");
 
 	sf::Image icon;
@@ -73,6 +76,8 @@ bool Game::Init() {
 
 void Game::Shutdown() {
 	mStateManager.ClearStates();
+
+	mSettings.Save("res/data/Settings.txt");
 }
 
 void Game::Close() {
