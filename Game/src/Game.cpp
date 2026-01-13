@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "SFML/Window/Event.hpp"
+#include "SFML/Graphics/Image.hpp"
 
 Game::Game() :
 	mWindow()
@@ -30,6 +31,11 @@ bool Game::Run() {
 
 bool Game::Init() {
 	mWindow.create(sf::VideoMode({800, 600}), "Zombie Maul");
+
+	sf::Image icon;
+	if (icon.loadFromFile("res/textures/zombie-maul-icon.png"))
+		mWindow.setIcon(icon);
+
 	return true;
 }
 

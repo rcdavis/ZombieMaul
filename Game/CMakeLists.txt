@@ -35,6 +35,9 @@ add_executable(Game
     src/Main.cpp
 )
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res
+     DESTINATION ${CMAKE_BINARY_DIR}/Game)
+
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Game PUBLIC
         DEBUG
