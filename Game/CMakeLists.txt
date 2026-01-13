@@ -50,6 +50,7 @@ target_include_directories(Game PUBLIC
 )
 
 target_link_libraries(Game
+    SFML::System
     SFML::Window
     SFML::Graphics
     glm::glm
