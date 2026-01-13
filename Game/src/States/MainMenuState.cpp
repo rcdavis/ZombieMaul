@@ -8,6 +8,8 @@
 #include "Utils/Log.h"
 #include "Game.h"
 
+#include "States/OptionsMenuState.h"
+
 MainMenuState::MainMenuState(Game& game) :
 	mEntries(),
 	mBgSprite(),
@@ -105,8 +107,7 @@ bool MainMenuState::ProcessEnter() {
 		break;
 
 	case MenuItems::Options:
-		//mGame.GetStateManager().PushState(std::make_unique<OptionsMenuState>(mGame));
-		LOG_INFO("Pressed Options");
+		mGame.GetStateManager().PushState(std::make_unique<OptionsMenuState>(mGame));
 		break;
 
 	case MenuItems::Credits:
