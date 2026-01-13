@@ -3,11 +3,11 @@ project(Game)
 include(FetchContent)
 
 FetchContent_Declare(
-    glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.4
+    sfml
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 3.0.2
 )
-FetchContent_MakeAvailable(glfw)
+FetchContent_MakeAvailable(sfml)
 
 FetchContent_Declare(
     glm
@@ -31,8 +31,12 @@ FetchContent_MakeAvailable(spdlog)
 
 add_executable(Game
     src/Utils/Log.cpp
+    src/Game.cpp
     src/Main.cpp
 )
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res
+     DESTINATION ${CMAKE_BINARY_DIR}/Game)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Game PUBLIC
@@ -46,7 +50,9 @@ target_include_directories(Game PUBLIC
 )
 
 target_link_libraries(Game
+    SFML::System
+    SFML::Window
+    SFML::Graphics
     glm::glm
-    glfw
     spdlog::spdlog_header_only
 )
