@@ -126,68 +126,68 @@ void MainMenuState::UpdateSizesAndPositions() {
 	case MenuItems::Gameplay:
 		mIconSprite->setPosition({80.0f, 240.0f});
 
-		mEntries[0].setScale({1.0f, 1.0f});
-		mEntries[0].setPosition({280.0f, 220.0f});
+		mEntries[MenuItems::Gameplay].setScale({1.0f, 1.0f});
+		mEntries[MenuItems::Gameplay].setPosition({280.0f, 220.0f});
 
-		mEntries[1].setScale({0.6f, 0.6f});
-		mEntries[1].setPosition({260.0f, 260.0f});
+		mEntries[MenuItems::Options].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::Options].setPosition({260.0f, 260.0f});
 
-		mEntries[2].setScale({0.6f, 0.6f});
-		mEntries[2].setPosition({250.0f, 330.0f});
+		mEntries[MenuItems::Credits].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::Credits].setPosition({250.0f, 330.0f});
 
-		mEntries[3].setScale({0.8f, 0.8f});
-		mEntries[3].setPosition({310.0f, 440.0f});
+		mEntries[MenuItems::Quit].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Quit].setPosition({310.0f, 440.0f});
 
 		break;
 
 	case MenuItems::Options:
 		mIconSprite->setPosition({5.0f, 300.0f});
 
-		mEntries[0].setScale({0.8f, 0.8f});
-		mEntries[0].setPosition({300.0f, 230.0f});
+		mEntries[MenuItems::Gameplay].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Gameplay].setPosition({300.0f, 230.0f});
 
-		mEntries[1].setScale({0.8f, 0.8f});
-		mEntries[1].setPosition({200.0f, 200.0f});
+		mEntries[MenuItems::Options].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Options].setPosition({200.0f, 200.0f});
 
-		mEntries[2].setScale({0.6f, 0.6f});
-		mEntries[2].setPosition({250.0f, 330.0f});
+		mEntries[MenuItems::Credits].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::Credits].setPosition({250.0f, 330.0f});
 
-		mEntries[3].setScale({0.8f, 0.8f});
-		mEntries[3].setPosition({310.0f, 440.0f});
+		mEntries[MenuItems::Quit].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Quit].setPosition({310.0f, 440.0f});
 
 		break;
 
 	case MenuItems::Credits:
 		mIconSprite->setPosition({5.0f, 350.0f});
 
-		mEntries[0].setScale({0.8f, 0.8f});
-		mEntries[0].setPosition({300.0f, 230.0f});
+		mEntries[MenuItems::Gameplay].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Gameplay].setPosition({300.0f, 230.0f});
 
-		mEntries[1].setScale({0.6f, 0.6f});
-		mEntries[1].setPosition({260.0f, 240.0f});
+		mEntries[MenuItems::Options].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::Options].setPosition({260.0f, 240.0f});
 
-		mEntries[2].setScale({0.8f, 0.8f});
-		mEntries[2].setPosition({210.0f, 260.0f});
+		mEntries[MenuItems::Credits].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Credits].setPosition({210.0f, 260.0f});
 
-		mEntries[3].setScale({0.8f, 0.8f});
-		mEntries[3].setPosition({310.0f, 440.0f});
+		mEntries[MenuItems::Quit].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Quit].setPosition({310.0f, 440.0f});
 
 		break;
 
 	case MenuItems::Quit:
 		mIconSprite->setPosition({80.0f, 440.0f});
 
-		mEntries[0].setScale({0.8f, 0.8f});
-		mEntries[0].setPosition({300.0f, 230.0f});
+		mEntries[MenuItems::Gameplay].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::Gameplay].setPosition({300.0f, 230.0f});
 
-		mEntries[1].setScale({0.6f, 0.6f});
-		mEntries[1].setPosition({260.0f, 260.0f});
+		mEntries[MenuItems::Options].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::Options].setPosition({260.0f, 260.0f});
 
-		mEntries[2].setScale({0.6f, 0.6f});
-		mEntries[2].setPosition({250.0f, 330.0f});
+		mEntries[MenuItems::Credits].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::Credits].setPosition({250.0f, 330.0f});
 
-		mEntries[3].setScale({1.0f, 1.0f});
-		mEntries[3].setPosition({300.0f, 420.0f});
+		mEntries[MenuItems::Quit].setScale({1.0f, 1.0f});
+		mEntries[MenuItems::Quit].setPosition({300.0f, 420.0f});
 
 		break;
 	}
