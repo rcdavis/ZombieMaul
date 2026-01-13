@@ -65,6 +65,7 @@ bool Game::Init() {
 		return false;
 	}
 
+	tex->setSmooth(true);
 	mBg = std::make_unique<sf::Sprite>(*tex);
 	mBg->setScale({0.8f, 0.75f});
 	mBg->setPosition({0.0f, -20.0f});
