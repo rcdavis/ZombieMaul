@@ -12,7 +12,7 @@ Settings::Settings() :
 bool Settings::Load(const std::filesystem::path& filepath) {
 	std::ifstream file(filepath);
 	if (!file) {
-		LOG_ERROR("Failed to open settings file \"{0}\"", filepath.c_str());
+		LOG_ERROR("Failed to open settings file \"{0}\"", filepath.string());
 		return false;
 	}
 
@@ -40,7 +40,7 @@ bool Settings::Load(const std::filesystem::path& filepath) {
 bool Settings::Save(const std::filesystem::path& filepath) {
 	std::ofstream file(filepath);
 	if (!file) {
-		LOG_ERROR("Failed to save settings to \"{0}\"", filepath.c_str());
+		LOG_ERROR("Failed to save settings to \"{0}\"", filepath.string());
 		return false;
 	}
 

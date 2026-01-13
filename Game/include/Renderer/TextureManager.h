@@ -2,9 +2,7 @@
 
 #include <filesystem>
 
-namespace sf {
-	class Texture;
-}
+#include "SFML/Graphics/Texture.hpp"
 
 namespace TextureManager {
 	sf::Texture* LoadTexture(const std::filesystem::path& filepath);
