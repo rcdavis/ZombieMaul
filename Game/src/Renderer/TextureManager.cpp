@@ -1,12 +1,12 @@
 #include "Renderer/TextureManager.h"
 
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 #include "SFML/Graphics/Texture.hpp"
 
 namespace TextureManager {
-	static std::map<std::filesystem::path, std::unique_ptr<sf::Texture> > loadedTextures;
+	static std::unordered_map<std::filesystem::path, std::unique_ptr<sf::Texture> > loadedTextures;
 
 	sf::Texture* LoadTexture(const std::filesystem::path& filepath) {
 		auto iter = loadedTextures.find(filepath);
@@ -14,13 +14,11 @@ namespace TextureManager {
 			return iter->second.get();
 
 		std::unique_ptr<sf::Texture> tex = std::make_unique<sf::Texture>();
-		if (tex->loadFromFile(filepath.string()))
-		{
-			sf::Texture* const result = tex.get();
-			loadedTextures[filepath] = std::move(tex);
-			return result;
-		}
+		if (!tex->loadFromFile(filepath.string()))
+			return nullptr;
 
-		return nullptr;
+		sf::Texture* const result = tex.get();
+		loadedTextures[filepath] = std::move(tex);
+		return result;
 	}
 }
