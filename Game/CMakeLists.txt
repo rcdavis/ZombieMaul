@@ -31,6 +31,7 @@ FetchContent_MakeAvailable(spdlog)
 
 add_executable(Game
     src/Renderer/TextureManager.cpp
+    src/States/StateManager.cpp
     src/Utils/Log.cpp
     src/Game.cpp
     src/Main.cpp
