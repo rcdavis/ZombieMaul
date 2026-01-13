@@ -6,7 +6,7 @@
 #include "SFML/Graphics/Texture.hpp"
 
 namespace TextureManager {
-	std::map<std::filesystem::path, std::unique_ptr<sf::Texture> > loadedTextures;
+	static std::map<std::filesystem::path, std::unique_ptr<sf::Texture> > loadedTextures;
 
 	sf::Texture* LoadTexture(const std::filesystem::path& filepath) {
 		auto iter = loadedTextures.find(filepath);

@@ -4,6 +4,8 @@
 
 #include "SFML/Graphics/RenderWindow.hpp"
 
+#include "States/StateManager.h"
+
 namespace sf {
 	class Sprite;
 }
@@ -15,6 +17,8 @@ public:
 
 	bool Run();
 
+	StateManager& GetStateManager() { return mStateManager; }
+
 private:
 	bool Init();
 	void Shutdown();
@@ -23,11 +27,12 @@ private:
 
 	void PollWindowEvents();
 
+	bool Input();
 	void Update();
 	void Render();
 
 private:
-	sf::RenderWindow mWindow;
+	StateManager mStateManager;
 
-	std::unique_ptr<sf::Sprite> mBg;
+	sf::RenderWindow mWindow;
 };

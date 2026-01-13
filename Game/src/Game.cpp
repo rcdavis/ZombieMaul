@@ -7,12 +7,15 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 
+#include "States/MainMenuState.h"
+
 #include "Renderer/TextureManager.h"
+#include "Input/Input.h"
 #include "Utils/Log.h"
 
 Game::Game() :
-	mWindow(),
-	mBg()
+	mStateManager(),
+	mWindow()
 {}
 
 Game::~Game() {
@@ -30,18 +33,25 @@ bool Game::Run() {
 	while (mWindow.isOpen()) {
 		PollWindowEvents();
 
+		mStateManager.ProcessStateChange();
+
 		const sf::Time elapsedTime = clock.restart();
 		lag += elapsedTime;
+
+		if (!Input()) {
+			Close();
+			break;
+		}
 
 		while (lag >= timeStepPerFrame) {
 			Update();
 
 #ifdef DEBUG
-            if (lag >= (timeStepPerFrame * 2.0f))
-                lag = timeStepPerFrame;
+			if (lag >= (timeStepPerFrame * 2.0f))
+				lag = timeStepPerFrame;
 #endif // DEBUG
 
-            lag -= timeStepPerFrame;
+			lag -= timeStepPerFrame;
 		}
 
 		Render();
@@ -59,22 +69,13 @@ bool Game::Init() {
 	if (icon.loadFromFile("res/textures/zombie-maul-icon.png"))
 		mWindow.setIcon(icon);
 
-	sf::Texture* tex = TextureManager::LoadTexture("res/textures/MenuBG1.png");
-	if (!tex) {
-		LOG_ERROR("Failed to load test texture");
-		return false;
-	}
-
-	tex->setSmooth(true);
-	mBg = std::make_unique<sf::Sprite>(*tex);
-	mBg->setScale({0.8f, 0.75f});
-	mBg->setPosition({0.0f, -20.0f});
+	mStateManager.PushState(std::make_unique<MainMenuState>(*this));
 
 	return true;
 }
 
 void Game::Shutdown() {
-	mBg = nullptr;
+	mStateManager.ClearStates();
 }
 
 void Game::Close() {
@@ -88,14 +89,19 @@ void Game::PollWindowEvents() {
 	}
 }
 
-void Game::Update() {
+bool Game::Input() {
+	Input::Poll();
+	return mStateManager.Input();
+}
 
+void Game::Update() {
+	mStateManager.Update();
 }
 
 void Game::Render() {
 	mWindow.clear(sf::Color::Magenta);
 
-	mWindow.draw(*mBg);
+	mStateManager.Render(&mWindow);
 
 	mWindow.display();
 }

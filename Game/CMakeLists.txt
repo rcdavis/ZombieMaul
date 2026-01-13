@@ -30,7 +30,9 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(spdlog)
 
 add_executable(Game
+    src/Input/Input.cpp
     src/Renderer/TextureManager.cpp
+    src/States/MainMenuState.cpp
     src/States/StateManager.cpp
     src/Utils/Log.cpp
     src/Game.cpp
