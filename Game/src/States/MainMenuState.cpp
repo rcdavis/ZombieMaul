@@ -5,6 +5,8 @@
 #include "SFML/Graphics/RenderTarget.hpp"
 
 #include "Renderer/TextureManager.h"
+#include "Input/Input.h"
+#include "Utils/Log.h"
 #include "Game.h"
 
 MainMenuState::MainMenuState(Game& game) :
@@ -12,13 +14,13 @@ MainMenuState::MainMenuState(Game& game) :
 	mBgSprite(),
 	mIconSprite(),
 	mGame(game),
-	mCurEntry(MenuItems::Gameplay)
+	mCurEntry(0)
 {}
 
 MainMenuState::~MainMenuState() {}
 
 void MainMenuState::Enter() {
-	mCurEntry = MenuItems::Gameplay;
+	mCurEntry = 0;
 
 	sf::Texture* tex = TextureManager::LoadTexture("res/textures/MenuBG1.png");
 	if (tex) {
@@ -57,6 +59,16 @@ void MainMenuState::Exit() {
 }
 
 bool MainMenuState::Input() {
+	if (Input::IsKeyPressed(sf::Keyboard::Key::Up)) {
+		if (mCurEntry > 0)
+			--mCurEntry;
+	} else if (Input::IsKeyPressed(sf::Keyboard::Key::Down)) {
+		if (mCurEntry < (uint8_t)MenuItems::Num - 1)
+			++mCurEntry;
+	} else if (Input::IsKeyPressed(sf::Keyboard::Key::Enter)) {
+		return ProcessEnter();
+	}
+
 	return true;
 }
 
@@ -76,17 +88,20 @@ void MainMenuState::Render(sf::RenderTarget* const renderTarget) {
 }
 
 bool MainMenuState::ProcessEnter() {
-	switch (mCurEntry) {
+	switch ((MenuItems)mCurEntry) {
 	case MenuItems::Gameplay:
 		//mGame.GetStateManager().ClearAndSetState(std::make_unique<GameplayState>(mGame));
+		LOG_INFO("Pressed Gameplay");
 		break;
 
 	case MenuItems::Options:
 		//mGame.GetStateManager().PushState(std::make_unique<OptionsMenuState>(mGame));
+		LOG_INFO("Pressed Options");
 		break;
 
 	case MenuItems::Credits:
 		//mGame.GetStateManager().PushState(std::make_unique<CreditsMenuState>(mGame));
+		LOG_INFO("Pressed Credits");
 		break;
 
 	case MenuItems::Exit:
@@ -97,7 +112,7 @@ bool MainMenuState::ProcessEnter() {
 }
 
 void MainMenuState::UpdateSizesAndPositions() {
-	switch (mCurEntry) {
+	switch ((MenuItems)mCurEntry) {
 	case MenuItems::Gameplay:
 		mIconSprite->setPosition({80.0f, 240.0f});
 

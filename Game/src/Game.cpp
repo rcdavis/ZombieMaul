@@ -10,6 +10,7 @@
 #include "States/MainMenuState.h"
 
 #include "Renderer/TextureManager.h"
+#include "Input/Input.h"
 #include "Utils/Log.h"
 
 Game::Game() :
@@ -89,6 +90,7 @@ void Game::PollWindowEvents() {
 }
 
 bool Game::Input() {
+	Input::Poll();
 	return mStateManager.Input();
 }
 

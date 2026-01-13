@@ -44,5 +44,5 @@ private:
 
 	Game& mGame;
 
-	MenuItems mCurEntry;
+	uint8_t mCurEntry;
 };
