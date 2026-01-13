@@ -6,10 +6,6 @@
 
 #include "States/StateManager.h"
 
-namespace sf {
-	class Sprite;
-}
-
 class Game {
 public:
 	Game();

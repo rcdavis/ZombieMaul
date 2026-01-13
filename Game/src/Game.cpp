@@ -4,12 +4,9 @@
 #include "SFML/System/Clock.hpp"
 #include "SFML/Window/Event.hpp"
 #include "SFML/Graphics/Image.hpp"
-#include "SFML/Graphics/Texture.hpp"
-#include "SFML/Graphics/Sprite.hpp"
 
 #include "States/MainMenuState.h"
 
-#include "Renderer/TextureManager.h"
 #include "Input/Input.h"
 #include "Utils/Log.h"
 
