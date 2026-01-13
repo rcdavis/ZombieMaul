@@ -2,9 +2,7 @@
 
 #include <filesystem>
 
-namespace sf {
-	class Font;
-}
+#include "SFML/Graphics/Font.hpp"
 
 namespace FontManager {
 	sf::Font* LoadFont(const std::filesystem::path& filepath);

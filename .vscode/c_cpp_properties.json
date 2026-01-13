@@ -4,8 +4,8 @@
 		{
 			"name": "Linux (Debug)",
 			"includePath": [
-				"${workspaceFolder}/build-debug/_deps/spdlog-src/include",
-				"${workspaceFolder}/build-debug/_deps/sfml-src/include",
+				"${workspaceFolder}/build-linux-debug/_deps/spdlog-src/include",
+				"${workspaceFolder}/build-linux-debug/_deps/sfml-src/include",
 				"${workspaceFolder}/Game/include",
 				"/usr/include",
 				"/usr/local/include"
@@ -13,6 +13,23 @@
 			"defines": [
 				"DEBUG",
 				"LOGGING_ENABLED"
+			],
+			"compilerPath": "/usr/bin/gcc",
+			"cStandard": "c17",
+			"cppStandard": "c++17",
+			"intelliSenseMode": "linux-gcc-x64"
+		},
+		{
+			"name": "Linux (Release)",
+			"includePath": [
+				"${workspaceFolder}/build-linux-release/_deps/spdlog-src/include",
+				"${workspaceFolder}/build-linux-release/_deps/sfml-src/include",
+				"${workspaceFolder}/Game/include",
+				"/usr/include",
+				"/usr/local/include"
+			],
+			"defines": [
+				"NDEBUG"
 			],
 			"compilerPath": "/usr/bin/gcc",
 			"cStandard": "c17",

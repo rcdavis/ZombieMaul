@@ -48,9 +48,12 @@ target_include_directories(Game PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+find_package(Threads REQUIRED)
+
 target_link_libraries(Game
     SFML::System
     SFML::Window
     SFML::Graphics
+    Threads::Threads
     spdlog::spdlog_header_only
 )

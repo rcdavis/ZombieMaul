@@ -1,12 +1,10 @@
 #include "Renderer/FontManager.h"
 
-#include <unordered_map>
+#include <map>
 #include <memory>
 
-#include "SFML/Graphics/Font.hpp"
-
 namespace FontManager {
-    static std::unordered_map<std::filesystem::path, std::unique_ptr<sf::Font> > loadedFonts;
+    static std::map<std::filesystem::path, std::unique_ptr<sf::Font> > loadedFonts;
 
 	sf::Font* LoadFont(const std::filesystem::path& filepath) {
 		auto iter = loadedFonts.find(filepath);
@@ -14,7 +12,7 @@ namespace FontManager {
 			return iter->second.get();
 
 		std::unique_ptr<sf::Font> font = std::make_unique<sf::Font>();
-		if (!font->openFromFile(filepath.string()))
+		if (!font->openFromFile(filepath))
 			return nullptr;
 
 		sf::Font* const result = font.get();
