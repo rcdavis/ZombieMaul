@@ -1,14 +1,22 @@
 #include "Game.h"
 
+#include <optional>
+
 #include "SFML/System/Time.hpp"
 #include "SFML/System/Clock.hpp"
 #include "SFML/Window/Event.hpp"
 #include "SFML/Graphics/Image.hpp"
 
+#include "SFML/Graphics/Text.hpp"
+#include "SFML/Graphics/Font.hpp"
+#include "Renderer/FontManager.h"
+
 #include "States/MainMenuState.h"
 
 #include "Input/Input.h"
 #include "Utils/Log.h"
+
+static std::optional<sf::Text> testText;
 
 Game::Game() :
 	mStateManager(),
@@ -70,6 +78,12 @@ bool Game::Init() {
 
 	mStateManager.PushState(std::make_unique<MainMenuState>(*this));
 
+	sf::Font* font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	if (font) {
+		testText.emplace(*font, "Test Text");
+		testText->setPosition({0.0f, 0.0f});
+	}
+
 	return true;
 }
 
@@ -103,6 +117,7 @@ void Game::Render() {
 	mWindow.clear(sf::Color::Magenta);
 
 	mStateManager.Render(&mWindow);
+	mWindow.draw(*testText);
 
 	mWindow.display();
 }
