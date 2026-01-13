@@ -2,23 +2,21 @@
 
 #include <cstdint>
 #include <vector>
-#include <memory>
+#include <optional>
+
+#include "SFML/Graphics/Sprite.hpp"
 
 #include "States/IState.h"
-
-namespace sf {
-	class Sprite;
-}
 
 class Game;
 
 class MainMenuState : public IState {
 private:
-	enum class MenuItems : uint8_t {
+	enum MenuItems : uint8_t {
 		Gameplay,
 		Options,
 		Credits,
-		Exit,
+		Quit,
 		Num
 	};
 
@@ -38,9 +36,9 @@ private:
 	void UpdateSizesAndPositions();
 
 private:
-	std::vector<std::unique_ptr<sf::Sprite>> mEntries;
-	std::unique_ptr<sf::Sprite> mBgSprite;
-	std::unique_ptr<sf::Sprite> mIconSprite;
+	std::vector<sf::Sprite> mEntries;
+	std::optional<sf::Sprite> mBgSprite;
+	std::optional<sf::Sprite> mIconSprite;
 
 	Game& mGame;
 
