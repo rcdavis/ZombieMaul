@@ -6,7 +6,6 @@
 			"includePath": [
 				"${workspaceFolder}/build-debug/_deps/spdlog-src/include",
 				"${workspaceFolder}/build-debug/_deps/sfml-src/include",
-				"${workspaceFolder}/build-debug/_deps/glm-src",
 				"${workspaceFolder}/Game/include",
 				"/usr/include",
 				"/usr/local/include"

@@ -9,13 +9,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sfml)
 
-FetchContent_Declare(
-    glm
-    GIT_REPOSITORY https://github.com/g-truc/glm.git
-    GIT_TAG 1.0.2
-)
-FetchContent_MakeAvailable(glm)
-
 set(SPDLOG_HEADER_ONLY ON CACHE BOOL "" FORCE)
 set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
 set(SPDLOG_BUILD_EXAMPLE OFF CACHE BOOL "" FORCE)
@@ -37,6 +30,7 @@ add_executable(Game
     src/Utils/Log.cpp
     src/Game.cpp
     src/Main.cpp
+    src/Settings.cpp
 )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res
@@ -57,6 +51,5 @@ target_link_libraries(Game
     SFML::System
     SFML::Window
     SFML::Graphics
-    glm::glm
     spdlog::spdlog_header_only
 )
