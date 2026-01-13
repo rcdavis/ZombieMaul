@@ -1,6 +1,12 @@
 #pragma once
 
+#include <memory>
+
 #include "SFML/Graphics/RenderWindow.hpp"
+
+namespace sf {
+	class Sprite;
+}
 
 class Game {
 public:
@@ -22,4 +28,6 @@ private:
 
 private:
 	sf::RenderWindow mWindow;
+
+	std::unique_ptr<sf::Sprite> mBg;
 };

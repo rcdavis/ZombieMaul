@@ -4,12 +4,20 @@
 #include "SFML/System/Clock.hpp"
 #include "SFML/Window/Event.hpp"
 #include "SFML/Graphics/Image.hpp"
+#include "SFML/Graphics/Texture.hpp"
+#include "SFML/Graphics/Sprite.hpp"
+
+#include "Renderer/TextureManager.h"
+#include "Utils/Log.h"
 
 Game::Game() :
-	mWindow()
+	mWindow(),
+	mBg()
 {}
 
-Game::~Game() {}
+Game::~Game() {
+	Shutdown();
+}
 
 bool Game::Run() {
 	if (!Init())
@@ -51,11 +59,22 @@ bool Game::Init() {
 	if (icon.loadFromFile("res/textures/zombie-maul-icon.png"))
 		mWindow.setIcon(icon);
 
+	sf::Texture* tex = TextureManager::LoadTexture("res/textures/MenuBG1.png");
+	if (!tex) {
+		LOG_ERROR("Failed to load test texture");
+		return false;
+	}
+
+	tex->setSmooth(true);
+	mBg = std::make_unique<sf::Sprite>(*tex);
+	mBg->setScale({0.8f, 0.75f});
+	mBg->setPosition({0.0f, -20.0f});
+
 	return true;
 }
 
 void Game::Shutdown() {
-
+	mBg = nullptr;
 }
 
 void Game::Close() {
@@ -75,6 +94,8 @@ void Game::Update() {
 
 void Game::Render() {
 	mWindow.clear(sf::Color::Magenta);
+
+	mWindow.draw(*mBg);
 
 	mWindow.display();
 }
