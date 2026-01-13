@@ -60,8 +60,7 @@ bool Game::Run() {
 }
 
 bool Game::Init() {
-	if (!mSettings.Load("res/data/Settings.txt"))
-		return false;
+	mSettings.Load("res/data/Settings.txt");
 
 	mWindow.create(sf::VideoMode({800, 600}), "Zombie Maul");
 
