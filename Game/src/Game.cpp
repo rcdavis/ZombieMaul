@@ -30,8 +30,6 @@ bool Game::Run() {
 	while (mWindow.isOpen()) {
 		PollWindowEvents();
 
-		mStateManager.ProcessStateChange();
-
 		const sf::Time elapsedTime = clock.restart();
 		lag += elapsedTime;
 
@@ -52,6 +50,8 @@ bool Game::Run() {
 		}
 
 		Render();
+
+		mStateManager.ProcessStateChange();
 	}
 
 	return true;
@@ -67,6 +67,7 @@ bool Game::Init() {
 		mWindow.setIcon(icon);
 
 	mStateManager.PushState(std::make_unique<MainMenuState>(*this));
+	mStateManager.ProcessStateChange();
 
 	return true;
 }
