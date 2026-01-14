@@ -54,8 +54,6 @@ bool Game::Run() {
 		Render();
 	}
 
-	Shutdown();
-
 	return true;
 }
 

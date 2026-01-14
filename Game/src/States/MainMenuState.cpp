@@ -8,6 +8,7 @@
 #include "Utils/Log.h"
 #include "Game.h"
 
+#include "States/CreditsMenuState.h"
 #include "States/OptionsMenuState.h"
 
 MainMenuState::MainMenuState(Game& game) :
@@ -111,8 +112,7 @@ bool MainMenuState::ProcessEnter() {
 		break;
 
 	case MenuItems::Credits:
-		//mGame.GetStateManager().PushState(std::make_unique<CreditsMenuState>(mGame));
-		LOG_INFO("Pressed Credits");
+		mGame.GetStateManager().PushState(std::make_unique<CreditsMenuState>(mGame));
 		break;
 
 	case MenuItems::Quit:
