@@ -16,6 +16,9 @@ public:
 	Level(Game& game);
 	~Level();
 
+	float GetWidth() const { return mWidth; }
+	float GetHeight() const { return mHeight; }
+
 	void Render(sf::RenderTarget* const renderTarget);
 
 	bool LoadLevel(const std::filesystem::path& file);
