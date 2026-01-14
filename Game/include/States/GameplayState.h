@@ -2,6 +2,8 @@
 
 #include "States/IState.h"
 
+#include "Level.h"
+
 class Game;
 
 class GameplayState : public IState {
@@ -17,5 +19,7 @@ public:
 	void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
+	Level mLevel;
+
 	Game& mGame;
 };

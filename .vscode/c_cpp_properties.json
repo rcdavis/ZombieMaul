@@ -6,6 +6,7 @@
 			"includePath": [
 				"${workspaceFolder}/build-linux-debug/_deps/spdlog-src/include",
 				"${workspaceFolder}/build-linux-debug/_deps/sfml-src/include",
+				"${workspaceFolder}/build-linux-debug/_deps/simdjson-src/include",
 				"${workspaceFolder}/Game/include",
 				"/usr/include",
 				"/usr/local/include"
@@ -24,6 +25,7 @@
 			"includePath": [
 				"${workspaceFolder}/build-linux-release/_deps/spdlog-src/include",
 				"${workspaceFolder}/build-linux-release/_deps/sfml-src/include",
+				"${workspaceFolder}/build-linux-release/_deps/simdjson-src/include",
 				"${workspaceFolder}/Game/include",
 				"/usr/include",
 				"/usr/local/include"
