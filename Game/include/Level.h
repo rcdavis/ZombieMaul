@@ -25,6 +25,6 @@ private:
 
 	Game& mGame;
 
-	uint32_t mWidth;
-	uint32_t mHeight;
+	float mWidth;
+	float mHeight;
 };

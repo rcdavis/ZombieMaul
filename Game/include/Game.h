@@ -16,6 +16,7 @@ public:
 
 	StateManager& GetStateManager() { return mStateManager; }
 	Settings& GetSettings() { return mSettings; }
+	sf::RenderWindow& GetWindow() { return mWindow; }
 
 private:
 	bool Init();

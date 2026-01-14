@@ -23,7 +23,6 @@ GameplayState::~GameplayState() {
 }
 
 void GameplayState::Enter() {
-	// TODO: Figure out data file to use
 	mLevel.LoadLevel("res/data/Level.json");
 }
 

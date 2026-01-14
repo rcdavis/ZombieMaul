@@ -22,6 +22,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+FetchContent_Declare(
+  simdjson
+  GIT_REPOSITORY https://github.com/simdjson/simdjson.git
+  GIT_TAG v4.2.4
+)
+FetchContent_MakeAvailable(simdjson)
+
 add_executable(Game
     src/Input/Input.cpp
     src/Renderer/FontManager.cpp
@@ -60,4 +67,5 @@ target_link_libraries(Game
     SFML::Graphics
     Threads::Threads
     spdlog::spdlog_header_only
+    simdjson
 )
