@@ -5,10 +5,10 @@
 
 #include "Renderer/TextureManager.h"
 #include "Input/Input.h"
-#include "Utils/Log.h"
 #include "Game.h"
 
 #include "States/CreditsMenuState.h"
+#include "States/GameplayState.h"
 #include "States/OptionsMenuState.h"
 
 MainMenuState::MainMenuState(Game& game) :
@@ -103,8 +103,7 @@ void MainMenuState::Render(sf::RenderTarget* const renderTarget) {
 bool MainMenuState::ProcessEnter() {
 	switch (mCurEntry) {
 	case MenuItems::Gameplay:
-		//mGame.GetStateManager().ClearAndSetState(std::make_unique<GameplayState>(mGame));
-		LOG_INFO("Pressed Gameplay");
+		mGame.GetStateManager().ClearAndSetState(std::make_unique<GameplayState>(mGame));
 		break;
 
 	case MenuItems::Options:
