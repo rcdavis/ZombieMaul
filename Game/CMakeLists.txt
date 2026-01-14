@@ -33,6 +33,7 @@ add_executable(Game
     src/States/StateManager.cpp
     src/Utils/Log.cpp
     src/Game.cpp
+    src/Level.cpp
     src/Main.cpp
     src/Settings.cpp
 )

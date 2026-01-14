@@ -16,6 +16,7 @@
 static std::optional<sf::Text> testText;
 
 GameplayState::GameplayState(Game& game) :
+	mLevel(game),
 	mGame(game)
 {}
 
@@ -27,6 +28,9 @@ void GameplayState::Enter() {
 	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
 	if (font)
 		testText.emplace(*font, "Gameplay State");
+
+	// TODO: Figure out data file to use
+	mLevel.LoadLevel("res/data/Level.json");
 }
 
 void GameplayState::Exit() {
