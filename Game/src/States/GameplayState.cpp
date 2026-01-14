@@ -13,8 +13,6 @@
 
 #include "Renderer/FontManager.h"
 
-static std::optional<sf::Text> testText;
-
 GameplayState::GameplayState(Game& game) :
 	mLevel(game),
 	mGame(game)
@@ -25,16 +23,12 @@ GameplayState::~GameplayState() {
 }
 
 void GameplayState::Enter() {
-	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
-	if (font)
-		testText.emplace(*font, "Gameplay State");
-
 	// TODO: Figure out data file to use
 	mLevel.LoadLevel("res/data/Level.json");
 }
 
 void GameplayState::Exit() {
-	testText.reset();
+
 }
 
 bool GameplayState::Input() {
@@ -49,5 +43,5 @@ void GameplayState::Update() {
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget) {
-	renderTarget->draw(*testText);
+	mLevel.Render(renderTarget);
 }
