@@ -3,6 +3,7 @@
 #include "States/IState.h"
 
 #include "Level.h"
+#include "Entity/Player.h"
 
 class Game;
 
@@ -20,6 +21,7 @@ public:
 
 private:
 	Level mLevel;
+	Player mPlayer;
 
 	Game& mGame;
 };
