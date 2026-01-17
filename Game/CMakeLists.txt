@@ -30,6 +30,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(simdjson)
 
 add_executable(Game
+    src/Entity/Entity.cpp
+    src/Entity/Player.cpp
     src/Input/Input.cpp
     src/Renderer/FontManager.cpp
     src/Renderer/TextureManager.cpp
