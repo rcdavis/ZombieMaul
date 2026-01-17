@@ -31,6 +31,9 @@ void GameplayState::Enter() {
 	if (tex) {
 		mPlayer.SetSprite(sf::Sprite(*tex));
 		mPlayer.SetTextureRect(sf::IntRect({0, 0}, {64, 64}));
+		mPlayer.SetOrigin({32.0f, 32.0f});
+		mPlayer.SetPosition({300.0f, 300.0f});
+		mPlayer.SetSpeed(5.0f);
 	}
 }
 

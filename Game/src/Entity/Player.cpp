@@ -19,4 +19,6 @@ void Player::Update() {
 	} else if (Input::IsKeyDown(sf::Keyboard::Key::Right)) {
 		Rotate(sf::degrees(4.0f));
 	}
+
+	Entity::Update();
 }
