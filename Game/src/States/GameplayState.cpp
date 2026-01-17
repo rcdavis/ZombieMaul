@@ -12,9 +12,11 @@
 #include "Game.h"
 
 #include "Renderer/FontManager.h"
+#include "Renderer/TextureManager.h"
 
 GameplayState::GameplayState(Game& game) :
 	mLevel(game),
+	mPlayer(game),
 	mGame(game)
 {}
 
@@ -24,6 +26,15 @@ GameplayState::~GameplayState() {
 
 void GameplayState::Enter() {
 	mLevel.LoadLevel("res/data/Level.json");
+
+	auto tex = TextureManager::LoadTexture("res/textures/CharacterSprite.png");
+	if (tex) {
+		mPlayer.SetSprite(sf::Sprite(*tex));
+		mPlayer.SetTextureRect(sf::IntRect({0, 0}, {64, 64}));
+		mPlayer.SetOrigin({32.0f, 32.0f});
+		mPlayer.SetPosition({300.0f, 300.0f});
+		mPlayer.SetSpeed(5.0f);
+	}
 }
 
 void GameplayState::Exit() {
@@ -38,9 +49,10 @@ bool GameplayState::Input() {
 }
 
 void GameplayState::Update() {
-
+	mPlayer.Update();
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget) {
 	mLevel.Render(renderTarget);
+	mPlayer.Render(renderTarget);
 }
