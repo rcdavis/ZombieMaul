@@ -27,8 +27,13 @@ const Animation::Frame Animation::GetFrame(sf::Time timestamp) const {
 Animation Animation::Load(const std::filesystem::path& filepath) {
 	Animation anim;
 
-	simdjson::ondemand::parser parser;
 	auto json = simdjson::padded_string::load(filepath.string());
+	if (json.error()) {
+		LOG_ERROR("Failed to load json file {0}: {1}", filepath.string(), simdjson::error_message(json.error()));
+		return anim;
+	}
+
+	simdjson::ondemand::parser parser;
 	simdjson::ondemand::document doc = parser.iterate(json);
 
 	auto name = doc["name"].get_string();

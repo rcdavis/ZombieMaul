@@ -19,11 +19,11 @@ public:
 	Animation();
 	~Animation();
 
-	const std::string GetName() const { return mName; }
+	const std::string& GetName() const { return mName; }
 
 	const Frame GetFrame(sf::Time timestamp) const;
 
-	const sf::Time GetDuration() const { return mDuration; }
+	const sf::Time& GetDuration() const { return mDuration; }
 
 	const bool IsLooping() const { return mIsLooping; }
 
