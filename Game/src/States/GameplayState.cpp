@@ -11,6 +11,7 @@
 #include "Input/Input.h"
 #include "Game.h"
 
+#include "Renderer/Animation.h"
 #include "Renderer/FontManager.h"
 #include "Renderer/TextureManager.h"
 
@@ -26,6 +27,8 @@ GameplayState::~GameplayState() {
 
 void GameplayState::Enter() {
 	mLevel.LoadLevel("res/data/Level.json");
+
+	Animation playerAnim = Animation::Load("res/data/PlayerWalkAnim.json");
 
 	auto tex = TextureManager::LoadTexture("res/textures/CharacterSprite.png");
 	if (tex) {
