@@ -38,13 +38,6 @@ Animation Animation::Load(const std::filesystem::path& filepath) {
 	}
 	anim.mName = name.value();
 
-	auto duration = doc["duration"].get_double();
-	if (duration.error()) {
-		LOG_ERROR("Failed to get anim duration from level JSON: {0}", simdjson::error_message(duration.error()));
-		return anim;
-	}
-	anim.mDuration = sf::seconds((float)duration.value());
-
 	auto isLooping = doc["looping"].get_bool();
 	if (isLooping.error()) {
 		LOG_ERROR("Failed to get anim is looping from level JSON: {0}", simdjson::error_message(isLooping.error()));
@@ -58,6 +51,7 @@ Animation Animation::Load(const std::filesystem::path& filepath) {
 		return anim;
 	}
 
+	sf::Time duration;
 	for (auto curFrame : frames.value()) {
 		Frame f;
 
@@ -67,14 +61,14 @@ Animation Animation::Load(const std::filesystem::path& filepath) {
 			return anim;
 		}
 
-		auto rectX = rect["left"].get_int64();
+		auto rectX = rect["x"].get_int64();
 		if (rectX.error()) {
 			LOG_ERROR("Failed to get anim frame rect X from level JSON: {0}", simdjson::error_message(rectX.error()));
 			return anim;
 		}
 		f.rect.position.x = (int)rectX.value();
 
-		auto rectY = rect["top"].get_int64();
+		auto rectY = rect["y"].get_int64();
 		if (rectY.error()) {
 			LOG_ERROR("Failed to get anim frame rect Y from level JSON: {0}", simdjson::error_message(rectY.error()));
 			return anim;
@@ -95,13 +89,6 @@ Animation Animation::Load(const std::filesystem::path& filepath) {
 		}
 		f.rect.size.y = (int)rectHeight.value();
 
-		auto timestamp = curFrame["timestamp"].get_double();
-		if (timestamp.error()) {
-			LOG_ERROR("Failed to get anim frame timestamp from level JSON: {0}", simdjson::error_message(timestamp.error()));
-			return anim;
-		}
-		f.timestamp = sf::seconds((float)timestamp.value());
-
 		auto frameDur = curFrame["duration"].get_double();
 		if (frameDur.error()) {
 			LOG_ERROR("Failed to get anim frame duration from level JSON: {0}", simdjson::error_message(frameDur.error()));
@@ -109,8 +96,13 @@ Animation Animation::Load(const std::filesystem::path& filepath) {
 		}
 		f.duration = sf::seconds((float)frameDur.value());
 
+		f.timestamp = duration;
+		duration += f.duration;
+
 		anim.mFrames.push_back(f);
 	}
+
+	anim.mDuration = duration;
 
 	return anim;
 }
