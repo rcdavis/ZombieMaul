@@ -5,6 +5,7 @@
 #include "Game.h"
 
 Entity::Entity(Game& game) :
+	mAnimPlayer(),
 	mSprite(),
 	mGame(game),
 	mSpeed(0.0f),
@@ -17,11 +18,22 @@ Entity::~Entity() {
 
 void Entity::Update() {
 	Move(GetDirection() * GetSpeed());
+
+	mAnimPlayer.Update();
 }
 
 void Entity::Render(sf::RenderTarget* const renderTarget) {
-	if (mSprite)
+	if (mSprite) {
+		if (mAnimPlayer.IsPlaying())
+			mSprite->setTextureRect(mAnimPlayer.GetAnimRect());
+
 		renderTarget->draw(*mSprite);
+	}
+}
+
+void Entity::SetAnimation(const Animation* anim) {
+	mAnimPlayer.SetAnimation(anim);
+	mAnimPlayer.Start();
 }
 
 const sf::Vector2f Entity::GetDirection() const {
