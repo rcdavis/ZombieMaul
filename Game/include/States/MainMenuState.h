@@ -13,11 +13,11 @@ class Game;
 class MainMenuState : public IState {
 private:
 	enum MenuItems : uint8_t {
-		Gameplay,
-		Options,
-		Credits,
-		Quit,
-		Num
+		eGameplay,
+		eOptions,
+		eCredits,
+		eExit,
+		eNum
 	};
 
 public:

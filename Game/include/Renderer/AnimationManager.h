@@ -5,5 +5,5 @@
 #include "Renderer/Animation.h"
 
 namespace AnimationManager {
-	Animation* Load(const std::filesystem::path& filepath);
+	const Animation* Load(const std::filesystem::path& filepath);
 }

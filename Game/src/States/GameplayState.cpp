@@ -29,7 +29,7 @@ GameplayState::~GameplayState() {
 void GameplayState::Enter() {
 	mLevel.LoadLevel("res/data/Level.json");
 
-	Animation* playerAnim = AnimationManager::Load("res/data/PlayerWalkAnim.json");
+	const Animation* playerAnim = AnimationManager::Load("res/data/PlayerWalkAnim.json");
 	mPlayer.SetAnimation(playerAnim);
 
 	auto tex = TextureManager::LoadTexture("res/textures/CharacterSprite.png");

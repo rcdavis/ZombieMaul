@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <optional>
 
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Time.hpp"
@@ -21,13 +22,13 @@ public:
 
 	const std::string& GetName() const { return mName; }
 
-	const Frame GetFrame(sf::Time timestamp) const;
+	const Frame& GetFrame(sf::Time timestamp) const;
 
 	const sf::Time& GetDuration() const { return mDuration; }
 
 	const bool IsLooping() const { return mIsLooping; }
 
-	static Animation Load(const std::filesystem::path& filepath);
+	static std::optional<Animation> Load(const std::filesystem::path& filepath);
 
 private:
 	std::string mName;

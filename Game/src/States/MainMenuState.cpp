@@ -39,7 +39,7 @@ void MainMenuState::Enter() {
 		mIconSprite->setScale({0.8f, 0.8f});
 	}
 
-	mEntries.reserve(MenuItems::Num);
+	mEntries.reserve(MenuItems::eNum);
 	tex = TextureManager::LoadTexture("res/textures/MenuPlay.png");
 	if (tex) {
 		tex->setSmooth(true);
@@ -76,7 +76,7 @@ bool MainMenuState::Input() {
 		if (mCurEntry > 0)
 			--mCurEntry;
 	} else if (Input::IsKeyPressed(sf::Keyboard::Key::Down)) {
-		if (mCurEntry < MenuItems::Num - 1)
+		if (mCurEntry < MenuItems::eNum - 1)
 			++mCurEntry;
 	} else if (Input::IsKeyPressed(sf::Keyboard::Key::Enter)) {
 		return ProcessEnter();
@@ -102,19 +102,19 @@ void MainMenuState::Render(sf::RenderTarget* const renderTarget) {
 
 bool MainMenuState::ProcessEnter() {
 	switch (mCurEntry) {
-	case MenuItems::Gameplay:
+	case MenuItems::eGameplay:
 		mGame.GetStateManager().ClearAndSetState(std::make_unique<GameplayState>(mGame));
 		break;
 
-	case MenuItems::Options:
+	case MenuItems::eOptions:
 		mGame.GetStateManager().PushState(std::make_unique<OptionsMenuState>(mGame));
 		break;
 
-	case MenuItems::Credits:
+	case MenuItems::eCredits:
 		mGame.GetStateManager().PushState(std::make_unique<CreditsMenuState>(mGame));
 		break;
 
-	case MenuItems::Quit:
+	case MenuItems::eExit:
 		return false;
 	}
 
@@ -123,71 +123,71 @@ bool MainMenuState::ProcessEnter() {
 
 void MainMenuState::UpdateSizesAndPositions() {
 	switch (mCurEntry) {
-	case MenuItems::Gameplay:
+	case MenuItems::eGameplay:
 		mIconSprite->setPosition({80.0f, 240.0f});
 
-		mEntries[MenuItems::Gameplay].setScale({1.0f, 1.0f});
-		mEntries[MenuItems::Gameplay].setPosition({280.0f, 220.0f});
+		mEntries[MenuItems::eGameplay].setScale({1.0f, 1.0f});
+		mEntries[MenuItems::eGameplay].setPosition({280.0f, 220.0f});
 
-		mEntries[MenuItems::Options].setScale({0.6f, 0.6f});
-		mEntries[MenuItems::Options].setPosition({260.0f, 260.0f});
+		mEntries[MenuItems::eOptions].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::eOptions].setPosition({260.0f, 260.0f});
 
-		mEntries[MenuItems::Credits].setScale({0.6f, 0.6f});
-		mEntries[MenuItems::Credits].setPosition({250.0f, 330.0f});
+		mEntries[MenuItems::eCredits].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::eCredits].setPosition({250.0f, 330.0f});
 
-		mEntries[MenuItems::Quit].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Quit].setPosition({310.0f, 440.0f});
+		mEntries[MenuItems::eExit].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eExit].setPosition({310.0f, 440.0f});
 
 		break;
 
-	case MenuItems::Options:
+	case MenuItems::eOptions:
 		mIconSprite->setPosition({5.0f, 300.0f});
 
-		mEntries[MenuItems::Gameplay].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Gameplay].setPosition({300.0f, 230.0f});
+		mEntries[MenuItems::eGameplay].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eGameplay].setPosition({300.0f, 230.0f});
 
-		mEntries[MenuItems::Options].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Options].setPosition({200.0f, 200.0f});
+		mEntries[MenuItems::eOptions].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eOptions].setPosition({200.0f, 200.0f});
 
-		mEntries[MenuItems::Credits].setScale({0.6f, 0.6f});
-		mEntries[MenuItems::Credits].setPosition({250.0f, 330.0f});
+		mEntries[MenuItems::eCredits].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::eCredits].setPosition({250.0f, 330.0f});
 
-		mEntries[MenuItems::Quit].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Quit].setPosition({310.0f, 440.0f});
+		mEntries[MenuItems::eExit].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eExit].setPosition({310.0f, 440.0f});
 
 		break;
 
-	case MenuItems::Credits:
+	case MenuItems::eCredits:
 		mIconSprite->setPosition({5.0f, 350.0f});
 
-		mEntries[MenuItems::Gameplay].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Gameplay].setPosition({300.0f, 230.0f});
+		mEntries[MenuItems::eGameplay].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eGameplay].setPosition({300.0f, 230.0f});
 
-		mEntries[MenuItems::Options].setScale({0.6f, 0.6f});
-		mEntries[MenuItems::Options].setPosition({260.0f, 240.0f});
+		mEntries[MenuItems::eOptions].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::eOptions].setPosition({260.0f, 240.0f});
 
-		mEntries[MenuItems::Credits].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Credits].setPosition({210.0f, 260.0f});
+		mEntries[MenuItems::eCredits].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eCredits].setPosition({210.0f, 260.0f});
 
-		mEntries[MenuItems::Quit].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Quit].setPosition({310.0f, 440.0f});
+		mEntries[MenuItems::eExit].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eExit].setPosition({310.0f, 440.0f});
 
 		break;
 
-	case MenuItems::Quit:
+	case MenuItems::eExit:
 		mIconSprite->setPosition({80.0f, 440.0f});
 
-		mEntries[MenuItems::Gameplay].setScale({0.8f, 0.8f});
-		mEntries[MenuItems::Gameplay].setPosition({300.0f, 230.0f});
+		mEntries[MenuItems::eGameplay].setScale({0.8f, 0.8f});
+		mEntries[MenuItems::eGameplay].setPosition({300.0f, 230.0f});
 
-		mEntries[MenuItems::Options].setScale({0.6f, 0.6f});
-		mEntries[MenuItems::Options].setPosition({260.0f, 260.0f});
+		mEntries[MenuItems::eOptions].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::eOptions].setPosition({260.0f, 260.0f});
 
-		mEntries[MenuItems::Credits].setScale({0.6f, 0.6f});
-		mEntries[MenuItems::Credits].setPosition({250.0f, 330.0f});
+		mEntries[MenuItems::eCredits].setScale({0.6f, 0.6f});
+		mEntries[MenuItems::eCredits].setPosition({250.0f, 330.0f});
 
-		mEntries[MenuItems::Quit].setScale({1.0f, 1.0f});
-		mEntries[MenuItems::Quit].setPosition({300.0f, 420.0f});
+		mEntries[MenuItems::eExit].setScale({1.0f, 1.0f});
+		mEntries[MenuItems::eExit].setPosition({300.0f, 420.0f});
 
 		break;
 	}
