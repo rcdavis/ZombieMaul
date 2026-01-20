@@ -4,6 +4,8 @@
 
 #include "SFML/Graphics/Sprite.hpp"
 
+#include "Renderer/AnimationPlayer.h"
+
 namespace sf {
 	class RenderTarget;
 }
@@ -49,6 +51,7 @@ public:
 	void SetType(Type type) { mType = type; }
 	Type GetType() const { return mType; }
 
+	void SetAnimation(const Animation* anim);
 	void SetTextureRect(sf::IntRect rect) { mSprite->setTextureRect(rect); }
 
 	void SetTexture(sf::Texture* const texture) { mSprite->setTexture(*texture); }
@@ -58,6 +61,8 @@ public:
 	sf::FloatRect getGlobalBounds() const { return mSprite->getGlobalBounds(); }
 
 private:
+	AnimationPlayer mAnimPlayer;
+
 	std::optional<sf::Sprite> mSprite;
 
 	Game& mGame;
