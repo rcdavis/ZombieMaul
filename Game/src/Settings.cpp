@@ -6,7 +6,8 @@
 
 Settings::Settings() :
 	mMusicVolume(100),
-	mSfxVolume(100)
+	mSfxVolume(100),
+	mDebugRender(false)
 {}
 
 bool Settings::Load(const std::filesystem::path& filepath) {
@@ -32,6 +33,8 @@ bool Settings::Load(const std::filesystem::path& filepath) {
 			mMusicVolume = (int8_t)std::stoi(value);
 		else if (key == "sfxVolume")
 			mSfxVolume = (int8_t)std::stoi(value);
+		else if (key == "debugRender")
+			mDebugRender = (bool)std::stoi(value);
 	}
 
 	return true;
@@ -45,7 +48,8 @@ bool Settings::Save(const std::filesystem::path& filepath) {
 	}
 
 	file << "musicVolume=" << (uint16_t)mMusicVolume << '\n';
-	file << "sfxVolume=" << (uint16_t)mSfxVolume;
+	file << "sfxVolume=" << (uint16_t)mSfxVolume << '\n';
+	file << "debugRender=" << (uint16_t)mDebugRender;
 
 	return true;
 }

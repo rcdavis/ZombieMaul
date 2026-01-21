@@ -51,6 +51,9 @@ bool GameplayState::Input() {
 	if (Input::IsKeyPressed(sf::Keyboard::Key::Escape))
 		mGame.GetStateManager().ClearAndSetState(std::make_unique<MainMenuState>(mGame));
 
+	if (Input::IsKeyPressed(sf::Keyboard::Key::F1))
+		mGame.GetSettings().SetDebugRender(!mGame.GetSettings().GetDebugRender());
+
 	return true;
 }
 
