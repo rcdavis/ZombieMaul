@@ -6,6 +6,7 @@
 #include "Renderer/TextureManager.h"
 #include "Utils/Log.h"
 #include "Utils/Debug.h"
+#include "Game.h"
 
 Level::Level(Game& game) :
 	mCollisionBounds(),
@@ -23,8 +24,10 @@ void Level::Render(sf::RenderTarget* const renderTarget) {
 	if (mBgSprite)
 		renderTarget->draw(*mBgSprite);
 
-	for (const auto& collisionBounds : mCollisionBounds) {
-		Debug::DrawCapsule(renderTarget, collisionBounds, sf::Color::Green);
+	if (mGame.GetSettings().GetDebugRender()) {
+		for (const auto& collisionBounds : mCollisionBounds) {
+			Debug::DrawCapsule(renderTarget, collisionBounds, sf::Color::Green);
+		}
 	}
 }
 
