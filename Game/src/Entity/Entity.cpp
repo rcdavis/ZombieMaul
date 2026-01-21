@@ -39,3 +39,23 @@ void Entity::SetAnimation(const Animation* anim) {
 const sf::Vector2f Entity::GetDirection() const {
 	return sf::Vector2f(0.0f, -1.0f).rotatedBy(GetRotation());
 }
+
+void Entity::HandleCollision(const Capsule& capsule) {
+	const sf::Vector2f closestPoint = ClosestPointOnALine(capsule.start, capsule.end, GetPosition());
+	const Circle testCircle {
+		.pos = closestPoint,
+		.radius = capsule.radius
+	};
+	const Circle entityCircle {
+		.pos = GetPosition(),
+		.radius = 32.0f
+	};
+
+	if (CircleCollision(testCircle, entityCircle)) {
+		const sf::Vector2f vecDistance = entityCircle.pos - testCircle.pos;
+		const sf::Vector2f testToEntity = Normalize(vecDistance);
+		const float pushBackDist = (entityCircle.radius + testCircle.radius) - VectorLength(vecDistance);
+
+		Move(testToEntity * pushBackDist);
+	}
+}

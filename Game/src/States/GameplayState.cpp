@@ -56,6 +56,10 @@ bool GameplayState::Input() {
 
 void GameplayState::Update() {
 	mPlayer.Update();
+
+	for (const auto& bounds : mLevel.GetCollisionBounds()) {
+		mPlayer.HandleCollision(bounds);
+	}
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget) {
