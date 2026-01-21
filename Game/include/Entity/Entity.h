@@ -5,6 +5,7 @@
 #include "SFML/Graphics/Sprite.hpp"
 
 #include "Renderer/AnimationPlayer.h"
+#include "Utils/Math.h"
 
 namespace sf {
 	class RenderTarget;
@@ -59,6 +60,8 @@ public:
 	const sf::Vector2f GetDirection() const;
 
 	sf::FloatRect getGlobalBounds() const { return mSprite->getGlobalBounds(); }
+
+	void HandleCollision(const Capsule& capsule);
 
 private:
 	AnimationPlayer mAnimPlayer;
