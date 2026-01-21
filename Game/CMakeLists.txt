@@ -43,6 +43,7 @@ add_executable(Game
     src/States/MainMenuState.cpp
     src/States/OptionsMenuState.cpp
     src/States/StateManager.cpp
+    src/Utils/Math.cpp
     src/Utils/Log.cpp
     src/Game.cpp
     src/Level.cpp
