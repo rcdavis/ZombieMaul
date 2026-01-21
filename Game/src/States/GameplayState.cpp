@@ -43,7 +43,7 @@ void GameplayState::Enter() {
 }
 
 void GameplayState::Exit() {
-
+    mGame.GetWindow().setView(mGame.GetWindow().getDefaultView());
 }
 
 bool GameplayState::Input() {
@@ -58,6 +58,19 @@ void GameplayState::Update() {
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget) {
+	if (mGame.GetStateManager().GetCurrentState() != this)
+		return;
+
+	const sf::Vector2f playerPos(mPlayer.GetPosition());
+	const sf::Vector2f windowSize(mGame.GetWindow().getSize());
+
+	const sf::Vector2f center(
+		std::clamp(playerPos.x, windowSize.x / 2.0f, mLevel.GetWidth() - (windowSize.x / 2.0f)),
+		std::clamp(playerPos.y, windowSize.y / 2.0f, mLevel.GetHeight() - (windowSize.y / 2.0f)));
+
+	const sf::View view(center, windowSize);
+	mGame.GetWindow().setView(view);
+
 	mLevel.Render(renderTarget);
 	mPlayer.Render(renderTarget);
 }
