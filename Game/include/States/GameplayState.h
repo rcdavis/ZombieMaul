@@ -3,9 +3,9 @@
 #include "States/IState.h"
 
 #include "Level.h"
-#include "Entity/Player.h"
 
 class Game;
+class Player;
 
 class GameplayState : public IState {
 public:
@@ -21,7 +21,7 @@ public:
 
 private:
 	Level mLevel;
-	Player mPlayer;
+	Player* mPlayer;
 
 	Game& mGame;
 };
