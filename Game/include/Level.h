@@ -22,7 +22,7 @@ public:
 	float GetWidth() const { return mWidth; }
 	float GetHeight() const { return mHeight; }
 
-	const std::vector<Capsule>& GetCollisionBounds() const { return mCollisionBounds; }
+	void HandleCollisions() const;
 
 	void Render(sf::RenderTarget* const renderTarget);
 

@@ -8,6 +8,9 @@
 
 #include "States/MainMenuState.h"
 
+#include "Entity/EntityManager.h"
+#include "Entity/Player.h"
+
 #include "Input/Input.h"
 #include "Game.h"
 
@@ -18,7 +21,7 @@
 
 GameplayState::GameplayState(Game& game) :
 	mLevel(game),
-	mPlayer(game),
+	mPlayer(nullptr),
 	mGame(game)
 {}
 
@@ -30,21 +33,26 @@ void GameplayState::Enter() {
 	mLevel.LoadLevel("res/data/Level.json");
 
 	const Animation* playerAnim = AnimationManager::Load("res/data/PlayerWalkAnim.json");
-	mPlayer.SetAnimation(playerAnim);
+	auto player = std::make_unique<Player>(mGame);
+	player->SetAnimation(playerAnim);
 
 	auto tex = TextureManager::LoadTexture("res/textures/CharacterSprite.png");
 	if (tex) {
-		mPlayer.SetSprite(sf::Sprite(*tex));
-		mPlayer.SetTextureRect(sf::IntRect({0, 0}, {64, 64}));
-		mPlayer.SetOrigin({32.0f, 32.0f});
-		mPlayer.SetPosition({300.0f, 300.0f});
-		mPlayer.SetRotation(sf::degrees(180.0f));
-		mPlayer.SetSpeed(5.0f);
+		player->SetSprite(sf::Sprite(*tex));
+		player->SetTextureRect(sf::IntRect({0, 0}, {64, 64}));
+		player->SetOrigin({32.0f, 32.0f});
+		player->SetPosition({300.0f, 300.0f});
+		player->SetRotation(sf::degrees(180.0f));
+		player->SetSpeed(5.0f);
+
+		mPlayer = player.get();
+		EntityManager::AddEntity(std::move(player));
 	}
 }
 
 void GameplayState::Exit() {
     mGame.GetWindow().setView(mGame.GetWindow().getDefaultView());
+	EntityManager::ClearEntities();
 }
 
 bool GameplayState::Input() {
@@ -58,18 +66,16 @@ bool GameplayState::Input() {
 }
 
 void GameplayState::Update() {
-	mPlayer.Update();
+	mLevel.HandleCollisions();
 
-	for (const auto& bounds : mLevel.GetCollisionBounds()) {
-		mPlayer.HandleCollision(bounds);
-	}
+	EntityManager::Update();
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget) {
 	if (mGame.GetStateManager().GetCurrentState() != this)
 		return;
 
-	const sf::Vector2f playerPos(mPlayer.GetPosition());
+	const sf::Vector2f playerPos(mPlayer->GetPosition());
 	const sf::Vector2f windowSize(mGame.GetWindow().getSize());
 
 	const sf::Vector2f center(
@@ -80,5 +86,6 @@ void GameplayState::Render(sf::RenderTarget* const renderTarget) {
 	mGame.GetWindow().setView(view);
 
 	mLevel.Render(renderTarget);
-	mPlayer.Render(renderTarget);
+
+	EntityManager::Render(renderTarget);
 }

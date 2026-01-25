@@ -4,6 +4,7 @@
 #include "simdjson.h"
 
 #include "Renderer/TextureManager.h"
+#include "Entity/EntityManager.h"
 #include "Utils/Log.h"
 #include "Utils/Debug.h"
 #include "Game.h"
@@ -18,6 +19,13 @@ Level::Level(Game& game) :
 
 Level::~Level() {
 
+}
+
+void Level::HandleCollisions() const {
+	for (const auto& cap : mCollisionBounds)
+		EntityManager::HandleCollision(cap);
+
+	EntityManager::HandleEntityCollisions();
 }
 
 void Level::Render(sf::RenderTarget* const renderTarget) {

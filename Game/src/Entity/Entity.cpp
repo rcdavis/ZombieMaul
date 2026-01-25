@@ -59,3 +59,7 @@ void Entity::HandleCollision(const Capsule& capsule) {
 		Move(testToEntity * pushBackDist);
 	}
 }
+
+void Entity::HandleCollision(Entity* const entity) {
+
+}

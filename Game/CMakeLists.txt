@@ -31,6 +31,7 @@ FetchContent_MakeAvailable(simdjson)
 
 add_executable(Game
     src/Entity/Entity.cpp
+    src/Entity/EntityManager.cpp
     src/Entity/Player.cpp
     src/Input/Input.cpp
     src/Renderer/Animation.cpp

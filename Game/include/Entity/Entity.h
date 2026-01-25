@@ -61,7 +61,8 @@ public:
 
 	sf::FloatRect getGlobalBounds() const { return mSprite->getGlobalBounds(); }
 
-	void HandleCollision(const Capsule& capsule);
+	virtual void HandleCollision(const Capsule& capsule);
+    virtual void HandleCollision(Entity* const entity);
 
 private:
 	AnimationPlayer mAnimPlayer;
