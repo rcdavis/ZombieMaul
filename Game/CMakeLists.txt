@@ -32,6 +32,7 @@ FetchContent_MakeAvailable(simdjson)
 add_executable(Game
     src/Entity/Entity.cpp
     src/Entity/EntityManager.cpp
+    src/Entity/Person.cpp
     src/Entity/Player.cpp
     src/Input/Input.cpp
     src/Renderer/Animation.cpp
@@ -48,8 +49,10 @@ add_executable(Game
     src/Utils/Math.cpp
     src/Utils/Log.cpp
     src/Game.cpp
+    src/IntervalTrigger.cpp
     src/Level.cpp
     src/Main.cpp
+    src/RNG.cpp
     src/Settings.cpp
 )
 
