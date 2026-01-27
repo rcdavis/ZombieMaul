@@ -3,6 +3,9 @@
 #include "States/IState.h"
 
 #include "Level.h"
+#include "IntervalTrigger.h"
+
+#include <vector>
 
 class Game;
 class Player;
@@ -25,7 +28,8 @@ private:
 
 private:
 	Level mLevel;
-	Player* mPlayer;
+	std::vector<IntervalTrigger> mSpawns;
 
+	Player* mPlayer;
 	Game& mGame;
 };

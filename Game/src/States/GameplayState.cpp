@@ -22,6 +22,7 @@
 
 GameplayState::GameplayState(Game& game) :
 	mLevel(game),
+	mSpawns(),
 	mPlayer(nullptr),
 	mGame(game)
 {}
@@ -35,11 +36,11 @@ void GameplayState::Enter() {
 
 	SpawnPlayer();
 
-	// TODO: Replace with spawner
-	SpawnPerson();
+	mSpawns.emplace_back(mLevel.GetPersonSpawnTime(), std::bind(&GameplayState::SpawnPerson, this));
 }
 
 void GameplayState::Exit() {
+	mSpawns.clear();
 	mGame.GetWindow().setView(mGame.GetWindow().getDefaultView());
 	EntityManager::ClearEntities();
 }
@@ -56,6 +57,9 @@ bool GameplayState::Input() {
 
 void GameplayState::Update() {
 	mLevel.HandleCollisions();
+
+	for (auto& spawn : mSpawns)
+		spawn.Update();
 
 	EntityManager::Update();
 }
