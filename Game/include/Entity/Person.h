@@ -10,7 +10,7 @@ class Game;
 
 class Person : public Entity {
 public:
-	Person(Game game);
+	Person(Game& game);
 	~Person();
 
 	Person(const Person&) = default;

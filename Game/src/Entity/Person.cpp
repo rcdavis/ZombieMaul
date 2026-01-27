@@ -5,7 +5,7 @@
 
 #include "Renderer/AnimationManager.h"
 
-Person::Person(Game game) :
+Person::Person(Game& game) :
 	Entity(game),
 	mRng(0, 360),
 	mTransformationTime(),

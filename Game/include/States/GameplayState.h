@@ -20,6 +20,10 @@ public:
 	void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
+	void SpawnPlayer();
+	void SpawnPerson();
+
+private:
 	Level mLevel;
 	Player* mPlayer;
 

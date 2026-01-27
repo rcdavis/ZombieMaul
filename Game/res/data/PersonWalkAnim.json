@@ -1,11 +1,11 @@
 {
-	"name": "Zombie Walking",
+	"name": "Person Walking",
 	"looping": true,
 	"frames": [
 		{
 			"rect": {
 				"x": 0,
-				"y": 576,
+				"y": 384,
 				"width": 64,
 				"height": 64
 			},
@@ -14,7 +14,7 @@
 		{
 			"rect": {
 				"x": 0,
-				"y": 640,
+				"y": 448,
 				"width": 64,
 				"height": 64
 			},
@@ -23,7 +23,7 @@
 		{
 			"rect": {
 				"x": 0,
-				"y": 704,
+				"y": 512,
 				"width": 64,
 				"height": 64
 			},
