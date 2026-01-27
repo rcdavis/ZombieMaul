@@ -56,6 +56,12 @@ bool GameplayState::Input() {
 }
 
 void GameplayState::Update() {
+	if (mGame.GetStateManager().GetCurrentState() != this) {
+		for (auto& spawn : mSpawns)
+			spawn.ResetTimer();
+		return;
+	}
+
 	mLevel.HandleCollisions();
 
 	for (auto& spawn : mSpawns)
