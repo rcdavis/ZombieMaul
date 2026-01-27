@@ -1,0 +1,33 @@
+{
+	"name": "Zombie Walking",
+	"looping": true,
+	"frames": [
+		{
+			"rect": {
+				"x": 0,
+				"y": 576,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		},
+		{
+			"rect": {
+				"x": 0,
+				"y": 640,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		},
+		{
+			"rect": {
+				"x": 0,
+				"y": 704,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		}
+	]
+}

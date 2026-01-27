@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <filesystem>
 
 #include "SFML/Graphics/Sprite.hpp"
 
@@ -63,6 +64,8 @@ public:
 
 	virtual void HandleCollision(const Capsule& capsule);
     virtual void HandleCollision(Entity* const entity);
+
+	virtual bool Load(const std::filesystem::path& filepath);
 
 private:
 	AnimationPlayer mAnimPlayer;

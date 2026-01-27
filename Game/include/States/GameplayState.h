@@ -3,6 +3,9 @@
 #include "States/IState.h"
 
 #include "Level.h"
+#include "IntervalTrigger.h"
+
+#include <vector>
 
 class Game;
 class Player;
@@ -20,8 +23,13 @@ public:
 	void Render(sf::RenderTarget* const renderTarget) override;
 
 private:
-	Level mLevel;
-	Player* mPlayer;
+	void SpawnPlayer();
+	void SpawnPerson();
 
+private:
+	Level mLevel;
+	std::vector<IntervalTrigger> mSpawns;
+
+	Player* mPlayer;
 	Game& mGame;
 };

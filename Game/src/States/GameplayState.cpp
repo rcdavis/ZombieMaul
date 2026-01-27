@@ -10,6 +10,7 @@
 
 #include "Entity/EntityManager.h"
 #include "Entity/Player.h"
+#include "Entity/Person.h"
 
 #include "Input/Input.h"
 #include "Game.h"
@@ -21,6 +22,7 @@
 
 GameplayState::GameplayState(Game& game) :
 	mLevel(game),
+	mSpawns(),
 	mPlayer(nullptr),
 	mGame(game)
 {}
@@ -32,26 +34,14 @@ GameplayState::~GameplayState() {
 void GameplayState::Enter() {
 	mLevel.LoadLevel("res/data/Level.json");
 
-	const Animation* playerAnim = AnimationManager::Load("res/data/PlayerWalkAnim.json");
-	auto player = std::make_unique<Player>(mGame);
-	player->SetAnimation(playerAnim);
+	SpawnPlayer();
 
-	auto tex = TextureManager::LoadTexture("res/textures/CharacterSprite.png");
-	if (tex) {
-		player->SetSprite(sf::Sprite(*tex));
-		player->SetTextureRect(sf::IntRect({0, 0}, {64, 64}));
-		player->SetOrigin({32.0f, 32.0f});
-		player->SetPosition({300.0f, 300.0f});
-		player->SetRotation(sf::degrees(180.0f));
-		player->SetSpeed(5.0f);
-
-		mPlayer = player.get();
-		EntityManager::AddEntity(std::move(player));
-	}
+	mSpawns.emplace_back(mLevel.GetPersonSpawnTime(), std::bind(&GameplayState::SpawnPerson, this));
 }
 
 void GameplayState::Exit() {
-    mGame.GetWindow().setView(mGame.GetWindow().getDefaultView());
+	mSpawns.clear();
+	mGame.GetWindow().setView(mGame.GetWindow().getDefaultView());
 	EntityManager::ClearEntities();
 }
 
@@ -67,6 +57,9 @@ bool GameplayState::Input() {
 
 void GameplayState::Update() {
 	mLevel.HandleCollisions();
+
+	for (auto& spawn : mSpawns)
+		spawn.Update();
 
 	EntityManager::Update();
 }
@@ -88,4 +81,23 @@ void GameplayState::Render(sf::RenderTarget* const renderTarget) {
 	mLevel.Render(renderTarget);
 
 	EntityManager::Render(renderTarget);
+}
+
+void GameplayState::SpawnPlayer() {
+	auto player = std::make_unique<Player>(mGame);
+	player->Load("res/data/Player.json");
+	mPlayer = player.get();
+	EntityManager::AddEntity(std::move(player));
+}
+
+void GameplayState::SpawnPerson() {
+	auto person = std::make_unique<Person>(mGame);
+	person->Load("res/data/Person.json");
+
+	if (mPlayer->GetPosition().x > (mLevel.GetWidth() / 2.0f))
+		person->SetPosition({300.0f, 100.0f});
+	else
+		person->SetPosition({1300.0f, 100.0f});
+
+	EntityManager::AddEntity(std::move(person));
 }

@@ -12,6 +12,8 @@
 Level::Level(Game& game) :
 	mCollisionBounds(),
 	mBgSprite(),
+	mPersonSpawnTime(),
+	mGuardSpawnTime(),
 	mGame(game),
 	mWidth(0.0f),
 	mHeight(0.0f)
@@ -69,6 +71,20 @@ bool Level::LoadLevel(const std::filesystem::path& file) {
 	}
 
 	mHeight = (float)height.value();
+
+	auto personSpawnTime = doc["personSpawnTime"].get_double();
+	if (personSpawnTime.error()) {
+		LOG_ERROR("Failed to get person spawn time from level JSON: {0}", simdjson::error_message(personSpawnTime.error()));
+		return false;
+	}
+	mPersonSpawnTime = sf::seconds((float)personSpawnTime.value());
+
+	auto guardSpawnTime = doc["guardSpawnTime"].get_double();
+	if (guardSpawnTime.error()) {
+		LOG_ERROR("Failed to get guard spawn time from level JSON: {0}", simdjson::error_message(guardSpawnTime.error()));
+		return false;
+	}
+	mGuardSpawnTime = sf::seconds((float)guardSpawnTime.value());
 
 	auto collisionBounds = doc["collision"].get_array();
 	if (collisionBounds.error()) {
