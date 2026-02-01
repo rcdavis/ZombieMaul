@@ -15,4 +15,5 @@ public:
 
 private:
 	void HandlePersonCollision(Person* person);
+	void HandleZombieCollision(Person* zombie);
 };
