@@ -7,6 +7,7 @@
 
 #include "Messaging/EventManager.h"
 #include "States/MainMenuState.h"
+#include "States/GameOverState.h"
 
 #include "Input/Input.h"
 #include "Utils/Log.h"
@@ -64,10 +65,8 @@ void Game::HandleEvent(const Event* const event) {
 	const auto id = event->GetId();
 	if (id == "Player Hit Civilian")
 		++mScore;
-	else if (id == "Player Died") {
-		// TODO: Change to Game over state
-		LOG_INFO("Player Died after hitting zombie");
-	}
+	else if (id == "Player Died")
+		mStateManager.ClearAndSetState(std::make_unique<GameOverState>(*this));
 }
 
 bool Game::Init() {
