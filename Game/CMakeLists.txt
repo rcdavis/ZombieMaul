@@ -42,6 +42,7 @@ add_executable(Game
     src/Renderer/FontManager.cpp
     src/Renderer/TextureManager.cpp
     src/States/CreditsMenuState.cpp
+    src/States/GameOverState.cpp
     src/States/GameplayState.cpp
     src/States/MainMenuState.cpp
     src/States/OptionsMenuState.cpp
