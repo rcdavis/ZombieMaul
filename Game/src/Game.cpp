@@ -62,10 +62,9 @@ bool Game::Run() {
 
 void Game::HandleEvent(const Event* const event) {
 	const auto id = event->GetId();
-	if (id == "Player Hit Civilian") {
+	if (id == "Player Hit Civilian")
 		++mScore;
-		LOG_INFO("Player hit civilian. Score: {0}", mScore);
-	} else if (id == "Player Died") {
+	else if (id == "Player Died") {
 		// TODO: Change to Game over state
 		LOG_INFO("Player Died after hitting zombie");
 	}

@@ -23,6 +23,7 @@
 GameplayState::GameplayState(Game& game) :
 	mLevel(game),
 	mSpawns(),
+	mScoreText(),
 	mPlayer(nullptr),
 	mGame(game)
 {}
@@ -37,9 +38,17 @@ void GameplayState::Enter() {
 	SpawnPlayer();
 
 	mSpawns.emplace_back(mLevel.GetPersonSpawnTime(), std::bind(&GameplayState::SpawnPerson, this));
+
+	mGame.SetScore(0);
+	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	if (font) {
+		mScoreText.emplace(*font);
+		mScoreText->setString("Score: 0");
+	}
 }
 
 void GameplayState::Exit() {
+	mScoreText.reset();
 	mSpawns.clear();
 	mGame.GetWindow().setView(mGame.GetWindow().getDefaultView());
 	EntityManager::ClearEntities();
@@ -68,6 +77,10 @@ void GameplayState::Update() {
 		spawn.Update();
 
 	EntityManager::Update();
+
+	char buffer[16] = {};
+	snprintf(buffer, sizeof(buffer), "Score: %d", mGame.GetScore());
+	mScoreText->setString(buffer);
 }
 
 void GameplayState::Render(sf::RenderTarget* const renderTarget) {
@@ -87,6 +100,10 @@ void GameplayState::Render(sf::RenderTarget* const renderTarget) {
 	mLevel.Render(renderTarget);
 
 	EntityManager::Render(renderTarget);
+
+	mScoreText->setPosition(center - (windowSize / 2.0f));
+	mScoreText->move({5.0f, 2.0f});
+	renderTarget->draw(*mScoreText);
 }
 
 void GameplayState::SpawnPlayer() {
