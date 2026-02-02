@@ -5,6 +5,7 @@
 #include "SFML/Window/Event.hpp"
 #include "SFML/Graphics/Image.hpp"
 
+#include "Messaging/EventManager.h"
 #include "States/MainMenuState.h"
 
 #include "Input/Input.h"
@@ -12,7 +13,9 @@
 
 Game::Game() :
 	mStateManager(),
-	mWindow()
+	mSettings(),
+	mWindow(),
+	mScore(0)
 {}
 
 Game::~Game() {
@@ -57,8 +60,22 @@ bool Game::Run() {
 	return true;
 }
 
+void Game::HandleEvent(const Event* const event) {
+	const auto id = event->GetId();
+	if (id == "Player Hit Civilian") {
+		++mScore;
+		LOG_INFO("Player hit civilian. Score: {0}", mScore);
+	} else if (id == "Player Died") {
+		// TODO: Change to Game over state
+		LOG_INFO("Player Died after hitting zombie");
+	}
+}
+
 bool Game::Init() {
 	mSettings.Load("res/data/Settings.txt");
+
+	EventManager::RegisterListener("Player Died", this);
+	EventManager::RegisterListener("Player Hit Civilian", this);
 
 	mWindow.create(sf::VideoMode({800, 600}), "Zombie Maul");
 
@@ -74,6 +91,7 @@ bool Game::Init() {
 
 void Game::Shutdown() {
 	mStateManager.ClearStates();
+	EventManager::Clear();
 
 	mSettings.Save("res/data/Settings.txt");
 }
@@ -96,6 +114,8 @@ bool Game::Input() {
 
 void Game::Update() {
 	mStateManager.Update();
+
+	EventManager::ProcessEvents();
 }
 
 void Game::Render() {

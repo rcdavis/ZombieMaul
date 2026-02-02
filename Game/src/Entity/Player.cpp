@@ -5,6 +5,7 @@
 #include "Entity/Person.h"
 #include "Utils/Math.h"
 #include "Utils/Log.h"
+#include "Messaging/EventManager.h"
 
 Player::Player(Game& game) :
 	Entity(game)
@@ -50,7 +51,7 @@ void Player::HandlePersonCollision(Person* person) {
 
 	if (CircleCollision(playerCircle, personCircle)) {
 		person->ConvertToZombie();
-		// TODO: Send collision event
+		EventManager::QueueEvent("Player Hit Civilian");
 	}
 }
 
@@ -67,8 +68,6 @@ void Player::HandleZombieCollision(Person* zombie) {
 		.radius = 32.0f
 	};
 
-	if (CircleCollision(playerCircle, zombieCircle)) {
-		// TODO: Send collision event
-		LOG_INFO("Player collided with zombie");
-	}
+	if (CircleCollision(playerCircle, zombieCircle))
+		EventManager::QueueEvent("Player Died");
 }

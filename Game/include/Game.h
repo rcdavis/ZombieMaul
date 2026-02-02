@@ -4,15 +4,18 @@
 
 #include "SFML/Graphics/RenderWindow.hpp"
 
+#include "Messaging/IEventListener.h"
 #include "States/StateManager.h"
 #include "Settings.h"
 
-class Game {
+class Game : public IEventListener {
 public:
 	Game();
 	~Game();
 
 	bool Run();
+
+	void HandleEvent(const Event* const event) override;
 
 	StateManager& GetStateManager() { return mStateManager; }
 	Settings& GetSettings() { return mSettings; }
@@ -35,4 +38,5 @@ private:
 	Settings mSettings;
 
 	sf::RenderWindow mWindow;
+	uint32_t mScore;
 };
