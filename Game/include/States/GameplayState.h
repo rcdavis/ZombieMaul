@@ -6,6 +6,9 @@
 #include "IntervalTrigger.h"
 
 #include <vector>
+#include <optional>
+
+#include "SFML/Graphics/Text.hpp"
 
 class Game;
 class Player;
@@ -29,6 +32,8 @@ private:
 private:
 	Level mLevel;
 	std::vector<IntervalTrigger> mSpawns;
+
+	std::optional<sf::Text> mScoreText;
 
 	Player* mPlayer;
 	Game& mGame;

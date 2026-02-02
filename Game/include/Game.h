@@ -21,6 +21,9 @@ public:
 	Settings& GetSettings() { return mSettings; }
 	sf::RenderWindow& GetWindow() { return mWindow; }
 
+	uint32_t GetScore() const { return mScore; }
+	void SetScore(uint32_t score) { mScore = score; }
+
 private:
 	bool Init();
 	void Shutdown();
