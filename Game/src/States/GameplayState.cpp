@@ -11,6 +11,7 @@
 #include "Entity/EntityManager.h"
 #include "Entity/Player.h"
 #include "Entity/Person.h"
+#include "Entity/Guard.h"
 
 #include "Input/Input.h"
 #include "Game.h"
@@ -38,6 +39,7 @@ void GameplayState::Enter() {
 	SpawnPlayer();
 
 	mSpawns.emplace_back(mLevel.GetPersonSpawnTime(), std::bind(&GameplayState::SpawnPerson, this));
+	mSpawns.emplace_back(mLevel.GetGuardSpawnTime(), std::bind(&GameplayState::SpawnGuard, this));
 
 	mGame.SetScore(0);
 	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
@@ -123,4 +125,16 @@ void GameplayState::SpawnPerson() {
 		person->SetPosition({1300.0f, 100.0f});
 
 	EntityManager::AddEntity(std::move(person));
+}
+
+void GameplayState::SpawnGuard() {
+	std::unique_ptr<Guard> guard = std::make_unique<Guard>(mGame, mPlayer);
+	guard->Load("res/data/Guard.json");
+
+	if (mPlayer->GetPosition().x > (mLevel.GetWidth() / 2.0f))
+		guard->SetPosition({300.0f, 100.0f});
+	else
+		guard->SetPosition({1300.0f, 100.0f});
+
+	EntityManager::AddEntity(std::move(guard));
 }

@@ -42,3 +42,13 @@ const sf::Vector2f ClosestPointOnALine(const sf::Vector2f& start, const sf::Vect
 
 	return start + (normalized * d);
 }
+
+const sf::Vector2f RotateVector(const sf::Vector2f& vec, const sf::Angle angle) {
+	const float cosVal = cosf(angle.asRadians());
+	const float sinVal = sinf(angle.asRadians());
+	sf::Vector2f rotatedVec(
+		(cosVal * vec.x) + (sinVal * (vec.y * -1.0f)),
+		(-sinVal * vec.x) + (cosVal * (vec.y * -1.0f)));
+	rotatedVec.y *= -1.0f;
+	return rotatedVec;
+}
