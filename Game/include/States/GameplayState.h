@@ -28,6 +28,7 @@ public:
 private:
 	void SpawnPlayer();
 	void SpawnPerson();
+	void SpawnGuard();
 
 private:
 	Level mLevel;

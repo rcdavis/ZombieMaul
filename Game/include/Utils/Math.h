@@ -26,3 +26,5 @@ const float VectorLength(const sf::Vector2f& vec);
 const sf::Vector2f Normalize(const sf::Vector2f& vec);
 
 const sf::Vector2f ClosestPointOnALine(const sf::Vector2f& start, const sf::Vector2f& end, const sf::Vector2f& testPoint);
+
+const sf::Vector2f RotateVector(const sf::Vector2f& vec, const sf::Angle angle);
