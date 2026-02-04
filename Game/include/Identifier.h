@@ -33,8 +33,23 @@ private:
 	const char* mIdStr;
 };
 
+namespace Id::Data {
+	constexpr Identifier Guard(0, "res/data/Guard.json");
+	constexpr Identifier GuardWalkAnim(1, "res/data/GuardWalkAnim.json");
+	constexpr Identifier Level(2, "res/data/Level.json");
+	constexpr Identifier Person(3, "res/data/Person.json");
+	constexpr Identifier PersonWalkAnim(4, "res/data/PersonWalkAnim.json");
+	constexpr Identifier Player(5, "res/data/Player.json");
+	constexpr Identifier PlayerWalkAnim(6, "res/data/PlayerWalkAnim.json");
+	constexpr Identifier Settings(7, "res/data/Settings.txt");
+	constexpr Identifier Zombie(8, "res/data/Zombie.json");
+	constexpr Identifier ZombieWalkAnim(9, "res/data/ZombieWalkAnim.json");
+	constexpr uint32_t Num = 10;
+}
+
 namespace Id::Fonts {
 	constexpr Identifier FreeSans(0, "res/fonts/FreeSans.ttf");
+	constexpr uint32_t Num = 1;
 }
 
 namespace Id::Textures {
@@ -47,4 +62,5 @@ namespace Id::Textures {
 	constexpr Identifier MenuPlay(6, "res/textures/MenuPlay.png");
 	constexpr Identifier MenuPointer(7, "res/textures/MenuPointer.png");
 	constexpr Identifier ZombieMaulIcon(8, "res/textures/zombie-maul-icon.png");
+	constexpr uint32_t Num = 9;
 }
