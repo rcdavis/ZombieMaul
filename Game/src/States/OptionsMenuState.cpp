@@ -38,7 +38,7 @@ void OptionsMenuState::Enter() {
 		mEntries.back().setPosition({300.0f, 500.0f});
 	}
 
-	auto tex = TextureManager::LoadTexture("res/textures/MenuPointer.png");
+	auto tex = TextureManager::LoadTexture(Id::Textures::MenuPointer);
 	if (tex) {
 		mIconSprite.emplace(*tex);
 		mIconSprite->setScale({0.5f, 0.5f});

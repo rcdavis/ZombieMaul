@@ -8,6 +8,7 @@
 #include "Utils/Log.h"
 #include "Utils/Debug.h"
 #include "Game.h"
+#include "Identifier.h"
 
 Level::Level(Game& game) :
 	mCollisionBounds(),
@@ -46,13 +47,25 @@ bool Level::LoadLevel(const std::filesystem::path& file) {
 	simdjson::padded_string json = simdjson::padded_string::load(file.c_str());
 	simdjson::ondemand::document doc = parser.iterate(json);
 
-	auto texName = doc["texture"].get_string();
-	if (texName.error()) {
-		LOG_ERROR("Failed to get texture from level JSON: {0}", simdjson::error_message(texName.error()));
+	auto fileObj = doc["texture"].get_object();
+	if (fileObj.error()) {
+		LOG_ERROR("Failed to get level texture id object from JSON: {0}", simdjson::error_message(fileObj.error()));
 		return false;
 	}
 
-	auto tex = TextureManager::LoadTexture(texName.value());
+	auto fileId = fileObj["id"].get_int64();
+	if (fileId.error()) {
+		LOG_ERROR("Failed to get level texture id from JSON: {0}", simdjson::error_message(fileId.error()));
+		return false;
+	}
+
+	auto fileStr = fileObj["str"].get_string();
+	if (fileStr.error()) {
+		LOG_ERROR("Failed to get level file path from JSON: {0}", simdjson::error_message(fileStr.error()));
+		return false;
+	}
+
+	auto tex = TextureManager::LoadTexture(Identifier((uint32_t)fileId.value(), std::string(fileStr.value()).c_str()));
 	if (tex)
 		mBgSprite.emplace(*tex);
 

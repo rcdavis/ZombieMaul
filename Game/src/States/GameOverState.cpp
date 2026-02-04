@@ -27,7 +27,7 @@ void GameOverState::Enter() {
 		AddTextEntry(buffer, font, {300.0f, 500.0f});
 	}
 
-	auto texture = TextureManager::LoadTexture("res/textures/MenuBG1.png");
+	auto texture = TextureManager::LoadTexture(Id::Textures::MenuBg);
 	if (texture) {
 		mBgImage.emplace(*texture);
 		mBgImage->setScale({0.8f, 0.75f});

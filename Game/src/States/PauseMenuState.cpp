@@ -25,14 +25,14 @@ PauseMenuState::~PauseMenuState() {
 void PauseMenuState::Enter() {
 	mCurEntry = 0;
 
-	auto texture = TextureManager::LoadTexture("res/textures/MenuBG1.png");
+	auto texture = TextureManager::LoadTexture(Id::Textures::MenuBg);
 	if (texture) {
 		mBgImage.emplace(*texture);
 		mBgImage->setScale({0.8f, 0.75f});
 		mBgImage->setPosition({0.0f, -20.0f});
 	}
 
-	texture = TextureManager::LoadTexture("res/textures/MenuPointer.png");
+	texture = TextureManager::LoadTexture(Id::Textures::MenuPointer);
 	if (texture) {
 		mIcon.emplace(*texture);
 		mIcon->setScale({0.5f, 0.5f});

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <filesystem>
-
 #include "SFML/Graphics/Texture.hpp"
 
+class Identifier;
+
 namespace TextureManager {
-	sf::Texture* LoadTexture(const std::filesystem::path& filepath);
+	sf::Texture* LoadTexture(const Identifier& id);
 }

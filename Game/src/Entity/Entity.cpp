@@ -4,6 +4,7 @@
 #include "simdjson.h"
 
 #include "Game.h"
+#include "Identifier.h"
 #include "Utils/Log.h"
 #include "Renderer/TextureManager.h"
 #include "Renderer/AnimationManager.h"
@@ -137,12 +138,25 @@ bool Entity::Load(const std::filesystem::path& filepath) {
 		return false;
 	}
 
-	auto fileStr = texObj["file"].get_string();
-	if (fileStr.error()) {
-		LOG_ERROR("Failed to get entity file string from JSON: {0}", simdjson::error_message(fileStr.error()));
+	auto fileObj = texObj["file"].get_object();
+	if (fileObj.error()) {
+		LOG_ERROR("Failed to get entity file id object from JSON: {0}", simdjson::error_message(fileObj.error()));
 		return false;
 	}
-	auto tex = TextureManager::LoadTexture(fileStr.value());
+
+	auto fileId = fileObj["id"].get_int64();
+	if (fileId.error()) {
+		LOG_ERROR("Failed to get entity file id from JSON: {0}", simdjson::error_message(fileId.error()));
+		return false;
+	}
+
+	auto fileStr = fileObj["str"].get_string();
+	if (fileStr.error()) {
+		LOG_ERROR("Failed to get entity file path from JSON: {0}", simdjson::error_message(fileStr.error()));
+		return false;
+	}
+
+	auto tex = TextureManager::LoadTexture(Identifier((uint32_t)fileId.value(), std::string(fileStr.value()).c_str()));
 	if (!tex) {
 		LOG_ERROR("Failed to load entity texture");
 		return false;

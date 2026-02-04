@@ -1,5 +1,8 @@
 {
-	"texture": "res/textures/MallMap.png",
+	"texture": {
+		"id": 1,
+		"str": "res/textures/MallMap.png"
+	},
 	"width": 1600.0,
 	"height": 1200.0,
 	"personSpawnTime": 3.0,
