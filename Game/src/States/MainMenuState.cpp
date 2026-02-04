@@ -6,6 +6,7 @@
 #include "Renderer/TextureManager.h"
 #include "Input/Input.h"
 #include "Game.h"
+#include "Identifier.h"
 
 #include "States/CreditsMenuState.h"
 #include "States/GameplayState.h"
@@ -24,7 +25,7 @@ MainMenuState::~MainMenuState() {}
 void MainMenuState::Enter() {
 	mCurEntry = 0;
 
-	sf::Texture* tex = TextureManager::LoadTexture("res/textures/MenuBG1.png");
+	sf::Texture* tex = TextureManager::LoadTexture(Id::Textures::MenuBg);
 	if (tex) {
 		tex->setSmooth(true);
 		mBgSprite.emplace(*tex);
@@ -32,7 +33,7 @@ void MainMenuState::Enter() {
 		mBgSprite->setPosition({0.0f, -20.0f});
 	}
 
-	tex = TextureManager::LoadTexture("res/textures/MenuPointer.png");
+	tex = TextureManager::LoadTexture(Id::Textures::MenuPointer);
 	if (tex) {
 		tex->setSmooth(true);
 		mIconSprite.emplace(*tex);
@@ -40,25 +41,25 @@ void MainMenuState::Enter() {
 	}
 
 	mEntries.reserve(MenuItems::eNum);
-	tex = TextureManager::LoadTexture("res/textures/MenuPlay.png");
+	tex = TextureManager::LoadTexture(Id::Textures::MenuPlay);
 	if (tex) {
 		tex->setSmooth(true);
 		mEntries.emplace_back(*tex);
 	}
 
-	tex = TextureManager::LoadTexture("res/textures/MenuOptions.png");
+	tex = TextureManager::LoadTexture(Id::Textures::MenuOptions);
 	if (tex) {
 		tex->setSmooth(true);
 		mEntries.emplace_back(*tex);
 	}
 
-	tex = TextureManager::LoadTexture("res/textures/MenuCredits.png");
+	tex = TextureManager::LoadTexture(Id::Textures::MenuCredits);
 	if (tex) {
 		tex->setSmooth(true);
 		mEntries.emplace_back(*tex);
 	}
 
-	tex = TextureManager::LoadTexture("res/textures/MenuExit.png");
+	tex = TextureManager::LoadTexture(Id::Textures::MenuExit);
 	if (tex) {
 		tex->setSmooth(true);
 		mEntries.emplace_back(*tex);

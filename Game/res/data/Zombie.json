@@ -4,7 +4,10 @@
 		"y": 32.0
 	},
 	"texture": {
-		"file": "res/textures/CharacterSprite.png",
+		"file": {
+			"id": 0,
+			"str": "res/textures/CharacterSprite.png"
+		},
 		"rect": {
 			"x": 0,
 			"y": 576,
@@ -12,5 +15,8 @@
 			"height": 64
 		}
 	},
-	"animation": "res/data/ZombieWalkAnim.json"
+	"animation": {
+		"id": 9,
+		"str": "res/data/ZombieWalkAnim.json"
+	}
 }

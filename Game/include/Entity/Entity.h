@@ -1,7 +1,6 @@
 #pragma once
 
 #include <optional>
-#include <filesystem>
 
 #include "SFML/Graphics/Sprite.hpp"
 
@@ -13,6 +12,7 @@ namespace sf {
 }
 
 class Game;
+class Identifier;
 
 class Entity {
 public:
@@ -65,7 +65,7 @@ public:
 	virtual void HandleCollision(const Capsule& capsule);
     virtual void HandleCollision(Entity* const entity);
 
-	virtual bool Load(const std::filesystem::path& filepath);
+	virtual bool Load(const Identifier& id);
 
 private:
 	AnimationPlayer mAnimPlayer;

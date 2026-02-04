@@ -10,7 +10,10 @@
 	"rotation": 0.0,
 	"speed": 3.0,
 	"texture": {
-		"file": "res/textures/CharacterSprite.png",
+		"file": {
+			"id": 0,
+			"str": "res/textures/CharacterSprite.png"
+		},
 		"rect": {
 			"x": 0,
 			"y": 384,
@@ -18,5 +21,8 @@
 			"height": 64
 		}
 	},
-	"animation": "res/data/PersonWalkAnim.json"
+	"animation": {
+		"id": 4,
+		"str": "res/data/PersonWalkAnim.json"
+	}
 }

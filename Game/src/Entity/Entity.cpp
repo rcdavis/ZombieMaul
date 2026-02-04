@@ -4,6 +4,7 @@
 #include "simdjson.h"
 
 #include "Game.h"
+#include "Identifier.h"
 #include "Utils/Log.h"
 #include "Renderer/TextureManager.h"
 #include "Renderer/AnimationManager.h"
@@ -68,9 +69,9 @@ void Entity::HandleCollision(Entity* const entity) {
 
 }
 
-bool Entity::Load(const std::filesystem::path& filepath) {
+bool Entity::Load(const Identifier& id) {
 	simdjson::ondemand::parser parser;
-	simdjson::padded_string json = simdjson::padded_string::load(filepath.c_str());
+	simdjson::padded_string json = simdjson::padded_string::load(id.GetIdStr());
 	simdjson::ondemand::document doc = parser.iterate(json);
 
 	auto pos = doc["position"].get_object();
@@ -137,12 +138,25 @@ bool Entity::Load(const std::filesystem::path& filepath) {
 		return false;
 	}
 
-	auto fileStr = texObj["file"].get_string();
-	if (fileStr.error()) {
-		LOG_ERROR("Failed to get entity file string from JSON: {0}", simdjson::error_message(fileStr.error()));
+	auto fileObj = texObj["file"].get_object();
+	if (fileObj.error()) {
+		LOG_ERROR("Failed to get entity file id object from JSON: {0}", simdjson::error_message(fileObj.error()));
 		return false;
 	}
-	auto tex = TextureManager::LoadTexture(fileStr.value());
+
+	auto fileId = fileObj["id"].get_int64();
+	if (fileId.error()) {
+		LOG_ERROR("Failed to get entity file id from JSON: {0}", simdjson::error_message(fileId.error()));
+		return false;
+	}
+
+	auto fileStr = fileObj["str"].get_string();
+	if (fileStr.error()) {
+		LOG_ERROR("Failed to get entity file path from JSON: {0}", simdjson::error_message(fileStr.error()));
+		return false;
+	}
+
+	auto tex = TextureManager::LoadTexture(Identifier((uint32_t)fileId.value(), std::string(fileStr.value()).c_str()));
 	if (!tex) {
 		LOG_ERROR("Failed to load entity texture");
 		return false;
@@ -184,12 +198,25 @@ bool Entity::Load(const std::filesystem::path& filepath) {
 	}
 	f.size.y = (int)rectHeight.value();
 
-	auto animFile = doc["animation"].get_string();
-	if (animFile.error()) {
-		LOG_ERROR("Failed to get entity animation file from JSON: {0}", simdjson::error_message(animFile.error()));
+	auto animObj = doc["animation"].get_object();
+	if (animObj.error()) {
+		LOG_ERROR("Failed to get entity animation id object from JSON: {0}", simdjson::error_message(animObj.error()));
 		return false;
 	}
-	auto anim = AnimationManager::Load(animFile.value());
+
+	auto animId = animObj["id"].get_int64();
+	if (animId.error()) {
+		LOG_ERROR("Failed to get entity animation id from JSON: {0}", simdjson::error_message(animId.error()));
+		return false;
+	}
+
+	auto animStr = animObj["str"].get_string();
+	if (animStr.error()) {
+		LOG_ERROR("Failed to get entity animation path from JSON: {0}", simdjson::error_message(animStr.error()));
+		return false;
+	}
+
+	auto anim = AnimationManager::Load(Identifier((uint32_t)animId.value(), std::string(animStr.value()).c_str()));
 	if (!anim) {
 		LOG_ERROR("Failed to load entity animation");
 		return false;

@@ -16,6 +16,8 @@
 
 #include "Input/Input.h"
 #include "Game.h"
+#include "Identifier.h"
+#include "Settings.h"
 
 #include "Renderer/Animation.h"
 #include "Renderer/AnimationManager.h"
@@ -35,7 +37,7 @@ GameplayState::~GameplayState() {
 }
 
 void GameplayState::Enter() {
-	mLevel.LoadLevel("res/data/Level.json");
+	mLevel.LoadLevel(Id::Data::Level);
 
 	SpawnPlayer();
 
@@ -43,7 +45,7 @@ void GameplayState::Enter() {
 	mSpawns.emplace_back(mLevel.GetGuardSpawnTime(), std::bind(&GameplayState::SpawnGuard, this));
 
 	mGame.SetScore(0);
-	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	auto font = FontManager::LoadFont(Id::Fonts::FreeSans);
 	if (font) {
 		mScoreText.emplace(*font);
 		mScoreText->setString("Score: 0");
@@ -111,14 +113,14 @@ void GameplayState::Render(sf::RenderTarget* const renderTarget) {
 
 void GameplayState::SpawnPlayer() {
 	auto player = std::make_unique<Player>(mGame);
-	player->Load("res/data/Player.json");
+	player->Load(Id::Data::Player);
 	mPlayer = player.get();
 	EntityManager::AddEntity(std::move(player));
 }
 
 void GameplayState::SpawnPerson() {
 	auto person = std::make_unique<Person>(mGame);
-	person->Load("res/data/Person.json");
+	person->Load(Id::Data::Person);
 
 	if (mPlayer->GetPosition().x > (mLevel.GetWidth() / 2.0f))
 		person->SetPosition({300.0f, 100.0f});
@@ -130,7 +132,7 @@ void GameplayState::SpawnPerson() {
 
 void GameplayState::SpawnGuard() {
 	std::unique_ptr<Guard> guard = std::make_unique<Guard>(mGame, mPlayer);
-	guard->Load("res/data/Guard.json");
+	guard->Load(Id::Data::Guard);
 
 	if (mPlayer->GetPosition().x > (mLevel.GetWidth() / 2.0f))
 		guard->SetPosition({300.0f, 100.0f});

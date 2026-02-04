@@ -1,9 +1,9 @@
 #pragma once
 
-#include <filesystem>
-
 #include "SFML/Graphics/Font.hpp"
 
+class Identifier;
+
 namespace FontManager {
-	sf::Font* LoadFont(const std::filesystem::path& filepath);
+	sf::Font* LoadFont(const Identifier& id);
 }

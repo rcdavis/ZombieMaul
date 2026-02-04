@@ -1,6 +1,7 @@
 #include "States/OptionsMenuState.h"
 
 #include "Game.h"
+#include "Identifier.h"
 #include "Input/Input.h"
 #include "Renderer/FontManager.h"
 #include "Renderer/TextureManager.h"
@@ -21,7 +22,7 @@ OptionsMenuState::~OptionsMenuState() {
 void OptionsMenuState::Enter() {
 	mCurEntry = 0;
 
-	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	auto font = FontManager::LoadFont(Id::Fonts::FreeSans);
 	if (font) {
 		char buffer[32] = {};
 
@@ -37,7 +38,7 @@ void OptionsMenuState::Enter() {
 		mEntries.back().setPosition({300.0f, 500.0f});
 	}
 
-	auto tex = TextureManager::LoadTexture("res/textures/MenuPointer.png");
+	auto tex = TextureManager::LoadTexture(Id::Textures::MenuPointer);
 	if (tex) {
 		mIconSprite.emplace(*tex);
 		mIconSprite->setScale({0.5f, 0.5f});

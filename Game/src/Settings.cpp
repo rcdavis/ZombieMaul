@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "Utils/Log.h"
+#include "Identifier.h"
 
 Settings::Settings() :
 	mMusicVolume(100),
@@ -10,10 +11,10 @@ Settings::Settings() :
 	mDebugRender(false)
 {}
 
-bool Settings::Load(const std::filesystem::path& filepath) {
-	std::ifstream file(filepath);
+bool Settings::Load(const Identifier& id) {
+	std::ifstream file(id.GetIdStr());
 	if (!file) {
-		LOG_ERROR("Failed to open settings file \"{0}\"", filepath.string());
+		LOG_ERROR("Failed to open settings file \"{0}\"", id.GetIdStr());
 		return false;
 	}
 
@@ -40,10 +41,10 @@ bool Settings::Load(const std::filesystem::path& filepath) {
 	return true;
 }
 
-bool Settings::Save(const std::filesystem::path& filepath) {
-	std::ofstream file(filepath);
+bool Settings::Save(const Identifier& id) {
+	std::ofstream file(id.GetIdStr());
 	if (!file) {
-		LOG_ERROR("Failed to save settings to \"{0}\"", filepath.string());
+		LOG_ERROR("Failed to save settings to \"{0}\"", id.GetIdStr());
 		return false;
 	}
 

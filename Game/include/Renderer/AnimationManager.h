@@ -1,9 +1,9 @@
 #pragma once
 
-#include <filesystem>
-
 #include "Renderer/Animation.h"
 
+class Identifier;
+
 namespace AnimationManager {
-	const Animation* Load(const std::filesystem::path& filepath);
+	const Animation* Load(const Identifier& id);
 }

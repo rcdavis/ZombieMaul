@@ -3,20 +3,22 @@
 #include <map>
 #include <memory>
 
-namespace TextureManager {
-	static std::map<std::filesystem::path, std::unique_ptr<sf::Texture> > loadedTextures;
+#include "Identifier.h"
 
-	sf::Texture* LoadTexture(const std::filesystem::path& filepath) {
-		auto iter = loadedTextures.find(filepath);
+namespace TextureManager {
+	static std::map<Identifier, std::unique_ptr<sf::Texture> > loadedTextures;
+
+	sf::Texture* LoadTexture(const Identifier& id) {
+		auto iter = loadedTextures.find(id);
 		if (iter != std::end(loadedTextures))
 			return iter->second.get();
 
 		std::unique_ptr<sf::Texture> tex = std::make_unique<sf::Texture>();
-		if (!tex->loadFromFile(filepath))
+		if (!tex->loadFromFile(id.GetIdStr()))
 			return nullptr;
 
 		sf::Texture* const result = tex.get();
-		loadedTextures[filepath] = std::move(tex);
+		loadedTextures[id] = std::move(tex);
 		return result;
 	}
 }
