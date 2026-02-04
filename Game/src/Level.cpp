@@ -42,9 +42,9 @@ void Level::Render(sf::RenderTarget* const renderTarget) {
 	}
 }
 
-bool Level::LoadLevel(const std::filesystem::path& file) {
+bool Level::LoadLevel(const Identifier& id) {
 	simdjson::ondemand::parser parser;
-	simdjson::padded_string json = simdjson::padded_string::load(file.c_str());
+	simdjson::padded_string json = simdjson::padded_string::load(id.GetIdStr());
 	simdjson::ondemand::document doc = parser.iterate(json);
 
 	auto fileObj = doc["texture"].get_object();

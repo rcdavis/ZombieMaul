@@ -36,7 +36,7 @@ GameplayState::~GameplayState() {
 }
 
 void GameplayState::Enter() {
-	mLevel.LoadLevel("res/data/Level.json");
+	mLevel.LoadLevel(Id::Data::Level);
 
 	SpawnPlayer();
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <optional>
-#include <filesystem>
 #include <vector>
 
 #include "SFML/System/Time.hpp"
@@ -14,6 +13,7 @@ namespace sf {
 }
 
 class Game;
+class Identifier;
 
 class Level {
 public:
@@ -30,7 +30,7 @@ public:
 
 	void Render(sf::RenderTarget* const renderTarget);
 
-	bool LoadLevel(const std::filesystem::path& file);
+	bool LoadLevel(const Identifier& id);
 
 private:
 	std::vector<Capsule> mCollisionBounds;
