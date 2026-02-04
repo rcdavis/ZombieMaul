@@ -6,6 +6,8 @@
 #include "Game.h"
 #include "Identifier.h"
 #include "Utils/Log.h"
+#include "Utils/Json.h"
+
 #include "Renderer/TextureManager.h"
 #include "Renderer/AnimationManager.h"
 
@@ -95,25 +97,12 @@ bool Entity::Load(const Identifier& id) {
 		position.y = (float)posY.value();
 	}
 
-	auto orig = doc["origin"].get_object();
-	if (orig.error()) {
-		LOG_WARN("Failed to get entity origin pos from JSON: {0}", simdjson::error_message(orig.error()));
-	}
-
 	sf::Vector2f origin;
-
-	auto origX = orig["x"].get_double();
-	if (origX.error()) {
-		LOG_WARN("Failed to get entity origin pos X from JSON: {0}", simdjson::error_message(origX.error()));
+	auto originOpt = JsonUtils::ParseVector2f(doc["origin"].get_object());
+	if (!originOpt) {
+		LOG_WARN("Failed to get entity origin pos from JSON");
 	} else {
-		origin.x = (float)origX.value();
-	}
-
-	auto origY = orig["y"].get_double();
-	if (origY.error()) {
-		LOG_WARN("Failed to get entity origin pos Y from JSON: {0}", simdjson::error_message(origY.error()));
-	} else {
-		origin.y = (float)origY.value();
+		origin = *originOpt;
 	}
 
 	sf::Angle rot;
