@@ -3,6 +3,7 @@
 #include "Entity/Entity.h"
 
 class Person;
+class Guard;
 
 class Player : public Entity {
 public:
@@ -16,4 +17,5 @@ public:
 private:
 	void HandlePersonCollision(Person* person);
 	void HandleZombieCollision(Person* zombie);
+	void HandleGuardCollision(Guard* guard);
 };
