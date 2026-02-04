@@ -1,0 +1,18 @@
+{
+	"origin": {
+		"x": 32.0,
+		"y": 32.0
+	},
+	"rotation": 180.0,
+	"speed": 3.0,
+	"texture": {
+		"file": "res/textures/CharacterSprite.png",
+		"rect": {
+			"x": 0,
+			"y": 192,
+			"width": 64,
+			"height": 64
+		}
+	},
+	"animation": "res/data/GuardWalkAnim.json"
+}

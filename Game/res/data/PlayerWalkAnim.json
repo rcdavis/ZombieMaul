@@ -1,0 +1,33 @@
+{
+	"name": "Player Walking",
+	"looping": true,
+	"frames": [
+		{
+			"rect": {
+				"x": 0,
+				"y": 0,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		},
+		{
+			"rect": {
+				"x": 0,
+				"y": 64,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		},
+		{
+			"rect": {
+				"x": 0,
+				"y": 128,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		}
+	]
+}

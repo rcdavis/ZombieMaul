@@ -1,0 +1,16 @@
+{
+	"origin": {
+		"x": 32.0,
+		"y": 32.0
+	},
+	"texture": {
+		"file": "res/textures/CharacterSprite.png",
+		"rect": {
+			"x": 0,
+			"y": 576,
+			"width": 64,
+			"height": 64
+		}
+	},
+	"animation": "res/data/ZombieWalkAnim.json"
+}

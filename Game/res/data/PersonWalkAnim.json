@@ -1,0 +1,33 @@
+{
+	"name": "Person Walking",
+	"looping": true,
+	"frames": [
+		{
+			"rect": {
+				"x": 0,
+				"y": 384,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		},
+		{
+			"rect": {
+				"x": 0,
+				"y": 448,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		},
+		{
+			"rect": {
+				"x": 0,
+				"y": 512,
+				"width": 64,
+				"height": 64
+			},
+			"duration": 0.125
+		}
+	]
+}

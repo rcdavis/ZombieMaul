@@ -1,0 +1,36 @@
+{
+	"version": 6,
+	"configurePresets": [
+		{
+			"name": "common",
+			"hidden": true,
+			"generator": "Unix Makefiles",
+			"binaryDir": "build-${presetName}"
+		},
+		{
+			"name": "linux-debug",
+			"displayName": "Linux (Debug)",
+			"inherits": "common",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		},
+		{
+			"name": "linux-release",
+			"displayName": "Linux (Release)",
+			"inherits": "common",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release"
+			}
+		},
+		{
+			"name": "win-debug",
+			"displayName": "Windows (Debug)",
+			"inherits": "common",
+			"toolchainFile": "cmake/toolchains/windows-mingw.cmake",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		}
+	]
+}

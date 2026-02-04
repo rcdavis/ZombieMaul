@@ -1,0 +1,22 @@
+{
+	"position": {
+		"x": 0.0,
+		"y": 0.0
+	},
+	"origin": {
+		"x": 32.0,
+		"y": 32.0
+	},
+	"rotation": 0.0,
+	"speed": 3.0,
+	"texture": {
+		"file": "res/textures/CharacterSprite.png",
+		"rect": {
+			"x": 0,
+			"y": 384,
+			"width": 64,
+			"height": 64
+		}
+	},
+	"animation": "res/data/PersonWalkAnim.json"
+}
