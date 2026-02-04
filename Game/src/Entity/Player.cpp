@@ -3,6 +3,7 @@
 #include "Input/Input.h"
 #include "Game.h"
 #include "Entity/Person.h"
+#include "Entity/Guard.h"
 #include "Utils/Math.h"
 #include "Utils/Log.h"
 #include "Messaging/EventManager.h"
@@ -35,6 +36,10 @@ void Player::HandleCollision(Entity* entity) {
 
 	case Entity::Type::eZombie:
 		HandleZombieCollision((Person*)entity);
+		break;
+
+	case Entity::Type::eGuard:
+		HandleGuardCollision((Guard*)entity);
 		break;
 	}
 }
@@ -69,5 +74,19 @@ void Player::HandleZombieCollision(Person* zombie) {
 	};
 
 	if (CircleCollision(playerCircle, zombieCircle))
+		EventManager::QueueEvent("Player Died");
+}
+
+void Player::HandleGuardCollision(Guard* guard) {
+	const Circle guardCircle {
+		.pos = guard->GetPosition(),
+		.radius = 32.0f
+	};
+	const Circle playerCircle {
+		.pos = GetPosition(),
+		.radius = 32.0f
+	};
+
+	if (CircleCollision(playerCircle, guardCircle))
 		EventManager::QueueEvent("Player Died");
 }
