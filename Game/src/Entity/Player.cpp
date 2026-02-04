@@ -19,10 +19,12 @@ Player::~Player() {
 }
 
 void Player::Update() {
-	if (Input::IsKeyDown(sf::Keyboard::Key::Left)) {
-		Rotate(sf::degrees(-4.0f));
-	} else if (Input::IsKeyDown(sf::Keyboard::Key::Right)) {
-		Rotate(sf::degrees(4.0f));
+	constexpr sf::Angle rotateSpeed = sf::degrees(4.0f);
+
+	if (Input::IsKeyDown(sf::Keyboard::Key::Left) || Input::IsKeyDown(sf::Keyboard::Key::A)) {
+		Rotate(-rotateSpeed);
+	} else if (Input::IsKeyDown(sf::Keyboard::Key::Right) || Input::IsKeyDown(sf::Keyboard::Key::D)) {
+		Rotate(rotateSpeed);
 	}
 
 	Entity::Update();
