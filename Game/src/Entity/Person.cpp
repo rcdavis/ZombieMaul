@@ -37,7 +37,7 @@ void Person::ConvertToZombie() {
 	SetOrigin({32.0f, 32.0f});
 	SetTextureRect(sf::IntRect({0, 576}, {64, 64}));
 
-	const Animation* anim = AnimationManager::Load(Id::Data::ZombieWalkAnim);
+	const Animation* anim = AnimationManager::Load(Id::Animations::ZombieWalk);
 	SetAnimation(anim);
 
 	mCanHurtPlayer = false;

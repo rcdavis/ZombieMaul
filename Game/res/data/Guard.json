@@ -18,7 +18,7 @@
 		}
 	},
 	"animation": {
-		"id": 1,
-		"str": "res/data/GuardWalkAnim.json"
+		"id": 0,
+		"str": "res/animations/GuardWalkAnim.json"
 	}
 }

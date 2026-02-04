@@ -22,7 +22,7 @@
 		}
 	},
 	"animation": {
-		"id": 6,
-		"str": "res/data/PlayerWalkAnim.json"
+		"id": 2,
+		"str": "res/animations/PlayerWalkAnim.json"
 	}
 }
