@@ -14,7 +14,7 @@ You are constantly hungry for live human organs, primarily the brain if the dono
 Run into living humans to feast on them and make them part of your ranks to gain points. Avoid Mall cops and other zombies as that will run down your time faster.
 
 # Other
-Built using [cmake](https://cmake.org/).
+Configure with [cmake](https://cmake.org/) and build with [make](https://www.gnu.org/software/make/manual/make.html).
 
 # Third Party Code:
 The repo imports 3rd party code via cmake `FetchContent`.
