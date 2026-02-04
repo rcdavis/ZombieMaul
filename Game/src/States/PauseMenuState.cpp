@@ -1,6 +1,7 @@
 #include "States/PauseMenuState.h"
 
 #include "Game.h"
+#include "Identifier.h"
 #include "Input/Input.h"
 #include "Renderer/TextureManager.h"
 #include "Renderer/FontManager.h"
@@ -37,7 +38,7 @@ void PauseMenuState::Enter() {
 		mIcon->setScale({0.5f, 0.5f});
 	}
 
-	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	auto font = FontManager::LoadFont(Id::Fonts::FreeSans);
 	if (font) {
 		AddTextEntry(font, "Continue", {300.0f, 400.0f});
 		AddTextEntry(font, "Options", {300.0f, 450.0f});

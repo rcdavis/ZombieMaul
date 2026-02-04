@@ -16,6 +16,7 @@
 
 #include "Input/Input.h"
 #include "Game.h"
+#include "Identifier.h"
 
 #include "Renderer/Animation.h"
 #include "Renderer/AnimationManager.h"
@@ -43,7 +44,7 @@ void GameplayState::Enter() {
 	mSpawns.emplace_back(mLevel.GetGuardSpawnTime(), std::bind(&GameplayState::SpawnGuard, this));
 
 	mGame.SetScore(0);
-	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	auto font = FontManager::LoadFont(Id::Fonts::FreeSans);
 	if (font) {
 		mScoreText.emplace(*font);
 		mScoreText->setString("Score: 0");

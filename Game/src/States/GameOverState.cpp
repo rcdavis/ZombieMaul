@@ -1,6 +1,7 @@
 #include "States/GameOverState.h"
 
 #include "Game.h"
+#include "Identifier.h"
 #include "Input/Input.h"
 #include "States/MainMenuState.h"
 #include "Renderer/FontManager.h"
@@ -17,7 +18,7 @@ GameOverState::~GameOverState() {
 }
 
 void GameOverState::Enter() {
-	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	auto font = FontManager::LoadFont(Id::Fonts::FreeSans);
 	if (font) {
 		AddTextEntry("Game Over", font, {300.0f, 400.0f});
 

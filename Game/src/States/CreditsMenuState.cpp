@@ -6,6 +6,7 @@
 #include "Input/Input.h"
 #include "Renderer/FontManager.h"
 #include "Game.h"
+#include "Identifier.h"
 
 CreditsMenuState::CreditsMenuState(Game& game) :
 	mEntries(),
@@ -17,7 +18,7 @@ CreditsMenuState::~CreditsMenuState() {
 }
 
 void CreditsMenuState::Enter() {
-	auto font = FontManager::LoadFont("res/fonts/FreeSans.ttf");
+	auto font = FontManager::LoadFont(Id::Fonts::FreeSans);
 	if (font) {
 		AddTextEntry("Programmers", font, sf::Vector2f(50.0f, 350.0f));
 		AddTextEntry("Ren Davis", font, sf::Vector2f(50.0f, 390.0f));
