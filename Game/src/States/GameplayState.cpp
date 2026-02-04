@@ -7,6 +7,7 @@
 #include <optional>
 
 #include "States/MainMenuState.h"
+#include "States/PauseMenuState.h"
 
 #include "Entity/EntityManager.h"
 #include "Entity/Player.h"
@@ -58,7 +59,7 @@ void GameplayState::Exit() {
 
 bool GameplayState::Input() {
 	if (Input::IsKeyPressed(sf::Keyboard::Key::Escape))
-		mGame.GetStateManager().ClearAndSetState(std::make_unique<MainMenuState>(mGame));
+		mGame.GetStateManager().PushState(std::make_unique<PauseMenuState>(mGame));
 
 	if (Input::IsKeyPressed(sf::Keyboard::Key::F1))
 		mGame.GetSettings().SetDebugRender(!mGame.GetSettings().GetDebugRender());
