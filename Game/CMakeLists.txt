@@ -47,6 +47,7 @@ add_executable(Game
     src/States/GameplayState.cpp
     src/States/MainMenuState.cpp
     src/States/OptionsMenuState.cpp
+    src/States/PauseMenuState.cpp
     src/States/StateManager.cpp
     src/Utils/Debug.cpp
     src/Utils/Math.cpp
