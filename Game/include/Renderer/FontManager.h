@@ -1,7 +1,8 @@
 #pragma once
 
 #include "SFML/Graphics/Font.hpp"
-#include "Identifier.h"
+
+class Identifier;
 
 namespace FontManager {
 	sf::Font* LoadFont(const Identifier& id);

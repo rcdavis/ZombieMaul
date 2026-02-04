@@ -3,6 +3,8 @@
 #include <map>
 #include <memory>
 
+#include "Identifier.h"
+
 namespace FontManager {
     static std::map<Identifier, std::unique_ptr<sf::Font> > loadedFonts;
 
