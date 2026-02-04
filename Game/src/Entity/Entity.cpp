@@ -69,9 +69,9 @@ void Entity::HandleCollision(Entity* const entity) {
 
 }
 
-bool Entity::Load(const std::filesystem::path& filepath) {
+bool Entity::Load(const Identifier& id) {
 	simdjson::ondemand::parser parser;
-	simdjson::padded_string json = simdjson::padded_string::load(filepath.c_str());
+	simdjson::padded_string json = simdjson::padded_string::load(id.GetIdStr());
 	simdjson::ondemand::document doc = parser.iterate(json);
 
 	auto pos = doc["position"].get_object();
