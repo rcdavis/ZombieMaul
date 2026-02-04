@@ -35,16 +35,20 @@ private:
 
 namespace Id::Data {
 	constexpr Identifier Guard(0, "res/data/Guard.json");
-	constexpr Identifier GuardWalkAnim(1, "res/data/GuardWalkAnim.json");
-	constexpr Identifier Level(2, "res/data/Level.json");
-	constexpr Identifier Person(3, "res/data/Person.json");
-	constexpr Identifier PersonWalkAnim(4, "res/data/PersonWalkAnim.json");
-	constexpr Identifier Player(5, "res/data/Player.json");
-	constexpr Identifier PlayerWalkAnim(6, "res/data/PlayerWalkAnim.json");
-	constexpr Identifier Settings(7, "res/data/Settings.txt");
-	constexpr Identifier Zombie(8, "res/data/Zombie.json");
-	constexpr Identifier ZombieWalkAnim(9, "res/data/ZombieWalkAnim.json");
-	constexpr uint32_t Num = 10;
+	constexpr Identifier Level(1, "res/data/Level.json");
+	constexpr Identifier Person(2, "res/data/Person.json");
+	constexpr Identifier Player(3, "res/data/Player.json");
+	constexpr Identifier Settings(4, "res/data/Settings.txt");
+	constexpr Identifier Zombie(5, "res/data/Zombie.json");
+	constexpr uint32_t Num = 6;
+}
+
+namespace Id::Animations {
+	constexpr Identifier GuardWalk(0, "res/animations/GuardWalkAnim.json");
+	constexpr Identifier PersonWalk(1, "res/animations/PersonWalkAnim.json");
+	constexpr Identifier PlayerWalk(2, "res/animations/PlayerWalkAnim.json");
+	constexpr Identifier ZombieWalk(3, "res/animations/ZombieWalkAnim.json");
+	constexpr uint32_t Num = 4;
 }
 
 namespace Id::Fonts {

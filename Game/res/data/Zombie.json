@@ -16,7 +16,7 @@
 		}
 	},
 	"animation": {
-		"id": 9,
-		"str": "res/data/ZombieWalkAnim.json"
+		"id": 3,
+		"str": "res/animations/ZombieWalkAnim.json"
 	}
 }
