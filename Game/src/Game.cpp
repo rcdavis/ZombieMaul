@@ -11,6 +11,7 @@
 
 #include "Input/Input.h"
 #include "Utils/Log.h"
+#include "Identifier.h"
 
 Game::Game() :
 	mStateManager(),
@@ -70,7 +71,7 @@ void Game::HandleEvent(const Event* const event) {
 }
 
 bool Game::Init() {
-	mSettings.Load("res/data/Settings.txt");
+	mSettings.Load(Id::Data::Settings);
 
 	EventManager::RegisterListener("Player Died", this);
 	EventManager::RegisterListener("Player Hit Civilian", this);
@@ -78,7 +79,7 @@ bool Game::Init() {
 	mWindow.create(sf::VideoMode({800, 600}), "Zombie Maul");
 
 	sf::Image icon;
-	if (icon.loadFromFile("res/textures/zombie-maul-icon.png"))
+	if (icon.loadFromFile(Id::Textures::ZombieMaulIcon.GetIdStr()))
 		mWindow.setIcon(icon);
 
 	mStateManager.PushState(std::make_unique<MainMenuState>(*this));
@@ -88,10 +89,10 @@ bool Game::Init() {
 }
 
 void Game::Shutdown() {
+	mSettings.Save(Id::Data::Settings);
+
 	mStateManager.ClearStates();
 	EventManager::Clear();
-
-	mSettings.Save("res/data/Settings.txt");
 }
 
 void Game::Close() {

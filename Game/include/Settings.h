@@ -3,12 +3,14 @@
 #include <filesystem>
 #include <algorithm>
 
+class Identifier;
+
 class Settings {
 public:
 	Settings();
 
-	bool Load(const std::filesystem::path& filepath);
-	bool Save(const std::filesystem::path& filepath);
+	bool Load(const Identifier& id);
+	bool Save(const Identifier& id);
 
 	int8_t GetMusicVolume() const { return mMusicVolume; }
 	int8_t GetSfxVolume() const { return mSfxVolume; }
