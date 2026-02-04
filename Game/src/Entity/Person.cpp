@@ -1,6 +1,7 @@
 #include "Entity/Person.h"
 
 #include "Game.h"
+#include "Identifier.h"
 #include "Utils/Math.h"
 
 #include "Renderer/AnimationManager.h"
@@ -36,7 +37,7 @@ void Person::ConvertToZombie() {
 	SetOrigin({32.0f, 32.0f});
 	SetTextureRect(sf::IntRect({0, 576}, {64, 64}));
 
-	const Animation* anim = AnimationManager::Load("res/data/ZombieWalkAnim.json");
+	const Animation* anim = AnimationManager::Load(Id::Data::ZombieWalkAnim);
 	SetAnimation(anim);
 
 	mCanHurtPlayer = false;

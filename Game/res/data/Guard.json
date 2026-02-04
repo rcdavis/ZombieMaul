@@ -17,5 +17,8 @@
 			"height": 64
 		}
 	},
-	"animation": "res/data/GuardWalkAnim.json"
+	"animation": {
+		"id": 1,
+		"str": "res/data/GuardWalkAnim.json"
+	}
 }

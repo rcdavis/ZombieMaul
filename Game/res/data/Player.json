@@ -21,5 +21,8 @@
 			"height": 64
 		}
 	},
-	"animation": "res/data/PlayerWalkAnim.json"
+	"animation": {
+		"id": 6,
+		"str": "res/data/PlayerWalkAnim.json"
+	}
 }

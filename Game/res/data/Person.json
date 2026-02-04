@@ -21,5 +21,8 @@
 			"height": 64
 		}
 	},
-	"animation": "res/data/PersonWalkAnim.json"
+	"animation": {
+		"id": 4,
+		"str": "res/data/PersonWalkAnim.json"
+	}
 }

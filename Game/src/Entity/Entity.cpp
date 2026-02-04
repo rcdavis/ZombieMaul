@@ -198,12 +198,25 @@ bool Entity::Load(const std::filesystem::path& filepath) {
 	}
 	f.size.y = (int)rectHeight.value();
 
-	auto animFile = doc["animation"].get_string();
-	if (animFile.error()) {
-		LOG_ERROR("Failed to get entity animation file from JSON: {0}", simdjson::error_message(animFile.error()));
+	auto animObj = doc["animation"].get_object();
+	if (animObj.error()) {
+		LOG_ERROR("Failed to get entity animation id object from JSON: {0}", simdjson::error_message(animObj.error()));
 		return false;
 	}
-	auto anim = AnimationManager::Load(animFile.value());
+
+	auto animId = animObj["id"].get_int64();
+	if (animId.error()) {
+		LOG_ERROR("Failed to get entity animation id from JSON: {0}", simdjson::error_message(animId.error()));
+		return false;
+	}
+
+	auto animStr = animObj["str"].get_string();
+	if (animStr.error()) {
+		LOG_ERROR("Failed to get entity animation path from JSON: {0}", simdjson::error_message(animStr.error()));
+		return false;
+	}
+
+	auto anim = AnimationManager::Load(Identifier((uint32_t)animId.value(), std::string(animStr.value()).c_str()));
 	if (!anim) {
 		LOG_ERROR("Failed to load entity animation");
 		return false;
