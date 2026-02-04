@@ -76,25 +76,12 @@ bool Entity::Load(const Identifier& id) {
 	simdjson::padded_string json = simdjson::padded_string::load(id.GetIdStr());
 	simdjson::ondemand::document doc = parser.iterate(json);
 
-	auto pos = doc["position"].get_object();
-	if (pos.error()) {
-		LOG_WARN("Failed to get entity pos from JSON: {0}", simdjson::error_message(pos.error()));
-	}
-
 	sf::Vector2f position;
-
-	auto posX = pos["x"].get_double();
-	if (posX.error()) {
-		LOG_WARN("Failed to get entity pos X from JSON: {0}", simdjson::error_message(posX.error()));
+	auto posOpt = JsonUtils::ParseVector2f(doc["position"].get_object());
+	if (!posOpt) {
+		LOG_WARN("Failed to get entity pos from JSON");
 	} else {
-		position.x = (float)posX.value();
-	}
-
-	auto posY = pos["y"].get_double();
-	if (posY.error()) {
-		LOG_WARN("Failed to get entity pos Y from JSON: {0}", simdjson::error_message(posY.error()));
-	} else {
-		position.y = (float)posY.value();
+		position = *posOpt;
 	}
 
 	sf::Vector2f origin;
