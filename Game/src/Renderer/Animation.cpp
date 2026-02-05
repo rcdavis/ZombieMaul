@@ -2,6 +2,7 @@
 
 #include "simdjson.h"
 #include "Utils/Log.h"
+#include "Utils/Json.h"
 
 Animation::Animation() :
 	mName(),
@@ -38,21 +39,21 @@ std::optional<Animation> Animation::Load(const std::filesystem::path& filepath) 
 
 	auto name = doc["name"].get_string();
 	if (name.error()) {
-		LOG_ERROR("Failed to get texture from level JSON: {0}", simdjson::error_message(name.error()));
+		LOG_ERROR("Failed to get texture from animation JSON: {0}", simdjson::error_message(name.error()));
 		return std::nullopt;
 	}
 	anim.mName = name.value();
 
 	auto isLooping = doc["looping"].get_bool();
 	if (isLooping.error()) {
-		LOG_ERROR("Failed to get anim is looping from level JSON: {0}", simdjson::error_message(isLooping.error()));
+		LOG_ERROR("Failed to get anim is looping from animation JSON: {0}", simdjson::error_message(isLooping.error()));
 		return std::nullopt;
 	}
 	anim.mIsLooping = isLooping.value();
 
 	auto frames = doc["frames"].get_array();
 	if (frames.error()) {
-		LOG_ERROR("Failed to get anim frames from level JSON: {0}", simdjson::error_message(frames.error()));
+		LOG_ERROR("Failed to get anim frames from animation JSON: {0}", simdjson::error_message(frames.error()));
 		return std::nullopt;
 	}
 
@@ -60,43 +61,16 @@ std::optional<Animation> Animation::Load(const std::filesystem::path& filepath) 
 	for (auto curFrame : frames.value()) {
 		Frame f;
 
-		auto rect = curFrame["rect"].get_object();
-		if (rect.error()) {
-			LOG_ERROR("Failed to get anim frame rect from level JSON: {0}", simdjson::error_message(rect.error()));
+		auto rect = JsonUtils::ParseIntRect(curFrame["rect"].get_object());
+		if (!rect) {
+			LOG_ERROR("Failed to get anim frame rect from animation JSON");
 			return std::nullopt;
 		}
-
-		auto rectX = rect["x"].get_int64();
-		if (rectX.error()) {
-			LOG_ERROR("Failed to get anim frame rect X from level JSON: {0}", simdjson::error_message(rectX.error()));
-			return std::nullopt;
-		}
-		f.rect.position.x = (int)rectX.value();
-
-		auto rectY = rect["y"].get_int64();
-		if (rectY.error()) {
-			LOG_ERROR("Failed to get anim frame rect Y from level JSON: {0}", simdjson::error_message(rectY.error()));
-			return std::nullopt;
-		}
-		f.rect.position.y = (int)rectY.value();
-
-		auto rectWidth = rect["width"].get_int64();
-		if (rectWidth.error()) {
-			LOG_ERROR("Failed to get anim frame rect width from level JSON: {0}", simdjson::error_message(rectWidth.error()));
-			return std::nullopt;
-		}
-		f.rect.size.x = (int)rectWidth.value();
-
-		auto rectHeight = rect["height"].get_int64();
-		if (rectHeight.error()) {
-			LOG_ERROR("Failed to get anim frame rect height from level JSON: {0}", simdjson::error_message(rectHeight.error()));
-			return std::nullopt;
-		}
-		f.rect.size.y = (int)rectHeight.value();
+		f.rect = *rect;
 
 		auto frameDur = curFrame["duration"].get_double();
 		if (frameDur.error()) {
-			LOG_ERROR("Failed to get anim frame duration from level JSON: {0}", simdjson::error_message(frameDur.error()));
+			LOG_ERROR("Failed to get anim frame duration from animation JSON: {0}", simdjson::error_message(frameDur.error()));
 			return std::nullopt;
 		}
 		f.duration = sf::seconds((float)frameDur.value());

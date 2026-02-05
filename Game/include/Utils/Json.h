@@ -7,4 +7,6 @@
 
 namespace JsonUtils {
 	std::optional<sf::Vector2f> ParseVector2f(simdjson::simdjson_result<simdjson::fallback::ondemand::object> obj);
+
+	std::optional<sf::IntRect> ParseIntRect(simdjson::simdjson_result<simdjson::fallback::ondemand::object> obj);
 }

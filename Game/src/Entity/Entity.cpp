@@ -138,41 +138,12 @@ bool Entity::Load(const Identifier& id) {
 		return false;
 	}
 
-	auto rect = texObj["rect"].get_object();
-	if (rect.error()) {
-		LOG_ERROR("Failed to get texture rect from level JSON: {0}", simdjson::error_message(rect.error()));
+	auto rect = JsonUtils::ParseIntRect(texObj["rect"].get_object());
+	if (!rect) {
+		LOG_ERROR("Failed to get texture rect object from entity JSON");
 		return false;
 	}
-
-	sf::IntRect f;
-
-	auto rectX = rect["x"].get_int64();
-	if (rectX.error()) {
-		LOG_ERROR("Failed to get texture rect X from level JSON: {0}", simdjson::error_message(rectX.error()));
-		return false;
-	}
-	f.position.x = (int)rectX.value();
-
-	auto rectY = rect["y"].get_int64();
-	if (rectY.error()) {
-		LOG_ERROR("Failed to get texture rect Y from level JSON: {0}", simdjson::error_message(rectY.error()));
-		return false;
-	}
-	f.position.y = (int)rectY.value();
-
-	auto rectWidth = rect["width"].get_int64();
-	if (rectWidth.error()) {
-		LOG_ERROR("Failed to get texture rect width from level JSON: {0}", simdjson::error_message(rectWidth.error()));
-		return false;
-	}
-	f.size.x = (int)rectWidth.value();
-
-	auto rectHeight = rect["height"].get_int64();
-	if (rectHeight.error()) {
-		LOG_ERROR("Failed to get texture rect height from level JSON: {0}", simdjson::error_message(rectHeight.error()));
-		return false;
-	}
-	f.size.y = (int)rectHeight.value();
+	sf::IntRect f = *rect;
 
 	auto animObj = doc["animation"].get_object();
 	if (animObj.error()) {
