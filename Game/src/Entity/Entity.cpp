@@ -6,6 +6,8 @@
 #include "Game.h"
 #include "Identifier.h"
 #include "Utils/Log.h"
+#include "Utils/Json.h"
+
 #include "Renderer/TextureManager.h"
 #include "Renderer/AnimationManager.h"
 
@@ -74,46 +76,20 @@ bool Entity::Load(const Identifier& id) {
 	simdjson::padded_string json = simdjson::padded_string::load(id.GetIdStr());
 	simdjson::ondemand::document doc = parser.iterate(json);
 
-	auto pos = doc["position"].get_object();
-	if (pos.error()) {
-		LOG_WARN("Failed to get entity pos from JSON: {0}", simdjson::error_message(pos.error()));
-	}
-
 	sf::Vector2f position;
-
-	auto posX = pos["x"].get_double();
-	if (posX.error()) {
-		LOG_WARN("Failed to get entity pos X from JSON: {0}", simdjson::error_message(posX.error()));
+	auto posOpt = JsonUtils::ParseVector2f(doc["position"].get_object());
+	if (!posOpt) {
+		LOG_WARN("Failed to get entity pos from JSON");
 	} else {
-		position.x = (float)posX.value();
-	}
-
-	auto posY = pos["y"].get_double();
-	if (posY.error()) {
-		LOG_WARN("Failed to get entity pos Y from JSON: {0}", simdjson::error_message(posY.error()));
-	} else {
-		position.y = (float)posY.value();
-	}
-
-	auto orig = doc["origin"].get_object();
-	if (orig.error()) {
-		LOG_WARN("Failed to get entity origin pos from JSON: {0}", simdjson::error_message(orig.error()));
+		position = *posOpt;
 	}
 
 	sf::Vector2f origin;
-
-	auto origX = orig["x"].get_double();
-	if (origX.error()) {
-		LOG_WARN("Failed to get entity origin pos X from JSON: {0}", simdjson::error_message(origX.error()));
+	auto originOpt = JsonUtils::ParseVector2f(doc["origin"].get_object());
+	if (!originOpt) {
+		LOG_WARN("Failed to get entity origin pos from JSON");
 	} else {
-		origin.x = (float)origX.value();
-	}
-
-	auto origY = orig["y"].get_double();
-	if (origY.error()) {
-		LOG_WARN("Failed to get entity origin pos Y from JSON: {0}", simdjson::error_message(origY.error()));
-	} else {
-		origin.y = (float)origY.value();
+		origin = *originOpt;
 	}
 
 	sf::Angle rot;
@@ -162,41 +138,12 @@ bool Entity::Load(const Identifier& id) {
 		return false;
 	}
 
-	auto rect = texObj["rect"].get_object();
-	if (rect.error()) {
-		LOG_ERROR("Failed to get texture rect from level JSON: {0}", simdjson::error_message(rect.error()));
+	auto rect = JsonUtils::ParseIntRect(texObj["rect"].get_object());
+	if (!rect) {
+		LOG_ERROR("Failed to get texture rect object from entity JSON");
 		return false;
 	}
-
-	sf::IntRect f;
-
-	auto rectX = rect["x"].get_int64();
-	if (rectX.error()) {
-		LOG_ERROR("Failed to get texture rect X from level JSON: {0}", simdjson::error_message(rectX.error()));
-		return false;
-	}
-	f.position.x = (int)rectX.value();
-
-	auto rectY = rect["y"].get_int64();
-	if (rectY.error()) {
-		LOG_ERROR("Failed to get texture rect Y from level JSON: {0}", simdjson::error_message(rectY.error()));
-		return false;
-	}
-	f.position.y = (int)rectY.value();
-
-	auto rectWidth = rect["width"].get_int64();
-	if (rectWidth.error()) {
-		LOG_ERROR("Failed to get texture rect width from level JSON: {0}", simdjson::error_message(rectWidth.error()));
-		return false;
-	}
-	f.size.x = (int)rectWidth.value();
-
-	auto rectHeight = rect["height"].get_int64();
-	if (rectHeight.error()) {
-		LOG_ERROR("Failed to get texture rect height from level JSON: {0}", simdjson::error_message(rectHeight.error()));
-		return false;
-	}
-	f.size.y = (int)rectHeight.value();
+	sf::IntRect f = *rect;
 
 	auto animObj = doc["animation"].get_object();
 	if (animObj.error()) {

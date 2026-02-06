@@ -7,6 +7,7 @@
 #include "Entity/EntityManager.h"
 #include "Utils/Log.h"
 #include "Utils/Debug.h"
+#include "Utils/Json.h"
 #include "Game.h"
 #include "Identifier.h"
 
@@ -108,46 +109,19 @@ bool Level::LoadLevel(const Identifier& id) {
 	mCollisionBounds.clear();
 	for (auto bounds : collisionBounds.value()) {
 		Capsule cap;
-
-		auto start = bounds["start"].get_object();
-		if (start.error()) {
-			LOG_ERROR("Failed to get capsule start pos from level JSON: {0}", simdjson::error_message(start.error()));
+		auto start = JsonUtils::ParseVector2f(bounds["start"].get_object());
+		if (!start) {
+			LOG_ERROR("Failed to get capsule start pos from level JSON");
 			return false;
 		}
+		cap.start = *start;
 
-		auto startX = start["x"].get_double();
-		if (startX.error()) {
-			LOG_ERROR("Failed to get capsule start pos X from level JSON: {0}", simdjson::error_message(startX.error()));
+		auto end = JsonUtils::ParseVector2f(bounds["end"].get_object());
+		if (!end) {
+			LOG_ERROR("Failed to get capsule end pos from level JSON");
 			return false;
 		}
-		cap.start.x = (float)startX.value();
-
-		auto startY = start["y"].get_double();
-		if (startY.error()) {
-			LOG_ERROR("Failed to get capsule start pos Y from level JSON: {0}", simdjson::error_message(startY.error()));
-			return false;
-		}
-		cap.start.y = (float)startY.value();
-
-		auto end = bounds["end"].get_object();
-		if (end.error()) {
-			LOG_ERROR("Failed to get capsule end pos from level JSON: {0}", simdjson::error_message(end.error()));
-			return false;
-		}
-
-		auto endX = end["x"].get_double();
-		if (endX.error()) {
-			LOG_ERROR("Failed to get capsule end pos X from level JSON: {0}", simdjson::error_message(endX.error()));
-			return false;
-		}
-		cap.end.x = (float)endX.value();
-
-		auto endY = end["y"].get_double();
-		if (endY.error()) {
-			LOG_ERROR("Failed to get capsule end pos Y from level JSON: {0}", simdjson::error_message(endY.error()));
-			return false;
-		}
-		cap.end.y = (float)endY.value();
+		cap.end = *end;
 
 		auto radius = bounds["radius"].get_double();
 		if (radius.error()) {

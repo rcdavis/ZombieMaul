@@ -50,6 +50,7 @@ add_executable(Game
     src/States/PauseMenuState.cpp
     src/States/StateManager.cpp
     src/Utils/Debug.cpp
+    src/Utils/Json.cpp
     src/Utils/Math.cpp
     src/Utils/Log.cpp
     src/Game.cpp
