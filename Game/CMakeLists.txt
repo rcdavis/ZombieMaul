@@ -5,7 +5,7 @@ include(FetchContent)
 FetchContent_Declare(
     sfml
     GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 3.0.2
+    GIT_TAG 3.1.0
 )
 FetchContent_MakeAvailable(sfml)
 
@@ -18,14 +18,14 @@ set(SPDLOG_BUILD_BENCH OFF CACHE BOOL "" FORCE)
 FetchContent_Declare(
     spdlog
     GIT_REPOSITORY https://github.com/gabime/spdlog.git
-    GIT_TAG v1.16.0
+    GIT_TAG v1.17.0
 )
 FetchContent_MakeAvailable(spdlog)
 
 FetchContent_Declare(
   simdjson
   GIT_REPOSITORY https://github.com/simdjson/simdjson.git
-  GIT_TAG v4.2.4
+  GIT_TAG v4.6.4
 )
 FetchContent_MakeAvailable(simdjson)
 
@@ -68,6 +68,10 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Game PUBLIC
         DEBUG
         LOGGING_ENABLED
+    )
+else()
+    target_compile_definitions(Game PUBLIC
+        NDEBUG
     )
 endif()
 

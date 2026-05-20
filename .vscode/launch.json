@@ -2,13 +2,15 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Game (Linux Debug)",
+			"name": "Game - Linux Debug (Clang)",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/build-linux-debug/Game/Game",
-			"args": [],
+			"program": "${workspaceFolder}/build/linux-debug-clang/Game/Game",
+			"args": [
+				"res/games/pong2.c8"
+			],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}/build-linux-debug/Game",
+			"cwd": "${workspaceFolder}/build/linux-debug-clang/Game",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "gdb",
@@ -20,16 +22,18 @@
 				}
 			],
 			"miDebuggerPath": "/usr/bin/gdb",
-			"preLaunchTask": "Build All (Linux Debug)"
+			"preLaunchTask": "Build All - Linux Debug (Clang)"
 		},
 		{
-			"name": "Game (Linux Release)",
+			"name": "Game - Linux Debug (GCC)",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/build-linux-release/Game/Game",
-			"args": [],
+			"program": "${workspaceFolder}/build/linux-debug-gcc/Game/Game",
+			"args": [
+				"res/games/pong2.c8"
+			],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}/build-linux-release/Game",
+			"cwd": "${workspaceFolder}/build/linux-debug-gcc/Game",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "gdb",
@@ -41,7 +45,7 @@
 				}
 			],
 			"miDebuggerPath": "/usr/bin/gdb",
-			"preLaunchTask": "Build All (Linux Release)"
+			"preLaunchTask": "Build All - Linux Debug (GCC)"
 		}
 	]
 }
