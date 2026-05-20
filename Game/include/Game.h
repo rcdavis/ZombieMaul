@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include "SFML/Graphics/RenderWindow.hpp"
 
 #include "Messaging/IEventListener.h"

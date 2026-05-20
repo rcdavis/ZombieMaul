@@ -10,7 +10,6 @@
 #include "States/GameOverState.h"
 
 #include "Input/Input.h"
-#include "Utils/Log.h"
 #include "Identifier.h"
 
 Game::Game() :

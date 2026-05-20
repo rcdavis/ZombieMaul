@@ -1,34 +1,5 @@
 project(Game)
 
-include(FetchContent)
-
-FetchContent_Declare(
-    sfml
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 3.0.2
-)
-FetchContent_MakeAvailable(sfml)
-
-set(SPDLOG_HEADER_ONLY ON CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_EXAMPLE OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_BENCH OFF CACHE BOOL "" FORCE)
-
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY https://github.com/gabime/spdlog.git
-    GIT_TAG v1.16.0
-)
-FetchContent_MakeAvailable(spdlog)
-
-FetchContent_Declare(
-  simdjson
-  GIT_REPOSITORY https://github.com/simdjson/simdjson.git
-  GIT_TAG v4.2.4
-)
-FetchContent_MakeAvailable(simdjson)
-
 add_executable(Game
     src/Entity/Entity.cpp
     src/Entity/EntityManager.cpp
@@ -68,6 +39,10 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Game PUBLIC
         DEBUG
         LOGGING_ENABLED
+    )
+else()
+    target_compile_definitions(Game PUBLIC
+        NDEBUG
     )
 endif()
 
